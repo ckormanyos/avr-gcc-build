@@ -10,7 +10,18 @@ wget --no-check-certificate https://ftp.gnu.org/gnu/gcc/gcc-13.2.0/gcc-13.2.0.ta
 tar -xf gcc-13.2.0.tar.gz
 mkdir objdir-gcc-13.2.0-avr
 cd objdir-gcc-13.2.0-avr
-../gcc-13.2.0/configure --prefix=/home/runner/work/avr-gcc-build/avr-gcc-build/local/gcc-13.2.0-avr --target=avr --build=x86_64-unknown-linux-gnu --host=x86_64-w64-mingw32 --enable-languages=c,c++ --with-pkgversion='Built by ckormanyos/real-time-cpp' --target=avr --enable-languages=c,c++ --disable-nls --disable-libssp --disable-libada --with-dwarf2 --disable-shared --enable-static --enable-mingw-wildcard --enable-plugin --with-gnu-as --with-gmp=/home/runner/work/avr-gcc-build/avr-gcc-build/local/gmp-6.3.0 --with-mpfr=/home/runner/work/avr-gcc-build/avr-gcc-build/local/mpfr-4.2.1 --with-mpc=/home/runner/work/avr-gcc-build/avr-gcc-build/local/mpc-1.2.1
+../gcc-13.2.0/configure --prefix=/home/runner/work/avr-gcc-build/avr-gcc-build/local/gcc-13.2.0-avr --target=avr --host=x86_64-w64-mingw32 --build=`../gcc-13.2.0/config.guess` --enable-languages=c,c++ --with-pkgversion='Built by ckormanyos/real-time-cpp' --target=avr --enable-languages=c,c++ --disable-nls --disable-libssp --disable-libada --with-dwarf2 --disable-shared --enable-static --enable-mingw-wildcard --enable-plugin --with-gnu-as --with-gmp=/home/runner/work/avr-gcc-build/avr-gcc-build/local/gmp-6.3.0 --with-mpfr=/home/runner/work/avr-gcc-build/avr-gcc-build/local/mpfr-4.2.1 --with-mpc=/home/runner/work/avr-gcc-build/avr-gcc-build/local/mpc-1.2.1
+
+
+eval "original_$(declare -f command_not_found_handle)"
+command_not_found_handle () {
+    if command -v "$1".exe; then
+        "$1".exe "${@:2}";
+        return $?;
+    else
+        original_command_not_found_handle "$@"
+    fi
+}
 
 PATH=/home/runner/work/avr-gcc-build/avr-gcc-build/local/gcc-13.2.0-avr/bin:"$PATH"
 export PATH
