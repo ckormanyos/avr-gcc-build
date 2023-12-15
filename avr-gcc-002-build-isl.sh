@@ -4,8 +4,6 @@
 #  Distributed under The Unlicense.
 #
 
-mkdir -p gcc_build
-
 cd gcc_build
 
 wget --no-check-certificate https://libisl.sourceforge.io/isl-0.15.tar.bz2
@@ -16,3 +14,5 @@ cd objdir-isl-0.15
 
 make --jobs=4
 make install
+
+exit
