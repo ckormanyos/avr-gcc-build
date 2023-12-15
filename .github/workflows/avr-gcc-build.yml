@@ -25,4 +25,4 @@ jobs:
           echo "run avr-gcc-build.sh"
           sh -x ./avr-gcc-build.sh
           echo "verify build so far"
-          ls -la gcc_build/usr/local/isl-0.15
+          ls -la /usr/local/isl-0.15
