@@ -70,6 +70,6 @@ jobs:
         run: |
           echo 'Clone stevenj/avr-libc3'
           echo ""
-          git clone -b main --depth 1 https://github.com/stevenj/avr-libc3 ${{ runner.workspace }}/avr-gcc-build/gcc_build/avr-libc3
+          git clone -b master --depth 1 https://github.com/stevenj/avr-libc3 ${{ runner.workspace }}/avr-gcc-build/gcc_build/avr-libc3
           echo "run avr-gcc-030-build-avr-libc.sh"
           ./avr-gcc-030-build-avr-libc.sh
