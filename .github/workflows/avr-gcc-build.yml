@@ -1,0 +1,28 @@
+##############################################################################
+#  Copyright Christopher Kormanyos 2023.
+#  Distributed under The Unlicense.
+
+name: avr-gcc-build
+on:
+  push:
+    branches:
+      - '**'
+  pull_request:
+jobs:
+  avr-gcc-build-native:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: '0'
+      - name: update-tools
+        run: sudo apt install libgmp-dev libmpfr-dev libmpc-dev
+      - name: avr-gcc-build-native
+        run: |
+          echo "run avr-gcc-build.sh"
+          wc avr-gcc-build.sh
+          echo "verify build so far"
+          ls -la gcc_build/usr/local/isl-0.15
