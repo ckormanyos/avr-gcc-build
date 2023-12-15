@@ -6,6 +6,10 @@
 
 cd gcc_build
 
+cd avr-libc3
+./bootstrap
+
+cd ..
 cd objdir-gcc-13.2.0-avr
 ../avr-libc3/configure --prefix=/home/runner/work/avr-gcc-build/avr-gcc-build/local/gcc-13.2.0-avr --build=`../gcc-13.2.0/config.guess` --host=avr
 
