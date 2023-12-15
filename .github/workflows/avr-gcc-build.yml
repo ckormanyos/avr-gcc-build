@@ -38,6 +38,12 @@ jobs:
           ./avr-gcc-003-build-mpfr.sh
           echo "verify build mpfr"
           ls -la /home/runner/work/avr-gcc-build/avr-gcc-build/local/mpfr-4.2.1
+      - name: avr-gcc-build-004-build-mpc
+        run: |
+          echo "run avr-gcc-004-build-mpc.sh"
+          ./avr-gcc-004-build-mpc.sh
+          echo "verify build mpc"
+          ls -la /home/runner/work/avr-gcc-build/avr-gcc-build/local/mpc-1.2.1
       - name: avr-gcc-build-005-build-isl
         run: |
           echo "run avr-gcc-005-build-isl.sh"
