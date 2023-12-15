@@ -26,15 +26,21 @@ jobs:
         run: |
           echo "run avr-gcc-001-make-dirs.sh"
           ./avr-gcc-001-make-dirs.sh
+      - name: avr-gcc-build-002-build-gmp
+        run: |
+          echo "run avr-gcc-002-build-gmp.sh"
+          ./avr-gcc-002-build-gmp.sh
+          echo "verify build gmp"
+          ls -la /home/runner/work/avr-gcc-build/avr-gcc-build/local/gmp-6.1.0
       - name: avr-gcc-build-002-build-isl
         run: |
-          echo "run avr-gcc-002-build-isl.sh"
-          ./avr-gcc-002-build-isl.sh
+          echo "run avr-gcc-005-build-isl.sh"
+          ./avr-gcc-005-build-isl.sh
           echo "verify build isl"
           ls -la /home/runner/work/avr-gcc-build/avr-gcc-build/local/isl-0.15
-      - name: avr-gcc-build-003-build-binutils
+      - name: avr-gcc-build-010-build-binutils
         run: |
-          echo "run avr-gcc-003-build-binutils.sh"
-          ./avr-gcc-003-build-binutils.sh
+          echo "run avr-gcc-010-build-binutils.sh"
+          ./avr-gcc-010-build-binutils.sh
           echo "verify build binutils"
           ls -la /home/runner/work/avr-gcc-build/avr-gcc-build/local/gcc-13.2.0-avr
