@@ -44,12 +44,6 @@ jobs:
           ./avr-gcc-004-build-mpc.sh
           echo "verify build mpc"
           ls -la /home/runner/work/avr-gcc-build/avr-gcc-build/local/mpc-1.2.1
-      - name: avr-gcc-build-005-build-isl
-        run: |
-          echo "run avr-gcc-005-build-isl.sh"
-          ./avr-gcc-005-build-isl.sh
-          echo "verify build isl"
-          ls -la /home/runner/work/avr-gcc-build/avr-gcc-build/local/isl-0.15
       - name: avr-gcc-build-010-build-binutils
         run: |
           echo "run avr-gcc-010-build-binutils.sh"
@@ -59,7 +53,7 @@ jobs:
       - name: avr-gcc-update-bash_profile
         shell: bash -l {0}
         run: |
-          cp ./tmprcfile ~/.bash_profile
+          cp ./tmp_bash_profile ~/.bash_profile
           source ~/.bash_profile
       - name: avr-gcc-build-020-build-gcc
         shell: bash -l {0}
