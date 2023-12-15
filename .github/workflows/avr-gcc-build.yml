@@ -58,6 +58,7 @@ jobs:
           ls -la /home/runner/work/avr-gcc-build/avr-gcc-build/local/gcc-13.2.0-avr/bin
       - name: avr-gcc-build-020-build-gcc
         run: |
+          source ./tmprcfile
           echo "run avr-gcc-020-build-gcc.sh"
           ./avr-gcc-020-build-gcc.sh
           echo "verify build gcc"
