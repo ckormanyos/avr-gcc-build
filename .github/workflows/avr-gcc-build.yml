@@ -55,10 +55,10 @@ jobs:
           echo "run avr-gcc-010-build-binutils.sh"
           ./avr-gcc-010-build-binutils.sh
           echo "verify build binutils"
-          ls -la /home/runner/work/avr-gcc-build/avr-gcc-build/local/gcc-12.2.0-avr/bin
+          ls -la /home/runner/work/avr-gcc-build/avr-gcc-build/local/gcc-13.2.0-avr/bin
       - name: avr-gcc-build-020-build-gcc
         run: |
           echo "run avr-gcc-020-build-gcc.sh"
           ./avr-gcc-020-build-gcc.sh
           echo "verify build gcc"
-          ls -la /home/runner/work/avr-gcc-build/avr-gcc-build/local/gcc-12.2.0-avr/bin
+          ls -la /home/runner/work/avr-gcc-build/avr-gcc-build/local/gcc-13.2.0-avr/bin
