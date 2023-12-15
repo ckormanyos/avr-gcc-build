@@ -32,7 +32,13 @@ jobs:
           ./avr-gcc-002-build-gmp.sh
           echo "verify build gmp"
           ls -la /home/runner/work/avr-gcc-build/avr-gcc-build/local/gmp-6.3.0
-      - name: avr-gcc-build-002-build-isl
+      - name: avr-gcc-build-003-build-mpfr
+        run: |
+          echo "run avr-gcc-003-build-mpfr.sh"
+          ./avr-gcc-003-build-mpfr.sh
+          echo "verify build mpfr"
+          ls -la /home/runner/work/avr-gcc-build/avr-gcc-build/local/mpfr-4.2.1
+      - name: avr-gcc-build-005-build-isl
         run: |
           echo "run avr-gcc-005-build-isl.sh"
           ./avr-gcc-005-build-isl.sh
