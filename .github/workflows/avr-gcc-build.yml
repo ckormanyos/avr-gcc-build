@@ -56,7 +56,12 @@ jobs:
           ./avr-gcc-010-build-binutils.sh
           echo "verify build binutils"
           ls -la /home/runner/work/avr-gcc-build/avr-gcc-build/local/gcc-13.2.0-avr/bin
+      - name: avr-gcc-update-bash_profile
+        run: |
+          cp ./tmprcfile ~/.bash_profile
+          source ~/.bash_profile
       - name: avr-gcc-build-020-build-gcc
+        shell: bash -l {0}
         run: |
           source ./tmprcfile
           echo "run avr-gcc-020-build-gcc.sh"
