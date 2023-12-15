@@ -33,26 +33,26 @@ jobs:
           echo "run avr-gcc-002-build-gmp.sh"
           ./avr-gcc-002-build-gmp.sh
           echo "verify build gmp"
-          ls -la /home/runner/work/avr-gcc-build/avr-gcc-build/local/gmp-6.3.0
+          ls -la ${{ runner.workspace }}/local/gmp-6.3.0
       - name: avr-gcc-build-003-build-mpfr
         run: |
           echo "run avr-gcc-003-build-mpfr.sh"
           ./avr-gcc-003-build-mpfr.sh
           echo "verify build mpfr"
-          ls -la /home/runner/work/avr-gcc-build/avr-gcc-build/local/mpfr-4.2.1
+          ls -la ${{ runner.workspace }}/local/mpfr-4.2.1
       - name: avr-gcc-build-004-build-mpc
         run: |
           echo "run avr-gcc-004-build-mpc.sh"
           ./avr-gcc-004-build-mpc.sh
           echo "verify build mpc"
-          ls -la /home/runner/work/avr-gcc-build/avr-gcc-build/local/mpc-1.2.1
+          ls -la ${{ runner.workspace }}/local/mpc-1.2.1
       - name: avr-gcc-build-010-build-binutils
         run: |
           echo "run avr-gcc-010-build-binutils.sh"
           ./avr-gcc-010-build-binutils.sh
           echo "verify build binutils"
-          ls -la /home/runner/work/avr-gcc-build/avr-gcc-build/local/gcc-13.2.0-avr/bin
-          ls -la /home/runner/work/avr-gcc-build/avr-gcc-build/local/gcc-13.2.0-avr/bin/avr-ld.exe
+          ls -la ${{ runner.workspace }}/local/gcc-13.2.0-avr/bin
+          ls -la ${{ runner.workspace }}/local/gcc-13.2.0-avr/bin/avr-ld.exe
       - name: avr-gcc-update-bash_profile
         shell: bash -l {0}
         run: |
@@ -64,5 +64,12 @@ jobs:
           echo "run avr-gcc-020-build-gcc.sh"
           ./avr-gcc-020-build-gcc.sh
           echo "verify build gcc"
-          ls -la /home/runner/work/avr-gcc-build/avr-gcc-build/local/gcc-13.2.0-avr/bin
-          ls -la /home/runner/work/avr-gcc-build/avr-gcc-build/local/gcc-13.2.0-avr/bin/avr-g++.exe
+          ls -la ${{ runner.workspace }}/local/gcc-13.2.0-avr/bin
+          ls -la ${{ runner.workspace }}/local/gcc-13.2.0-avr/bin/avr-g++.exe
+      - name: avr-gcc-build-avr-libc
+        run: |
+          echo 'Clone stevenj/avr-libc3'
+          echo ""
+          git clone -b main --depth 1 https://github.com/stevenj/avr-libc3 ${{ runner.workspace }}/gcc_build/avr-libc3
+          echo "run avr-gcc-030-build-avr-libc.sh"
+          ./avr-gcc-030-build-avr-libc.sh
