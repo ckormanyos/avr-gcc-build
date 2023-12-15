@@ -31,7 +31,7 @@ jobs:
           echo "run avr-gcc-002-build-gmp.sh"
           ./avr-gcc-002-build-gmp.sh
           echo "verify build gmp"
-          ls -la /home/runner/work/avr-gcc-build/avr-gcc-build/local/gmp-6.1.0
+          ls -la /home/runner/work/avr-gcc-build/avr-gcc-build/local/gmp-6.3.0
       - name: avr-gcc-build-002-build-isl
         run: |
           echo "run avr-gcc-005-build-isl.sh"
