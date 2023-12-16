@@ -53,28 +53,20 @@ jobs:
           echo "verify build binutils"
           ls -la ${{ runner.workspace }}/avr-gcc-build/local/gcc-13.2.0-avr/bin
           ls -la ${{ runner.workspace }}/avr-gcc-build/local/gcc-13.2.0-avr/bin/avr-ld.exe
-      - name: avr-gcc-update-bash_profile
-        shell: bash -l {0}
-        run: |
-          cp ./tmp_bash_profile ~/.bash_profile
-          source ~/.bash_profile
       - name: avr-gcc-build-020-build-gcc
-        shell: bash -l {0}
         run: |
           echo "run avr-gcc-020-build-gcc.sh"
           ./avr-gcc-020-build-gcc.sh
           echo "verify build gcc"
           ls -la ${{ runner.workspace }}/avr-gcc-build/local/gcc-13.2.0-avr/bin
+          ls -la ${{ runner.workspace }}/avr-gcc-build/local/gcc-13.2.0-avr/bin/avr-gcc.exe
           ls -la ${{ runner.workspace }}/avr-gcc-build/local/gcc-13.2.0-avr/bin/avr-g++.exe
       - name: avr-gcc-build-clone-avr-libc
         run: |
           echo "Clone stevenj/avr-libc3"
           git clone -b master --depth 1 https://github.com/stevenj/avr-libc3 ${{ runner.workspace }}/avr-gcc-build/gcc_build/avr-libc3
-      - name: avr-gcc-update-bash_profile
-        shell: bash -l {0}
-        run: |
-          cp ./tmp_bash_profile ~/.bash_profile
-          source ~/.bash_profile
+          cd ${{ runner.workspace }}/avr-gcc-build/gcc_build/avr-libc3
+          git checkout d09c2a61764aced3274b6dde4399e11b0aee4a87
       - name: avr-gcc-build-avr-libc
         shell: bash -l {0}
         run: |
