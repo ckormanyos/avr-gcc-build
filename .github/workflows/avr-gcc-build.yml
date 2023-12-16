@@ -20,49 +20,26 @@ jobs:
       - uses: actions/checkout@v3
         with:
           fetch-depth: '0'
-      - name: update-prerequisites
-        run: sudo apt install libgmp-dev libmpfr-dev libmpc-dev
       - name: update-buiild-essentials
-        run: sudo apt install mingw-w64 gcc g++ bzip2 xz-utils git autoconf texinfo bison flex yacc
-      - name: avr-gcc-build-001-make-dirs
+        run: sudo apt install mingw-w64 xz-utils autoconf texinfo
+      - name: avr-gcc-build-001-make-install
         run: |
-          echo "run avr-gcc-001-make-dirs.sh"
-          ./avr-gcc-001-make-dirs.sh
-      - name: avr-gcc-build-002-build-gmp
-        run: |
-          echo "run avr-gcc-002-build-gmp.sh"
-          ./avr-gcc-002-build-gmp.sh
-          echo "verify build gmp"
-          ls -la /home/runner/work/avr-gcc-build/avr-gcc-build/local/gmp-6.3.0
-      - name: avr-gcc-build-003-build-mpfr
-        run: |
-          echo "run avr-gcc-003-build-mpfr.sh"
-          ./avr-gcc-003-build-mpfr.sh
-          echo "verify build mpfr"
-          ls -la /home/runner/work/avr-gcc-build/avr-gcc-build/local/mpfr-4.2.1
-      - name: avr-gcc-build-004-build-mpc
-        run: |
-          echo "run avr-gcc-004-build-mpc.sh"
-          ./avr-gcc-004-build-mpc.sh
-          echo "verify build mpc"
-          ls -la /home/runner/work/avr-gcc-build/avr-gcc-build/local/mpc-1.2.1
-      - name: avr-gcc-build-010-build-binutils
-        run: |
-          echo "run avr-gcc-010-build-binutils.sh"
-          ./avr-gcc-010-build-binutils.sh
+          echo "run avr-gcc-001-make-install.sh"
+          ./avr-gcc-001-make-install.sh
           echo "verify build binutils"
-          ls -la /home/runner/work/avr-gcc-build/avr-gcc-build/local/gcc-13.2.0-avr/bin
-          ls -la /home/runner/work/avr-gcc-build/avr-gcc-build/local/gcc-13.2.0-avr/bin/avr-ld.exe
-      - name: avr-gcc-update-bash_profile
-        shell: bash -l {0}
+      - name: avr-gcc-build-verify-artifacts
         run: |
-          cp ./tmp_bash_profile ~/.bash_profile
-          source ~/.bash_profile
-      - name: avr-gcc-build-020-build-gcc
-        shell: bash -l {0}
-        run: |
-          echo "run avr-gcc-020-build-gcc.sh"
-          ./avr-gcc-020-build-gcc.sh
-          echo "verify build gcc"
-          ls -la /home/runner/work/avr-gcc-build/avr-gcc-build/local/gcc-13.2.0-avr/bin
-          ls -la /home/runner/work/avr-gcc-build/avr-gcc-build/local/gcc-13.2.0-avr/bin/avr-g++.exe
+          ls -la ${{ runner.workspace }}/avr-gcc-build/local/gcc-13.2.0-avr/bin
+          ls -la ${{ runner.workspace }}/avr-gcc-build/local/gcc-13.2.0-avr/bin/avr-ld.exe
+
+#      - name: avr-gcc-build-clone-avr-libc
+#        run: |
+#          echo "Clone stevenj/avr-libc3"
+#          git clone -b master --depth 1 https://github.com/stevenj/avr-libc3 ${{ runner.workspace }}/avr-gcc-build/gcc_build/avr-libc3
+#          cd ${{ runner.workspace }}/avr-gcc-build/gcc_build/avr-libc3
+#          git checkout d09c2a61764aced3274b6dde4399e11b0aee4a87
+#      - name: avr-gcc-build-avr-libc
+#        shell: bash -l {0}
+#        run: |
+#          echo "run avr-gcc-030-build-avr-libc.sh"
+#          ./avr-gcc-030-build-avr-libc.sh
