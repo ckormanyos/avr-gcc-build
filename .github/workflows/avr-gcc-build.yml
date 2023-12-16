@@ -66,10 +66,17 @@ jobs:
           echo "verify build gcc"
           ls -la ${{ runner.workspace }}/avr-gcc-build/local/gcc-13.2.0-avr/bin
           ls -la ${{ runner.workspace }}/avr-gcc-build/local/gcc-13.2.0-avr/bin/avr-g++.exe
-      - name: avr-gcc-build-avr-libc
-        shell: bash -l {0}
+      - name: avr-gcc-build-clone-avr-libc
         run: |
           echo "Clone stevenj/avr-libc3"
           git clone -b master --depth 1 https://github.com/stevenj/avr-libc3 ${{ runner.workspace }}/avr-gcc-build/gcc_build/avr-libc3
+      - name: avr-gcc-update-bash_profile
+        shell: bash -l {0}
+        run: |
+          cp ./tmp_bash_profile ~/.bash_profile
+          source ~/.bash_profile
+      - name: avr-gcc-build-avr-libc
+        shell: bash -l {0}
+        run: |
           echo "run avr-gcc-030-build-avr-libc.sh"
           ./avr-gcc-030-build-avr-libc.sh
