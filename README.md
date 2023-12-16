@@ -6,6 +6,8 @@ ckormanyos/avr-gcc-build
 
 `ckormanyos/avr-gcc-build` (this repository) is work in progress.
 
+At the moment, the script stops after completing the build of `binutils`.
+
 ---
 
 <p align="center">
