@@ -25,8 +25,10 @@ jobs:
       - name: avr-gcc-build-001-make-install
         run: |
           echo "run avr-gcc-001-make-install.sh"
-          ./avr-gcc-001-make-dirs.sh
+          ./avr-gcc-001-make-install.sh
           echo "verify build binutils"
+      - name: avr-gcc-build-verify-artifacts
+        run: |
           ls -la ${{ runner.workspace }}/avr-gcc-build/local/gcc-13.2.0-avr/bin
           ls -la ${{ runner.workspace }}/avr-gcc-build/local/gcc-13.2.0-avr/bin/avr-ld.exe
 
