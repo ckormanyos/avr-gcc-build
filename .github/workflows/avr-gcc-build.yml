@@ -22,9 +22,9 @@ jobs:
           fetch-depth: '0'
       - name: update-buiild-essentials
         run: sudo apt install mingw-w64 xz-utils autoconf texinfo
-      - name: avr-gcc-build-001-make-dirs
+      - name: avr-gcc-build-001-make-install
         run: |
-          echo "run avr-gcc-001-make-dirs.sh"
+          echo "run avr-gcc-001-make-install.sh"
           ./avr-gcc-001-make-dirs.sh
           echo "verify build binutils"
           ls -la ${{ runner.workspace }}/avr-gcc-build/local/gcc-13.2.0-avr/bin
