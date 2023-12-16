@@ -26,47 +26,15 @@ jobs:
         run: |
           echo "run avr-gcc-001-make-dirs.sh"
           ./avr-gcc-001-make-dirs.sh
-      - name: avr-gcc-build-002-build-gmp
-        run: |
-          echo "run avr-gcc-002-build-gmp.sh"
-          ./avr-gcc-002-build-gmp.sh
-          echo "verify build gmp"
-          ls -la ${{ runner.workspace }}/avr-gcc-build/local/gmp-6.3.0
-      - name: avr-gcc-build-003-build-mpfr
-        run: |
-          echo "run avr-gcc-003-build-mpfr.sh"
-          ./avr-gcc-003-build-mpfr.sh
-          echo "verify build mpfr"
-          ls -la ${{ runner.workspace }}/avr-gcc-build/local/mpfr-4.2.1
-      - name: avr-gcc-build-004-build-mpc
-        run: |
-          echo "run avr-gcc-004-build-mpc.sh"
-          ./avr-gcc-004-build-mpc.sh
-          echo "verify build mpc"
-          ls -la ${{ runner.workspace }}/avr-gcc-build/local/mpc-1.2.1
-      - name: avr-gcc-build-010-build-binutils
-        run: |
-          echo "run avr-gcc-010-build-binutils.sh"
-          ./avr-gcc-010-build-binutils.sh
-          echo "verify build binutils"
-          ls -la ${{ runner.workspace }}/avr-gcc-build/local/gcc-12.1.0-avr/bin
-          ls -la ${{ runner.workspace }}/avr-gcc-build/local/gcc-12.1.0-avr/bin/avr-ld.exe
-      - name: avr-gcc-build-020-build-gcc
-        run: |
-          echo "run avr-gcc-020-build-gcc.sh"
-          ./avr-gcc-020-build-gcc.sh
-          echo "verify build gcc"
-          ls -la ${{ runner.workspace }}/avr-gcc-build/local/gcc-12.1.0-avr/bin
-          ls -la ${{ runner.workspace }}/avr-gcc-build/local/gcc-12.1.0-avr/bin/avr-gcc.exe
-          ls -la ${{ runner.workspace }}/avr-gcc-build/local/gcc-12.1.0-avr/bin/avr-g++.exe
-      - name: avr-gcc-build-clone-avr-libc
-        run: |
-          echo "Clone stevenj/avr-libc3"
-          git clone -b master --depth 1 https://github.com/stevenj/avr-libc3 ${{ runner.workspace }}/avr-gcc-build/gcc_build/avr-libc3
-          cd ${{ runner.workspace }}/avr-gcc-build/gcc_build/avr-libc3
-          git checkout d09c2a61764aced3274b6dde4399e11b0aee4a87
-      - name: avr-gcc-build-avr-libc
-        shell: bash -l {0}
-        run: |
-          echo "run avr-gcc-030-build-avr-libc.sh"
-          ./avr-gcc-030-build-avr-libc.sh
+
+#      - name: avr-gcc-build-clone-avr-libc
+#        run: |
+#          echo "Clone stevenj/avr-libc3"
+#          git clone -b master --depth 1 https://github.com/stevenj/avr-libc3 ${{ runner.workspace }}/avr-gcc-build/gcc_build/avr-libc3
+#          cd ${{ runner.workspace }}/avr-gcc-build/gcc_build/avr-libc3
+#          git checkout d09c2a61764aced3274b6dde4399e11b0aee4a87
+#      - name: avr-gcc-build-avr-libc
+#        shell: bash -l {0}
+#        run: |
+#          echo "run avr-gcc-030-build-avr-libc.sh"
+#          ./avr-gcc-030-build-avr-libc.sh
