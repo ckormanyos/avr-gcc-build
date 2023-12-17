@@ -16,6 +16,10 @@ jobs:
     defaults:
       run:
         shell: bash
+    strategy:
+      fail-fast: false
+      matrix:
+        hostname: [ x86_64-unknown-linux-gnu ]
     steps:
       - uses: actions/checkout@v3
         with:
@@ -25,7 +29,7 @@ jobs:
       - name: avr-gcc-build-001-make-install
         run: |
           echo "run avr-gcc-001-make-install.sh"
-          ./avr-gcc-001-make-install.sh
+          ./avr-gcc-001-make-install.sh ${{ matrix.hostname }}
           echo "verify build binutils"
       - name: avr-gcc-build-verify-artifacts
         run: |
