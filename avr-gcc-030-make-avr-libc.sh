@@ -26,7 +26,7 @@ cd ..
 cd cd objdir-gcc-13.2.0-avr
 ../avr-libc3/configure --prefix=/home/runner/work/avr-gcc-build/avr-gcc-build/local/gcc-13.2.0-avr --host=avr
 
-make --jobs=8
+make --jobs=6
 make install
 
 exit 0

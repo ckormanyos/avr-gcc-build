@@ -14,7 +14,7 @@ mkdir objdir-gcc-13.2.0-avr
 cd objdir-gcc-13.2.0-avr
 ../gcc-13.2.0/configure --prefix=/home/runner/work/avr-gcc-build/avr-gcc-build/local/gcc-13.2.0-avr --target=avr --build=$HOST_NAME --host=$HOST_NAME --with-pkgversion='Built by ckormanyos/real-time-cpp' --enable-languages=c,c++ --disable-shared --enable-static --disable-libada --disable-libssp --disable-nls --disable-quadmath --disable-decimal-float --enable-mingw-wildcard --with-dwarf2 --enable-plugin --with-gnu-as --with-gmp=/home/runner/work/avr-gcc-build/avr-gcc-build/local/gmp-6.3.0 --with-mpfr=/home/runner/work/avr-gcc-build/avr-gcc-build/local/mpfr-4.2.1 --with-mpc=/home/runner/work/avr-gcc-build/avr-gcc-build/local/mpc-1.2.1
 
-make --jobs=8
+make --jobs=6
 make install
 
 exit 0
