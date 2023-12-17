@@ -19,7 +19,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        hostname: [ zen3-pc-linux-gnu ]
+        hostname: [ native-guess ]
     steps:
       - uses: actions/checkout@v3
         with:
@@ -35,15 +35,4 @@ jobs:
         run: |
           ls -la ${{ runner.workspace }}/avr-gcc-build/local/gcc-13.2.0-avr/bin
           ls -la ${{ runner.workspace }}/avr-gcc-build/local/gcc-13.2.0-avr/bin/avr-ld
-
-#      - name: avr-gcc-build-clone-avr-libc
-#        run: |
-#          echo "Clone stevenj/avr-libc3"
-#          git clone -b master --depth 1 https://github.com/stevenj/avr-libc3 ${{ runner.workspace }}/avr-gcc-build/gcc_build/avr-libc3
-#          cd ${{ runner.workspace }}/avr-gcc-build/gcc_build/avr-libc3
-#          git checkout d09c2a61764aced3274b6dde4399e11b0aee4a87
-#      - name: avr-gcc-build-avr-libc
-#        shell: bash -l {0}
-#        run: |
-#          echo "run avr-gcc-030-build-avr-libc.sh"
-#          ./avr-gcc-030-build-avr-libc.sh
+          ls
