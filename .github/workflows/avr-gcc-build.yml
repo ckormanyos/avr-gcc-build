@@ -19,7 +19,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        hostname: [ native-guess ]
+        hostname: [ x86_64-linux-gnu ]
     steps:
       - uses: actions/checkout@v3
         with:
