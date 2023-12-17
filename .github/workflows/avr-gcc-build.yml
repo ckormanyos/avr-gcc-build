@@ -34,7 +34,7 @@ jobs:
       - name: avr-gcc-build-verify-artifacts
         run: |
           ls -la ${{ runner.workspace }}/avr-gcc-build/local/gcc-13.2.0-avr/bin
-          ls -la ${{ runner.workspace }}/avr-gcc-build/local/gcc-13.2.0-avr/bin/avr-ld.exe
+          ls -la ${{ runner.workspace }}/avr-gcc-build/local/gcc-13.2.0-avr/bin/avr-ld
 
 #      - name: avr-gcc-build-clone-avr-libc
 #        run: |
