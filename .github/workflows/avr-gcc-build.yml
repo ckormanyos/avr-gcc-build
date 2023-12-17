@@ -31,6 +31,8 @@ jobs:
           echo "run avr-gcc-010-make-prereq_binutils.sh"
           ./avr-gcc-010-make-prereq_binutils.sh ${{ matrix.hostname }}
           echo "verify build binutils"
+      - name: avr-gcc-010-make-prereq_binutils-verify
+        run: |
           ls -la ${{ runner.workspace }}/avr-gcc-build/local/gcc-13.2.0-avr/bin
           ls -la ${{ runner.workspace }}/avr-gcc-build/local/gcc-13.2.0-avr/bin/avr-ld
       - name: avr-gcc-020-make-gcc
@@ -38,8 +40,16 @@ jobs:
           echo "run avr-gcc-020-make-gcc.sh"
           ./avr-gcc-020-make-gcc.sh ${{ matrix.hostname }}
           echo "verify build gcc"
+      - name: avr-gcc-020-make-gcc-verify
+        run: |
           ls -la ${{ runner.workspace }}/avr-gcc-build/local/gcc-13.2.0-avr/bin
           ls -la ${{ runner.workspace }}/avr-gcc-build/local/gcc-13.2.0-avr/bin/avr-gcc
+      - name: avr-gcc-clone-avr-libc
+        run: |
+          echo "Clone stevenj/avr-libc3"
+          git clone -b master --depth 1 https://github.com/stevenj/avr-libc3 gcc_build/avr-libc3
+          cd gcc_build/avr-libc3
+          git checkout 'd09c2a61764aced3274b6dde4399e11b0aee4a87'
       - name: avr-gcc-030-make-avr-libc
         run: |
           echo "run avr-gcc-030-make-avr-libc.sh"
