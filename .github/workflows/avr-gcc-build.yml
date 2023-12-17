@@ -19,7 +19,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        hostname: [ x86_64-unknown-linux-gnu ]
+        hostname: [ zen3-pc-linux-gnu ]
     steps:
       - uses: actions/checkout@v3
         with:
