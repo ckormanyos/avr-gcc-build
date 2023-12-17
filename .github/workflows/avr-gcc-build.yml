@@ -19,7 +19,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        hostname: [ guess-native ]
+        hostname: [ zen3-pc-linux-gnu ]
     steps:
       - uses: actions/checkout@v3
         with:
@@ -35,8 +35,6 @@ jobs:
         run: |
           ls -la ${{ runner.workspace }}/avr-gcc-build/local/gcc-13.2.0-avr/bin
           ls -la ${{ runner.workspace }}/avr-gcc-build/local/gcc-13.2.0-avr/bin/avr-ld
-          ls -la ${{ runner.workspace }}/avr-gcc-build/local/gcc-13.2.0-avr/bin/avr-g++
-          ls -la ${{ runner.workspace }}/avr-gcc-build/local/gcc-13.2.0-avr/bin/avr-gcc
 
 #      - name: avr-gcc-build-clone-avr-libc
 #        run: |
