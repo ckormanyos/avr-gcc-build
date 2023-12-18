@@ -19,6 +19,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
+        buildname: [ x86_64-linux-gnu ]
         hostname: [ x86_64-linux-gnu ]
     steps:
       - uses: actions/checkout@v3
@@ -29,19 +30,19 @@ jobs:
       - name: avr-gcc-010-make-prereq_binutils
         run: |
           echo "run avr-gcc-010-make-prereq_binutils.sh"
-          ./avr-gcc-010-make-prereq_binutils.sh ${{ matrix.hostname }}
-          echo "verify build binutils"
+          ./avr-gcc-010-make-prereq_binutils.sh ${{ matrix.buildname }} ${{ matrix.hostname }}
       - name: avr-gcc-010-make-prereq_binutils-verify
         run: |
+          echo "verify build binutils"
           ls -la ${{ runner.workspace }}/avr-gcc-build/local/gcc-13.2.0-avr/bin
           ls -la ${{ runner.workspace }}/avr-gcc-build/local/gcc-13.2.0-avr/bin/avr-ld
       - name: avr-gcc-020-make-gcc
         run: |
           echo "run avr-gcc-020-make-gcc.sh"
-          ./avr-gcc-020-make-gcc.sh ${{ matrix.hostname }}
-          echo "verify build gcc"
+          ./avr-gcc-020-make-gcc.sh ${{ matrix.buildname }} ${{ matrix.hostname }}
       - name: avr-gcc-020-make-gcc-verify
         run: |
+          echo "verify build gcc"
           ls -la ${{ runner.workspace }}/avr-gcc-build/local/gcc-13.2.0-avr/bin
           ls -la ${{ runner.workspace }}/avr-gcc-build/local/gcc-13.2.0-avr/bin/avr-gcc
       - name: avr-gcc-clone-avr-libc
@@ -52,4 +53,8 @@ jobs:
       - name: avr-gcc-030-make-avr-libc
         run: |
           echo "run avr-gcc-030-make-avr-libc.sh"
-          ./avr-gcc-030-make-avr-libc.sh ${{ matrix.hostname }}
+          ./avr-gcc-030-make-avr-libc.sh ${{ matrix.buildname }} ${{ matrix.hostname }}
+      - name: avr-gcc-030-make-avr-libc-verify
+        run: |
+          echo "verify build avr-libc"
+          ls -la ${{ runner.workspace }}/avr-gcc-build/local/gcc-13.2.0-avr/lib/gcc/avr/13.2.0/avr5

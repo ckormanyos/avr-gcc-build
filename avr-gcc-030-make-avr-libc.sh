@@ -4,7 +4,8 @@
 #  Distributed under The Unlicense.
 #
 
-HOST_NAME=$1
+BUILD_NAME=$1
+HOST_NAME=$2
 
 cd gcc_build/avr-libc
 
@@ -19,7 +20,7 @@ CC=""
 export CC
 
 cd objdir-gcc-13.2.0-avr
-../avr-libc/configure --prefix=/home/runner/work/avr-gcc-build/avr-gcc-build/local/gcc-13.2.0-avr --host=avr
+../avr-libc/configure --prefix=/home/runner/work/avr-gcc-build/avr-gcc-build/local/gcc-13.2.0-avr --build=$BUILD_NAME --host=avr
 
 make --jobs=6
 make install
