@@ -21,4 +21,6 @@ make install
 ls -la /home/runner/work/avr-gcc-build/avr-gcc-build/local/gcc-13.2.0-avr/bin/avr-gcc
 result_total=$?
 
-echo "result_total: "  "$result_total"
+echo "result_total: " "$result_total"
+
+exit $result_total

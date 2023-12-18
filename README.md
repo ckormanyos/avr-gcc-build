@@ -6,8 +6,6 @@ ckormanyos/avr-gcc-build
 
 `ckormanyos/avr-gcc-build` (this repository) is work in progress.
 
-At the moment, the script stops after completing the build of `binutils`.
-
 ---
 
 <p align="center">
@@ -16,3 +14,6 @@ At the moment, the script stops after completing the build of `binutils`.
 </p>
 
 `ckormanyos/avr-gcc-build` provides shell scripts to build modern `avr-gcc`.
+
+At the moment, the script builds `avr-gcc` version 13.2.0 for the target `x86_64-linux-gnu` only.
+Build artifacts are not (yet) archived or stored in a release.

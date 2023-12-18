@@ -20,8 +20,6 @@ cd objdir-gmp-6.3.0
 make --jobs=6
 make install
 
-
-
 wget --no-check-certificate https://www.mpfr.org/mpfr-current/mpfr-4.2.1.tar.bz2
 tar -xf mpfr-4.2.1.tar.bz2
 mkdir objdir-mpfr-4.2.1
@@ -31,8 +29,6 @@ cd objdir-mpfr-4.2.1
 make --jobs=6
 make install
 
-
-
 wget --no-check-certificate https://ftp.gnu.org/gnu/mpc/mpc-1.2.1.tar.gz
 tar -xf mpc-1.2.1.tar.gz
 mkdir objdir-mpc-1.2.1
@@ -41,9 +37,6 @@ cd objdir-mpc-1.2.1
 
 make --jobs=6
 make install
-
-
-
 
 wget --no-check-certificate https://ftp.gnu.org/gnu/binutils/binutils-2.41.tar.bz2
 tar -xf binutils-2.41.tar.bz2

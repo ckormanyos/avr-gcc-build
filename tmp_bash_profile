@@ -1,9 +1,0 @@
-eval "original_$(declare -f command_not_found_handle)"
-command_not_found_handle () {
-    if command -v "$1".exe; then
-        "$1".exe "${@:2}";
-        return $?;
-    else
-        original_command_not_found_handle "$@"
-    fi
-}

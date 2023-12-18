@@ -25,4 +25,9 @@ cd objdir-gcc-13.2.0-avr
 make --jobs=6
 make install
 
-exit 0
+ls -la /home/runner/work/avr-gcc-build/avr-gcc-build/local/gcc-13.2.0-avr//lib/gcc/avr/13.2.0/avr5 /home/runner/work/avr-gcc-build/avr-gcc-build/local/gcc-13.2.0-avr//lib/gcc/avr/13.2.0/avr5/libgcc.a /home/runner/work/avr-gcc-build/avr-gcc-build/local/gcc-13.2.0-avr//lib/gcc/avr/13.2.0/avr5/libgcov.a /home/runner/work/avr-gcc-build/avr-gcc-build/local/gcc-13.2.0-avr//lib/gcc/avr/13.2.0/avr5/double64 /home/runner/work/avr-gcc-build/avr-gcc-build/local/gcc-13.2.0-avr//lib/gcc/avr/13.2.0/avr5/long-double32
+result_total=$?
+
+echo "result_total: " "$result_total"
+
+exit $result_total

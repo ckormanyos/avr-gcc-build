@@ -47,7 +47,7 @@ jobs:
           ls -la ${{ runner.workspace }}/avr-gcc-build/local/gcc-13.2.0-avr/bin/avr-gcc
       - name: avr-gcc-clone-avr-libc
         run: |
-          echo "Clone avrdudes/avr-libc"
+          echo "clone avrdudes/avr-libc"
           git clone -b main --depth 1 https://github.com/avrdudes/avr-libc.git ${{ runner.workspace }}/avr-gcc-build/gcc_build/avr-libc
           cd ${{ runner.workspace }}/avr-gcc-build/gcc_build/avr-libc
       - name: avr-gcc-030-make-avr-libc
@@ -58,3 +58,11 @@ jobs:
         run: |
           echo "verify build avr-libc"
           ls -la ${{ runner.workspace }}/avr-gcc-build/local/gcc-13.2.0-avr/lib/gcc/avr/13.2.0/avr5
+          ls -la ${{ runner.workspace }}/avr-gcc-build/local/gcc-13.2.0-avr/lib/gcc/avr/13.2.0/avr5/libgcc.a
+          ls -la ${{ runner.workspace }}/avr-gcc-build/local/gcc-13.2.0-avr/lib/gcc/avr/13.2.0/avr5/libgcov.a
+          ls -la ${{ runner.workspace }}/avr-gcc-build/local/gcc-13.2.0-avr/lib/gcc/avr/13.2.0/avr5/double64
+          ls -la ${{ runner.workspace }}/avr-gcc-build/local/gcc-13.2.0-avr/lib/gcc/avr/13.2.0/avr5/long-double32
+      - uses: actions/upload-artifact@v4
+        with:
+          name: gcc-13.2.0-avr-${{ matrix.hostname }}
+          path: ${{ runner.workspace }}/avr-gcc-build/local/gcc-13.2.0-avr
