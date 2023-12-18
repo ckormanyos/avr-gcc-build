@@ -42,12 +42,12 @@ jobs:
           echo "clone gcc-mirror/gcc"
           git clone -b master git://gcc.gnu.org/git/gcc.git ${{ runner.workspace }}/avr-gcc-build/gcc_build/gcc-${{ matrix.branchname }}-avr
       - name: avr-gcc-clone-checkout-branch-gcc
-        if: ${{ ${{ matrix.branchname }} == 'trunk' }}
+        if: ${{ matrix.branchname }} == 'trunk'
         run: |
           cd ${{ runner.workspace }}/avr-gcc-build/gcc_build/gcc-${{ matrix.branchname }}-avr
           git checkout ${{ matrix.branchname }}
       - name: avr-gcc-checkout-branch-gcc
-        if: ${{ ${{ matrix.branchname }} != 'trunk' }}
+        if: ${{ matrix.branchname }} != 'trunk'
         run: |
           cd ${{ runner.workspace }}/avr-gcc-build/gcc_build/gcc-${{ matrix.branchname }}-avr
           git checkout releases/${{ matrix.branchname }}
