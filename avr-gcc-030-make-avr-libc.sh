@@ -26,7 +26,7 @@ cd objdir-gcc-"$BRANCH_NAME"-avr
 make --jobs=6
 make install
 
-ls -la /home/runner/work/avr-gcc-build/avr-gcc-build/local/gcc-"$BRANCH_NAME"-avr/lib/gcc/avr/"$BRANCH_NAME"/avr5 /home/runner/work/avr-gcc-build/avr-gcc-build/local/gcc-"$BRANCH_NAME"-avr/lib/gcc/avr/"$BRANCH_NAME"/avr5/libgcc.a /home/runner/work/avr-gcc-build/avr-gcc-build/local/gcc-"$BRANCH_NAME"-avr/lib/gcc/avr/"$BRANCH_NAME"/avr5/libgcov.a /home/runner/work/avr-gcc-build/avr-gcc-build/local/gcc-"$BRANCH_NAME"-avr/lib/gcc/avr/"$BRANCH_NAME"/avr5/double64 /home/runner/work/avr-gcc-build/avr-gcc-build/local/gcc-"$BRANCH_NAME"-avr/lib/gcc/avr/"$BRANCH_NAME"/avr5/long-double32
+ls -la /home/runner/work/avr-gcc-build/avr-gcc-build/local/gcc-"$BRANCH_NAME"-avr/lib/gcc/avr
 result_total=$?
 
 echo "result_total: " "$result_total"
