@@ -6,6 +6,7 @@
 
 BUILD_NAME=$1
 HOST_NAME=$2
+BRANCH_NAME=$3
 
 cd gcc_build
 
