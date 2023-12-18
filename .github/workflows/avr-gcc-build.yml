@@ -19,31 +19,59 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        hostname: [ zen3-pc-linux-gnu ]
+        buildname: [ x86_64-linux-gnu ]
+        hostname: [ x86_64-linux-gnu ]
     steps:
       - uses: actions/checkout@v3
         with:
           fetch-depth: '0'
       - name: update-buiild-essentials
         run: sudo apt install mingw-w64 xz-utils autoconf texinfo
-      - name: avr-gcc-build-001-make-install
+      - name: avr-gcc-010-make-prereq_binutils
         run: |
-          echo "run avr-gcc-001-make-install.sh"
-          ./avr-gcc-001-make-install.sh ${{ matrix.hostname }}
+          echo "run avr-gcc-010-make-prereq_binutils.sh"
+          ./avr-gcc-010-make-prereq_binutils.sh ${{ matrix.buildname }} ${{ matrix.hostname }}
+      - name: avr-gcc-010-make-prereq_binutils-verify
+        run: |
           echo "verify build binutils"
-      - name: avr-gcc-build-verify-artifacts
-        run: |
           ls -la ${{ runner.workspace }}/avr-gcc-build/local/gcc-13.2.0-avr/bin
           ls -la ${{ runner.workspace }}/avr-gcc-build/local/gcc-13.2.0-avr/bin/avr-ld
-
-#      - name: avr-gcc-build-clone-avr-libc
-#        run: |
-#          echo "Clone stevenj/avr-libc3"
-#          git clone -b master --depth 1 https://github.com/stevenj/avr-libc3 ${{ runner.workspace }}/avr-gcc-build/gcc_build/avr-libc3
-#          cd ${{ runner.workspace }}/avr-gcc-build/gcc_build/avr-libc3
-#          git checkout d09c2a61764aced3274b6dde4399e11b0aee4a87
-#      - name: avr-gcc-build-avr-libc
-#        shell: bash -l {0}
-#        run: |
-#          echo "run avr-gcc-030-build-avr-libc.sh"
-#          ./avr-gcc-030-build-avr-libc.sh
+      - name: avr-gcc-020-make-gcc
+        run: |
+          echo "run avr-gcc-020-make-gcc.sh"
+          ./avr-gcc-020-make-gcc.sh ${{ matrix.buildname }} ${{ matrix.hostname }}
+      - name: avr-gcc-020-make-gcc-verify
+        run: |
+          echo "verify build gcc"
+          ls -la ${{ runner.workspace }}/avr-gcc-build/local/gcc-13.2.0-avr/bin
+          ls -la ${{ runner.workspace }}/avr-gcc-build/local/gcc-13.2.0-avr/bin/avr-gcc
+      - name: avr-gcc-clone-avr-libc
+        run: |
+          echo "clone avrdudes/avr-libc"
+          git clone -b main --depth 1 https://github.com/avrdudes/avr-libc.git ${{ runner.workspace }}/avr-gcc-build/gcc_build/avr-libc
+          cd ${{ runner.workspace }}/avr-gcc-build/gcc_build/avr-libc
+      - name: avr-gcc-030-make-avr-libc
+        run: |
+          echo "run avr-gcc-030-make-avr-libc.sh"
+          ./avr-gcc-030-make-avr-libc.sh ${{ matrix.buildname }} ${{ matrix.hostname }}
+      - name: avr-gcc-030-make-avr-libc-verify
+        run: |
+          echo "verify build avr-libc"
+          ls -la ${{ runner.workspace }}/avr-gcc-build/local/gcc-13.2.0-avr/lib/gcc/avr/13.2.0/avr5
+          ls -la ${{ runner.workspace }}/avr-gcc-build/local/gcc-13.2.0-avr/lib/gcc/avr/13.2.0/avr5/libgcc.a
+          ls -la ${{ runner.workspace }}/avr-gcc-build/local/gcc-13.2.0-avr/lib/gcc/avr/13.2.0/avr5/libgcov.a
+          ls -la ${{ runner.workspace }}/avr-gcc-build/local/gcc-13.2.0-avr/lib/gcc/avr/13.2.0/avr5/double64
+          ls -la ${{ runner.workspace }}/avr-gcc-build/local/gcc-13.2.0-avr/lib/gcc/avr/13.2.0/avr5/long-double32
+      - uses: actions/upload-artifact@v4
+        with:
+          name: gcc-13.2.0-avr-${{ matrix.hostname }}
+          path: ${{ runner.workspace }}/avr-gcc-build/local/gcc-13.2.0-avr
+      - name: avr-gcc-test-with-real-time-cpp
+        run: |
+          echo "test avr-gcc with real-time-cpp"
+          echo "clone ckormanyos/real-time-cpp"
+          git clone -b master --depth 1 https://github.com/ckormanyos/real-time-cpp.git ${{ runner.workspace }}/avr-gcc-build/real-time-cpp
+          cd ${{ runner.workspace }}/avr-gcc-build/real-time-cpp/ref_app
+          PATH=${{ runner.workspace }}/avr-gcc-build/local/gcc-13.2.0-avr/bin:"$PATH"
+          ./target/build/build.sh avr rebuild
+          ls -la bin/ref_app.elf bin/ref_app.hex bin/ref_app.lss bin/ref_app.map bin/ref_app.s19 bin/ref_app_cppfilt.txt bin/ref_app_nm.txt bin/ref_app_readelf.txt bin/ref_app_size.txt
