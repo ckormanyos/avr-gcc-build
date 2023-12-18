@@ -40,11 +40,11 @@ jobs:
       - name: avr-gcc-clone-gcc
         run: |
           echo "clone gcc-mirror/gcc"
-          if: ${{ matrix.branchname }} == 'trunk'
-          git clone -b          ${{ matrix.branchname }} git://gcc.gnu.org/git/gcc.git ${{ runner.workspace }}/avr-gcc-build/gcc_build/gcc-${{ matrix.branchname }}-avr
-          else:
-          git clone -b releases/${{ matrix.branchname }} git://gcc.gnu.org/git/gcc.git ${{ runner.workspace }}/avr-gcc-build/gcc_build/gcc-${{ matrix.branchname }}-avr
-          endif:
+          if [ ${{ matrix.branchname }} == 'trunk' ]; then
+            git clone -b         ${{ matrix.branchname }} git://gcc.gnu.org/git/gcc.git ${{ runner.workspace }}/avr-gcc-build/gcc_build/gcc-${{ matrix.branchname }}-avr
+          else
+            git clone -b release/${{ matrix.branchname }} git://gcc.gnu.org/git/gcc.git ${{ runner.workspace }}/avr-gcc-build/gcc_build/gcc-${{ matrix.branchname }}-avr
+          fi
       - name: avr-gcc-020-make-gcc
         run: |
           echo "run avr-gcc-020-make-gcc.sh"
