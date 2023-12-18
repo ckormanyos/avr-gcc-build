@@ -46,7 +46,7 @@ jobs:
 #          ls -la ${{ runner.workspace }}/avr-gcc-build/local/gcc-13.2.0-avr/bin/avr-gcc
       - name: avr-gcc-build-clone-avr-libc
         run: |
-          echo "Clone stevenj/avr-libc3"
+          echo "Clone avrdudes/avr-libc"
           git clone -b main --depth 1 https://github.com/avrdudes/avr-libc.git ${{ runner.workspace }}/avr-gcc-build/gcc_build/avr-libc
           cd ${{ runner.workspace }}/avr-gcc-build/gcc_build/avr-libc
       - name: avr-gcc-030-make-avr-libc
