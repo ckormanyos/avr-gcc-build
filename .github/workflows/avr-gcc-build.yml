@@ -26,24 +26,24 @@ jobs:
           fetch-depth: '0'
       - name: update-buiild-essentials
         run: sudo apt install git mingw-w64 xz-utils autoconf texinfo
-#      - name: avr-gcc-010-make-prereq_binutils
-#        run: |
-#          echo "run avr-gcc-010-make-prereq_binutils.sh"
-#          ./avr-gcc-010-make-prereq_binutils.sh ${{ matrix.hostname }}
-#          echo "verify build binutils"
-#      - name: avr-gcc-010-make-prereq_binutils-verify
-#        run: |
-#          ls -la ${{ runner.workspace }}/avr-gcc-build/local/gcc-13.2.0-avr/bin
-#          ls -la ${{ runner.workspace }}/avr-gcc-build/local/gcc-13.2.0-avr/bin/avr-ld
-#      - name: avr-gcc-020-make-gcc
-#        run: |
-#          echo "run avr-gcc-020-make-gcc.sh"
-#          ./avr-gcc-020-make-gcc.sh ${{ matrix.hostname }}
-#          echo "verify build gcc"
-#      - name: avr-gcc-020-make-gcc-verify
-#        run: |
-#          ls -la ${{ runner.workspace }}/avr-gcc-build/local/gcc-13.2.0-avr/bin
-#          ls -la ${{ runner.workspace }}/avr-gcc-build/local/gcc-13.2.0-avr/bin/avr-gcc
+      - name: avr-gcc-010-make-prereq_binutils
+        run: |
+          echo "run avr-gcc-010-make-prereq_binutils.sh"
+          ./avr-gcc-010-make-prereq_binutils.sh ${{ matrix.hostname }}
+          echo "verify build binutils"
+      - name: avr-gcc-010-make-prereq_binutils-verify
+        run: |
+          ls -la ${{ runner.workspace }}/avr-gcc-build/local/gcc-13.2.0-avr/bin
+          ls -la ${{ runner.workspace }}/avr-gcc-build/local/gcc-13.2.0-avr/bin/avr-ld
+      - name: avr-gcc-020-make-gcc
+        run: |
+          echo "run avr-gcc-020-make-gcc.sh"
+          ./avr-gcc-020-make-gcc.sh ${{ matrix.hostname }}
+          echo "verify build gcc"
+      - name: avr-gcc-020-make-gcc-verify
+        run: |
+          ls -la ${{ runner.workspace }}/avr-gcc-build/local/gcc-13.2.0-avr/bin
+          ls -la ${{ runner.workspace }}/avr-gcc-build/local/gcc-13.2.0-avr/bin/avr-gcc
       - name: avr-gcc-build-clone-avr-libc
         run: |
           echo "Clone avrdudes/avr-libc"

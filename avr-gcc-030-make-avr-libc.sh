@@ -6,7 +6,7 @@
 
 HOST_NAME=$1
 
-cd gcc_build/avr-libc3
+cd gcc_build/avr-libc
 
 ./bootstrap
 
@@ -19,7 +19,7 @@ CC=""
 export CC
 
 cd objdir-gcc-13.2.0-avr
-../avr-libc3/configure --prefix=/home/runner/work/avr-gcc-build/avr-gcc-build/local/gcc-13.2.0-avr --host=avr
+../avr-libc/configure --prefix=/home/runner/work/avr-gcc-build/avr-gcc-build/local/gcc-13.2.0-avr --host=avr
 
 make --jobs=6
 make install
