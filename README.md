@@ -9,6 +9,13 @@ ckormanyos/avr-gcc-build
 `ckormanyos/avr-gcc-build` provides shell and YAML scripts to build a modern `avr-gcc`
 on GHA native runner(s).
 
+Design goals:
+  - Use YAML and shell scripts to build modern `avr-gcc` on-the-fly.
+  - Build `avr-gcc` from up-to-date branches such as `trunk` and `releases/gcc-13` found in [`gcc-mirror/gcc`](https://github.com/gcc-mirror/gcc).
+  - Provide a non-trivial test of the newly-built toolchain(s) based on a real-world project.
+  - Support cyclic monthly build of modern, evolving GCC branch(es) and trunk.
+  - Publish the build artifacts directly from the Workflow-Run(s) in GHA.
+
 ## Workflow-Run
 
 Workflow:
@@ -22,8 +29,9 @@ Workflow:
 ## Distribution
 
 Build artifacts are compresses and stored as ZIP-archive(s)
-directly from the Workflow-Run on GHA
-using the [`actions/upload-artifact`](https://github.com/actions/upload-artifact) action.
+directly from the Workflow-Run on GHA.
+The [`actions/upload-artifact`](https://github.com/actions/upload-artifact) action
+is used for archiving build artifacts.
 
 ## Additional Details
 

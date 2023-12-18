@@ -67,10 +67,10 @@ jobs:
         run: |
           echo "verify build avr-libc"
           ls -la ${{ runner.workspace }}/avr-gcc-build/local/gcc-${{ matrix.branchname }}-avr/lib/gcc/avr
-#      - uses: actions/upload-artifact@v4
-#        with:
-#          name: gcc-${{ matrix.branchname }}-avr-${{ matrix.hostname }}
-#          path: ${{ runner.workspace }}/avr-gcc-build/local/gcc-${{ matrix.branchname }}-avr
+      - uses: actions/upload-artifact@v4
+        with:
+          name: gcc-${{ matrix.branchname }}-avr-${{ matrix.hostname }}
+          path: ${{ runner.workspace }}/avr-gcc-build/local/gcc-${{ matrix.branchname }}-avr
       - name: avr-gcc-test-with-real-time-cpp
         run: |
           echo "test avr-gcc with real-time-cpp"
