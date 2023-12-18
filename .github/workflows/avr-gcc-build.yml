@@ -24,8 +24,8 @@ jobs:
       - uses: actions/checkout@v3
         with:
           fetch-depth: '0'
-#      - name: update-buiild-essentials
-#        run: sudo apt install mingw-w64 xz-utils autoconf texinfo
+      - name: update-buiild-essentials
+        run: sudo apt install git mingw-w64 xz-utils autoconf texinfo
 #      - name: avr-gcc-010-make-prereq_binutils
 #        run: |
 #          echo "run avr-gcc-010-make-prereq_binutils.sh"
@@ -44,7 +44,7 @@ jobs:
 #        run: |
 #          ls -la ${{ runner.workspace }}/avr-gcc-build/local/gcc-13.2.0-avr/bin
 #          ls -la ${{ runner.workspace }}/avr-gcc-build/local/gcc-13.2.0-avr/bin/avr-gcc
-      - name: avr-gcc-clone-avr-libc
+      - name: avr-gcc-build-clone-avr-libc
         run: |
           echo "Clone stevenj/avr-libc3"
           git clone -b master --depth 1 https://github.com/stevenj/avr-libc3 ${{ runner.workspace }}/avr-gcc-build/gcc_build/avr-libc3
