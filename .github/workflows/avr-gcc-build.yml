@@ -21,7 +21,7 @@ jobs:
       matrix:
         buildname: [ x86_64-linux-gnu ]
         hostname: [ x86_64-linux-gnu ]
-        branchname: [ trunk ]
+        branchname: [ trunk, releases/gcc-13 ]
     steps:
       - uses: actions/checkout@v3
         with:
