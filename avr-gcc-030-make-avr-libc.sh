@@ -6,6 +6,7 @@
 
 BUILD_NAME=$1
 HOST_NAME=$2
+BRANCH_NAME=$3
 
 cd gcc_build/avr-libc
 
@@ -13,19 +14,19 @@ cd gcc_build/avr-libc
 
 cd ..
 
-PATH=/home/runner/work/avr-gcc-build/avr-gcc-build/local/gcc-13.2.0-avr/bin:"$PATH"
+PATH=/home/runner/work/avr-gcc-build/avr-gcc-build/local/gcc-"$BRANCH_NAME"-avr/bin:"$PATH"
 export PATH
 
 CC=""
 export CC
 
-cd objdir-gcc-13.2.0-avr
-../avr-libc/configure --prefix=/home/runner/work/avr-gcc-build/avr-gcc-build/local/gcc-13.2.0-avr --build=$BUILD_NAME --host=avr
+cd objdir-gcc-"$BRANCH_NAME"-avr
+../avr-libc/configure --prefix=/home/runner/work/avr-gcc-build/avr-gcc-build/local/gcc-"$BRANCH_NAME"-avr --build=$BUILD_NAME --host=avr
 
 make --jobs=6
 make install
 
-ls -la /home/runner/work/avr-gcc-build/avr-gcc-build/local/gcc-13.2.0-avr//lib/gcc/avr/13.2.0/avr5 /home/runner/work/avr-gcc-build/avr-gcc-build/local/gcc-13.2.0-avr//lib/gcc/avr/13.2.0/avr5/libgcc.a /home/runner/work/avr-gcc-build/avr-gcc-build/local/gcc-13.2.0-avr//lib/gcc/avr/13.2.0/avr5/libgcov.a /home/runner/work/avr-gcc-build/avr-gcc-build/local/gcc-13.2.0-avr//lib/gcc/avr/13.2.0/avr5/double64 /home/runner/work/avr-gcc-build/avr-gcc-build/local/gcc-13.2.0-avr//lib/gcc/avr/13.2.0/avr5/long-double32
+ls -la /home/runner/work/avr-gcc-build/avr-gcc-build/local/gcc-"$BRANCH_NAME"-avr/lib/gcc/avr
 result_total=$?
 
 echo "result_total: " "$result_total"

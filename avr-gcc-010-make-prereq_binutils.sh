@@ -6,6 +6,7 @@
 
 BUILD_NAME=$1
 HOST_NAME=$2
+BRANCH_NAME=$3
 
 mkdir -p gcc_build
 
@@ -40,16 +41,16 @@ make install
 
 wget --no-check-certificate https://ftp.gnu.org/gnu/binutils/binutils-2.41.tar.bz2
 tar -xf binutils-2.41.tar.bz2
-mkdir objdir-binutils-2.41-avr-gcc-13.2.0
-cd objdir-binutils-2.41-avr-gcc-13.2.0
-../binutils-2.41/configure --prefix=/home/runner/work/avr-gcc-build/avr-gcc-build/local/gcc-13.2.0-avr --target=avr --build=$BUILD_NAME --host=$HOST_NAME --disable-shared --enable-static --disable-libada --disable-libssp --disable-nls --disable-quadmath --disable-decimal-float --enable-mingw-wildcard --with-dwarf2 --enable-plugin --with-gnu-as --with-gmp=/home/runner/work/avr-gcc-build/avr-gcc-build/local/gmp-6.3.0
+mkdir objdir-binutils-2.41-avr-gcc-"$BRANCH_NAME"
+cd objdir-binutils-2.41-avr-gcc-"$BRANCH_NAME"
+../binutils-2.41/configure --prefix=/home/runner/work/avr-gcc-build/avr-gcc-build/local/gcc-"$BRANCH_NAME"-avr --target=avr --build=$BUILD_NAME --host=$HOST_NAME --disable-shared --enable-static --disable-libada --disable-libssp --disable-nls --disable-quadmath --disable-decimal-float --enable-mingw-wildcard --with-dwarf2 --enable-plugin --with-gnu-as --with-gmp=/home/runner/work/avr-gcc-build/avr-gcc-build/local/gmp-6.3.0
 
 make --jobs=`nproc`
 make install
 
-ls -la /home/runner/work/avr-gcc-build/avr-gcc-build/local/gcc-13.2.0-avr/bin/avr-ld
+ls -la /home/runner/work/avr-gcc-build/avr-gcc-build/local/gcc-"$BRANCH_NAME"-avr/bin/avr-ld
 result_total=$?
 
-echo "result_total: "  "$result_total"
+echo "result_total: " "$result_total"
 
 exit $result_total
