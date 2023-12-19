@@ -28,7 +28,7 @@ Workflow:
 
 ## Distribution
 
-Build artifacts are compresses and stored as ZIP-archive(s)
+Build artifacts are compressed and stored as ZIP-archive(s)
 directly from the Workflow-Run on GHA.
 The [`actions/upload-artifact`](https://github.com/actions/upload-artifact) action
 is used for archiving build artifacts.
