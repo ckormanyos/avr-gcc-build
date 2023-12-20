@@ -15,7 +15,7 @@ on GHA native runner(s). Built toolchains are distributed as ZIP-archive(s)
 directly from the Workflow-Run(s) on GHA.
 
 Design goals:
-  - Use YAML and shell scripts to build modern `avr-gcc` on-the-fly.
+  - Use shell and YAML scripts to build modern `avr-gcc` on-the-fly.
   - Build `avr-gcc` from up-to-date branches such as `trunk` and `releases/gcc-13` found in [`gcc-mirror/gcc`](https://github.com/gcc-mirror/gcc).
   - Provide a non-trivial test of the newly-built toolchain(s) based on a real-world project.
   - Support cyclic monthly build of modern, evolving GCC branch(es) and trunk.
