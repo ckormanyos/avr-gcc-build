@@ -12,7 +12,7 @@ ckormanyos/avr-gcc-build
 
 `ckormanyos/avr-gcc-build` provides shell and YAML scripts to build a modern `avr-gcc`
 on GHA native runner(s). Built toolchains are distributed as ZIP-archive(s)
-directly in the Workflow-Run(s) on GHA.
+directly from the Workflow-Run(s) on GHA.
 
 Design goals:
   - Use YAML and shell scripts to build modern `avr-gcc` on-the-fly.
@@ -25,8 +25,8 @@ Design goals:
 
 Workflow:
   - The build runs on GHA `ubuntu-latest` (i.e., `x86_64-linux-gnu` host).
-  - The GCC prerequisites GMP, MPFR and MPC are built on-the-fly in the Workflow-Run.
-  - Build `binutils-2.41` and partially verify the build artifacts.
+  - GCC prerequisites such as [GMP](https://gmplib.org), [MPFR](https://www.mpfr.org) and [MPC](https://www.multiprecision.org) are built on-the-fly in the Workflow-Run.
+  - Build [`binutils`](https://www.gnu.org/software/binutils) and partially verify the build artifacts. At the moment, version 2.41 is used.
   - Then build `avr-gcc` and partially verify the build artifacts.
   - Clone [`avrdudes/avr-libc`](https://github.com/avrdudes/avr-libc) and build it directly in the propoer location relative to `avr-gcc` and partially verify the build artifacts.
   - Test the newly built compiler. In this test, we build `ref_app` (the reference application) from [`ckormanyos/real-time-cpp`](https://github.com/ckormanyos). Subsequently verify the creation of all expected `ref_app` build results (such as ELF-file, HEX-file, map files, etc.).
