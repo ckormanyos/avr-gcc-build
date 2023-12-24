@@ -4,13 +4,26 @@
 #  Distributed under The Unlicense.
 #
 
+SCRIPT_PATH=$(readlink -f "$BASH_SOURCE")
+SCRIPT_DIR=$(dirname "$SCRIPT_PATH")
 
-pacman -S --needed --noconfirm wget make patch git mingw-w64-ucrt-x86_64-gcc texinfo bzip2 xz autoconf automake python
+
+# echo 'install packages'
+# pacman -S --needed --noconfirm wget make patch git mingw-w64-ucrt-x86_64-gcc texinfo bzip2 xz autoconf automake python unzip
 
 
+echo 'make and enter gcc_build directory'
 mkdir -p gcc_build
 cd gcc_build/
 
+
+echo 'clone and build zstd'
+git clone -b dev --depth 1 https://github.com/facebook/zstd.git $SCRIPT_DIR/zstd-dev
+cd zstd-dev
+make OS=Windows
+
+
+cd ..
 echo 'build libiconv'
 wget --no-check-certificate https://ftp.gnu.org/gnu/libiconv/libiconv-1.17.tar.gz
 tar -xf libiconv-1.17.tar.gz
@@ -104,7 +117,7 @@ tar -xf gcc-12.3.0.tar.xz
 patch -p0 < avr-gcc-12.3.0_x86_64-w64-mingw32.patch
 mkdir objdir-gcc-12.3.0-avr
 cd objdir-gcc-12.3.0-avr
-../gcc-12.3.0/configure --prefix=/usr/local/gcc-12.3.0-avr --target=avr --enable-languages=c,c++ --build=x86_64-w64-mingw32 --host=x86_64-w64-mingw32 --with-pkgversion='Built by ckormanyos/real-time-cpp' --enable-static --disable-shared --disable-libada --disable-libssp --disable-nls --enable-mingw-wildcard --with-gnu-as --with-dwarf2 --with-isl=/usr/local/isl-0.15 --with-cloog=/usr/local/cloog-0.18.1 --with-gmp=/usr/local/gmp-6.3.0 --with-mpfr=/usr/local/mpfr-4.2.1 --with-mpc=/usr/local/mpc-1.3.1 --with-libiconv-prefix=/usr/local/libiconv-1.17
+../gcc-12.3.0/configure --prefix=/usr/local/gcc-12.3.0-avr --target=avr --enable-languages=c,c++ --build=x86_64-w64-mingw32 --host=x86_64-w64-mingw32 --with-pkgversion='Built by ckormanyos/real-time-cpp' --enable-static --disable-shared --disable-libada --disable-libssp --disable-nls --enable-mingw-wildcard --with-gnu-as --with-dwarf2 --with-isl=/usr/local/isl-0.15 --with-cloog=/usr/local/cloog-0.18.1 --with-gmp=/usr/local/gmp-6.3.0 --with-mpfr=/usr/local/mpfr-4.2.1 --with-mpc=/usr/local/mpc-1.3.1 --with-libiconv-prefix=/usr/local/libiconv-1.17 --with-zstd=$SCRIPT_DIR/zstd-dev/lib
 make --jobs=6
 make install
 
@@ -112,8 +125,11 @@ make install
 cd ..
 echo 'clone and bootstrap avr-libc'
 git clone -b main --depth 1 https://github.com/avrdudes/avr-libc.git ./avr-libc
+rm -f avr-libc/tests/simulate/time/aux.c
 cd avr-libc
 ./bootstrap
+
+
 echo 'add avr-gcc path'
 PATH=/usr/local/gcc-12.3.0-avr/bin:"$PATH"
 export PATH
