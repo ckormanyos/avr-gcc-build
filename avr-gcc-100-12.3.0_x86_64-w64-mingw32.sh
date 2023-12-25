@@ -97,7 +97,7 @@ echo 'build cloog'
 tar -xf cloog-0.18.1.tar.gz
 mkdir objdir-cloog-0.18.1
 cd objdir-cloog-0.18.1
-../cloog-0.18.1/configure --prefix=/home/runner/work/avr-gcc-build/avr-gcc-build/local/cloog-0.18.1 --build=$BUILD_NAME --target=$HOST_NAME --host=$HOST_NAME --enable-static --disable-shared --with-isl=/home/runner/work/avr-gcc-build/avr-gcc-build/local/isl-0.15 --with-gmp=/home/runner/work/avr-gcc-build/avr-gcc-build/local/gmp-6.3.0
+../cloog-0.18.1/configure --prefix=/home/runner/work/avr-gcc-build/avr-gcc-build/local/cloog-0.18.1 --build=$BUILD_NAME --target=$HOST_NAME --host=$HOST_NAME --enable-static --disable-shared --with-isl=/home/runner/work/avr-gcc-build/avr-gcc-build/local/isl-0.15 --with-gmp-prefix=/home/runner/work/avr-gcc-build/avr-gcc-build/local/gmp-6.3.0
 make --jobs=6
 make install
 
