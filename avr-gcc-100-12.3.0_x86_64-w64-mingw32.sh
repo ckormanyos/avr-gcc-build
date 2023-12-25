@@ -50,7 +50,7 @@ echo 'build libiconv'
 tar -xf libiconv-1.17.tar.gz
 mkdir objdir-libiconv-1.17
 cd objdir-libiconv-1.17
-../libiconv-1.17/configure --prefix=/usr/local/libiconv-1.17 --build=$BUILD_NAME --target=$HOST_NAME --host=$HOST_NAME --enable-static --disable-shared
+../libiconv-1.17/configure --prefix=/home/runner/work/avr-gcc-build/avr-gcc-build/local/libiconv-1.17 --build=$BUILD_NAME --target=$HOST_NAME --host=$HOST_NAME --enable-static --disable-shared
 make --job=6
 make install
 
@@ -60,7 +60,7 @@ echo 'build gmp'
 tar -xf gmp-6.3.0.tar.xz
 mkdir objdir-gmp-6.3.0
 cd objdir-gmp-6.3.0
-../gmp-6.3.0/configure --prefix=/usr/local/gmp-6.3.0 --build=$BUILD_NAME --target=$HOST_NAME --host=$HOST_NAME --enable-static --disable-shared
+../gmp-6.3.0/configure --prefix=/home/runner/work/avr-gcc-build/avr-gcc-build/local/gmp-6.3.0 --build=$BUILD_NAME --target=$HOST_NAME --host=$HOST_NAME --enable-static --disable-shared
 make --jobs=6
 make install
 
@@ -70,7 +70,7 @@ echo 'build mpfr'
 tar -xf mpfr-4.2.1.tar.xz
 mkdir objdir-mpfr-4.2.1
 cd objdir-mpfr-4.2.1
-../mpfr-4.2.1/configure --prefix=/usr/local/mpfr-4.2.1 --build=$BUILD_NAME --target=$HOST_NAME --host=$HOST_NAME --enable-static --disable-shared --with-gmp=/usr/local/gmp-6.3.0
+../mpfr-4.2.1/configure --prefix=/home/runner/work/avr-gcc-build/avr-gcc-build/local/mpfr-4.2.1 --build=$BUILD_NAME --target=$HOST_NAME --host=$HOST_NAME --enable-static --disable-shared --with-gmp=--prefix=/home/runner/work/avr-gcc-build/avr-gcc-build/local/gmp-6.3.0
 make --jobs=6
 make install
 
@@ -80,7 +80,7 @@ echo 'build mpc'
 tar -xf mpc-1.3.1.tar.gz
 mkdir objdir-mpc-1.3.1
 cd objdir-mpc-1.3.1
-../mpc-1.3.1/configure --prefix=/usr/local/mpc-1.3.1 --build=$BUILD_NAME --target=$HOST_NAME --host=$HOST_NAME --enable-static --disable-shared --with-gmp=/usr/local/gmp-6.3.0 --with-mpfr=/usr/local/mpfr-4.2.1
+../mpc-1.3.1/configure --prefix=/home/runner/work/avr-gcc-build/avr-gcc-build/local/mpc-1.3.1 --build=$BUILD_NAME --target=$HOST_NAME --host=$HOST_NAME --enable-static --disable-shared --with-gmp=--prefix=/home/runner/work/avr-gcc-build/avr-gcc-build/local/gmp-6.3.0 --with-mpfr=--prefix=/home/runner/work/avr-gcc-build/avr-gcc-build/local/mpfr-4.2.1
 make --jobs=6
 make install
 
@@ -90,7 +90,7 @@ echo 'build isl'
 tar -xjf isl-0.15.tar.bz2
 mkdir objdir-isl-0.15
 cd objdir-isl-0.15
-../isl-0.15/configure --prefix=/usr/local/isl-0.15 --build=$BUILD_NAME --target=$HOST_NAME --host=$HOST_NAME --enable-static --disable-shared --with-gmp=/usr/local/gmp-6.3.0
+../isl-0.15/configure --prefix=/home/runner/work/avr-gcc-build/avr-gcc-build/local/isl-0.15 --build=$BUILD_NAME --target=$HOST_NAME --host=$HOST_NAME --enable-static --disable-shared --with-gmp=--prefix=/home/runner/work/avr-gcc-build/avr-gcc-build/local/gmp-6.3.0
 make --jobs=6
 make install
 
@@ -100,7 +100,7 @@ echo 'build cloog'
 tar -xf cloog-0.18.1.tar.gz
 mkdir objdir-cloog-0.18.1
 cd objdir-cloog-0.18.1
-../cloog-0.18.1/configure --prefix=/usr/local/cloog-0.18.1 --build=$BUILD_NAME --target=$HOST_NAME --host=$HOST_NAME --enable-static --disable-shared --with-isl=/usr/local/isl-0.15 --with-gmp=/usr/local/gmp-6.3.0
+../cloog-0.18.1/configure --prefix=/home/runner/work/avr-gcc-build/avr-gcc-build/local/cloog-0.18.1 --build=$BUILD_NAME --target=$HOST_NAME --host=$HOST_NAME --enable-static --disable-shared --with-isl=--prefix=/home/runner/work/avr-gcc-build/avr-gcc-build/local/isl-0.15 --with-gmp=--prefix=/home/runner/work/avr-gcc-build/avr-gcc-build/local/gmp-6.3.0
 make --jobs=6
 make install
 
@@ -110,7 +110,7 @@ echo 'build binutils'
 tar -xf binutils-2.41.tar.xz
 mkdir objdir-binutils-2.41-avr-gcc-12.3.0
 cd objdir-binutils-2.41-avr-gcc-12.3.0
-../binutils-2.41/configure --prefix=/usr/local/gcc-12.3.0-avr --target=avr --enable-languages=c,c++ --build=$BUILD_NAME --host=$HOST_NAME --with-pkgversion='Built by ckormanyos/real-time-cpp' --enable-static --disable-shared --disable-libada --disable-libssp --disable-nls --enable-mingw-wildcard --with-gnu-as --with-dwarf2 --with-isl=/usr/local/isl-0.15 --with-cloog=/usr/local/cloog-0.18.1 --with-gmp=/usr/local/gmp-6.3.0 --with-mpfr=/usr/local/mpfr-4.2.1 --with-mpc=/usr/local/mpc-1.3.1 --with-libiconv-prefix=/usr/local/libiconv-1.17 --with-zstd=$SCRIPT_DIR/zstd-dev/lib --disable-werror
+../binutils-2.41/configure --prefix=/home/runner/work/avr-gcc-build/avr-gcc-build/local/gcc-12.3.0-avr --target=avr --enable-languages=c,c++ --build=$BUILD_NAME --host=$HOST_NAME --with-pkgversion='Built by ckormanyos/real-time-cpp' --enable-static --disable-shared --disable-libada --disable-libssp --disable-nls --enable-mingw-wildcard --with-gnu-as --with-dwarf2 --with-isl=--prefix=/home/runner/work/avr-gcc-build/avr-gcc-build/local/isl-0.15 --with-cloog=--prefix=/home/runner/work/avr-gcc-build/avr-gcc-build/local/cloog-0.18.1 --with-gmp=--prefix=/home/runner/work/avr-gcc-build/avr-gcc-build/local/gmp-6.3.0 --with-mpfr=--prefix=/home/runner/work/avr-gcc-build/avr-gcc-build/local/mpfr-4.2.1 --with-mpc=--prefix=/home/runner/work/avr-gcc-build/avr-gcc-build/local/mpc-1.3.1 --with-libiconv-prefix=--prefix=/home/runner/work/avr-gcc-build/avr-gcc-build/local/libiconv-1.17 --with-zstd=$SCRIPT_DIR/zstd-dev/lib --disable-werror
 make --jobs=6
 make install
 
@@ -132,7 +132,7 @@ tar -xf gcc-12.3.0.tar.xz
 patch -p0 < avr-gcc-100-12.3.0_x86_64-w64-mingw32.patch
 mkdir objdir-gcc-12.3.0-avr
 cd objdir-gcc-12.3.0-avr
-../gcc-12.3.0/configure --prefix=/usr/local/gcc-12.3.0-avr --target=avr --enable-languages=c,c++ --build=$BUILD_NAME --host=$HOST_NAME --with-pkgversion='Built by ckormanyos/real-time-cpp' --enable-static --disable-shared --disable-libada --disable-libssp --disable-nls --enable-mingw-wildcard --with-gnu-as --with-dwarf2 --with-isl=/usr/local/isl-0.15 --with-cloog=/usr/local/cloog-0.18.1 --with-gmp=/usr/local/gmp-6.3.0 --with-mpfr=/usr/local/mpfr-4.2.1 --with-mpc=/usr/local/mpc-1.3.1 --with-libiconv-prefix=/usr/local/libiconv-1.17 --with-zstd=$SCRIPT_DIR/zstd-dev/lib
+../gcc-12.3.0/configure --prefix=/home/runner/work/avr-gcc-build/avr-gcc-build/local/gcc-12.3.0-avr --target=avr --enable-languages=c,c++ --build=$BUILD_NAME --host=$HOST_NAME --with-pkgversion='Built by ckormanyos/real-time-cpp' --enable-static --disable-shared --disable-libada --disable-libssp --disable-nls --enable-mingw-wildcard --with-gnu-as --with-dwarf2 --with-isl=--prefix=/home/runner/work/avr-gcc-build/avr-gcc-build/local/isl-0.15 --with-cloog=--prefix=/home/runner/work/avr-gcc-build/avr-gcc-build/local/cloog-0.18.1 --with-gmp=--prefix=/home/runner/work/avr-gcc-build/avr-gcc-build/local/gmp-6.3.0 --with-mpfr=--prefix=/home/runner/work/avr-gcc-build/avr-gcc-build/local/mpfr-4.2.1 --with-mpc=--prefix=/home/runner/work/avr-gcc-build/avr-gcc-build/local/mpc-1.3.1 --with-libiconv-prefix=--prefix=/home/runner/work/avr-gcc-build/avr-gcc-build/local/libiconv-1.17 --with-zstd=$SCRIPT_DIR/zstd-dev/lib
 make --jobs=6
 make install
 
@@ -147,7 +147,7 @@ cd avr-libc
 
 cd $SCRIPT_DIR/gcc_build
 echo 'add avr-gcc path'
-PATH=/usr/local/gcc-12.3.0-avr/bin:"$PATH"
+PATH=--prefix=/home/runner/work/avr-gcc-build/avr-gcc-build/local/gcc-12.3.0-avr/bin:"$PATH"
 export PATH
 CC=""
 export CC
@@ -156,6 +156,6 @@ export CC
 cd $SCRIPT_DIR/gcc_build
 echo 'build avr-libc'
 cd objdir-gcc-12.3.0-avr
-../avr-libc/configure --prefix=/usr/local/gcc-12.3.0-avr --build=$BUILD_NAME --host=avr --enable-static --disable-shared
+../avr-libc/configure --prefix=/home/runner/work/avr-gcc-build/avr-gcc-build/local/gcc-12.3.0-avr --build=$BUILD_NAME --host=avr --enable-static --disable-shared
 make --jobs=6
 make install
