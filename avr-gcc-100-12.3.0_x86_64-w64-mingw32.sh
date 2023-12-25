@@ -81,47 +81,49 @@ make --jobs=6
 make install
 
 
-#cd $SCRIPT_DIR/gcc_build
-#echo 'build isl'
-#tar -xjf isl-0.15.tar.bz2
-#mkdir objdir-isl-0.15
-#cd objdir-isl-0.15
-#../isl-0.15/configure --prefix=/home/runner/work/avr-gcc-build/avr-gcc-build/local/isl-0.15 --build=$BUILD_NAME --target=$HOST_NAME --host=$HOST_NAME --enable-static --disable-shared --with-gmp=/home/runner/work/avr-gcc-build/avr-gcc-build/local/gmp-6.3.0
-#make --jobs=6
-#make install
+cd $SCRIPT_DIR/gcc_build
+echo 'build isl'
+tar -xjf isl-0.15.tar.bz2
+mkdir objdir-isl-0.15
+cd objdir-isl-0.15
+../isl-0.15/configure --prefix=/home/runner/work/avr-gcc-build/avr-gcc-build/local/isl-0.15 --build=$BUILD_NAME --target=$HOST_NAME --host=$HOST_NAME --enable-static --disable-shared --with-gmp=/home/runner/work/avr-gcc-build/avr-gcc-build/local/gmp-6.3.0
+make --jobs=6
+make install
+
+
+cd $SCRIPT_DIR/gcc_build
+echo 'build cloog'
+tar -xf cloog-0.18.1.tar.gz
+mkdir objdir-cloog-0.18.1
+cd objdir-cloog-0.18.1
+../cloog-0.18.1/configure --prefix=/home/runner/work/avr-gcc-build/avr-gcc-build/local/cloog-0.18.1 --build=$BUILD_NAME --target=$HOST_NAME --host=$HOST_NAME --enable-static --disable-shared --with-isl=/home/runner/work/avr-gcc-build/avr-gcc-build/local/isl-0.15 --with-gmp=/home/runner/work/avr-gcc-build/avr-gcc-build/local/gmp-6.3.0
+make --jobs=6
+make install
+
+
+cd $SCRIPT_DIR/gcc_build
+echo 'build binutils'
+tar -xf binutils-2.41.tar.xz
+mkdir objdir-binutils-2.41-avr-gcc-12.3.0
+cd objdir-binutils-2.41-avr-gcc-12.3.0
+../binutils-2.41/configure --prefix=/home/runner/work/avr-gcc-build/avr-gcc-build/local/gcc-12.3.0-avr --target=avr --enable-languages=c,c++ --build=$BUILD_NAME --host=$HOST_NAME --with-pkgversion='Built by ckormanyos/real-time-cpp' --enable-static --disable-shared --disable-libada --disable-libssp --disable-nls --enable-mingw-wildcard --with-gnu-as --with-dwarf2 --with-isl=/home/runner/work/avr-gcc-build/avr-gcc-build/local/isl-0.15 --with-cloog=/home/runner/work/avr-gcc-build/avr-gcc-build/local/cloog-0.18.1 --with-gmp=/home/runner/work/avr-gcc-build/avr-gcc-build/local/gmp-6.3.0 --with-mpfr=/home/runner/work/avr-gcc-build/avr-gcc-build/local/mpfr-4.2.1 --with-mpc=/home/runner/work/avr-gcc-build/avr-gcc-build/local/mpc-1.3.1 --with-zstd=$SCRIPT_DIR/zstd-dev/lib --disable-werror
+make --jobs=6
+make install
+
+ls -la /home/runner/work/avr-gcc-build/avr-gcc-build/local/gcc-12.3.0-avr/bin
+
+
 #
+# Notes on patch of GCC-12.3.0
 #
-#cd $SCRIPT_DIR/gcc_build
-#echo 'build cloog'
-#tar -xf cloog-0.18.1.tar.gz
-#mkdir objdir-cloog-0.18.1
-#cd objdir-cloog-0.18.1
-#../cloog-0.18.1/configure --prefix=/home/runner/work/avr-gcc-build/avr-gcc-build/local/cloog-0.18.1 --build=$BUILD_NAME --target=$HOST_NAME --host=$HOST_NAME --enable-static --disable-shared --with-isl=/home/runner/work/avr-gcc-build/avr-gcc-build/local/isl-0.15 --with-gmp=/home/runner/work/avr-gcc-build/avr-gcc-build/local/gmp-6.3.0
-#make --jobs=6
-#make install
-#
-#
-#cd $SCRIPT_DIR/gcc_build
-#echo 'build binutils'
-#tar -xf binutils-2.41.tar.xz
-#mkdir objdir-binutils-2.41-avr-gcc-12.3.0
-#cd objdir-binutils-2.41-avr-gcc-12.3.0
-#../binutils-2.41/configure --prefix=/home/runner/work/avr-gcc-build/avr-gcc-build/local/gcc-12.3.0-avr --target=avr --enable-languages=c,c++ --build=$BUILD_NAME --host=$HOST_NAME --with-pkgversion='Built by ckormanyos/real-time-cpp' --enable-static --disable-shared --disable-libada --disable-libssp --disable-nls --enable-mingw-wildcard --with-gnu-as --with-dwarf2 --with-isl=/home/runner/work/avr-gcc-build/avr-gcc-build/local/isl-0.15 --with-cloog=/home/runner/work/avr-gcc-build/avr-gcc-build/local/cloog-0.18.1 --with-gmp=/home/runner/work/avr-gcc-build/avr-gcc-build/local/gmp-6.3.0 --with-mpfr=/home/runner/work/avr-gcc-build/avr-gcc-build/local/mpfr-4.2.1 --with-mpc=/home/runner/work/avr-gcc-build/avr-gcc-build/local/mpc-1.3.1 --with-zstd=$SCRIPT_DIR/zstd-dev/lib --disable-werror
-#make --jobs=6
-#make install
-#
-#
-##
-## Notes on patch of GCC-12.3.0
-##
-#
-## How do you make the patch?
-##   diff -ru gcc-12.3.0/ gcc-12.3.0_new/ > avr-gcc-100-12.3.0_x86_64-w64-mingw32.patch
-#
-## How do you apply the patch?
-##   patch -p0 < avr-gcc-100-12.3.0_x86_64-w64-mingw32.patch
-#
-#
+
+# How do you make the patch?
+#   diff -ru gcc-12.3.0/ gcc-12.3.0_new/ > avr-gcc-100-12.3.0_x86_64-w64-mingw32.patch
+
+# How do you apply the patch?
+#   patch -p0 < avr-gcc-100-12.3.0_x86_64-w64-mingw32.patch
+
+
 #cd $SCRIPT_DIR/gcc_build
 #echo 'build gcc'
 #tar -xf gcc-12.3.0.tar.xz
