@@ -25,14 +25,13 @@ cd gcc_build
 
 
 echo 'get needed tar-balls'
-wget --no-check-certificate https://ftp.gnu.org/gnu/libiconv/libiconv-1.17.tar.gz
 wget --no-check-certificate https://ftp.gnu.org/gnu/gmp/gmp-6.3.0.tar.xz
-#wget --no-check-certificate https://ftp.gnu.org/gnu/mpfr/mpfr-4.2.1.tar.xz
-#wget --no-check-certificate https://ftp.gnu.org/gnu/mpc/mpc-1.3.1.tar.gz
-#wget --no-check-certificate https://gcc.gnu.org/pub/gcc/infrastructure/isl-0.15.tar.bz2
-#wget --no-check-certificate https://gcc.gnu.org/pub/gcc/infrastructure/cloog-0.18.1.tar.gz
-#wget --no-check-certificate https://ftp.gnu.org/gnu/binutils/binutils-2.41.tar.xz
-#wget --no-check-certificate https://ftp.gnu.org/gnu/gcc/gcc-12.3.0/gcc-12.3.0.tar.xz
+wget --no-check-certificate https://ftp.gnu.org/gnu/mpfr/mpfr-4.2.1.tar.xz
+wget --no-check-certificate https://ftp.gnu.org/gnu/mpc/mpc-1.3.1.tar.gz
+wget --no-check-certificate https://gcc.gnu.org/pub/gcc/infrastructure/isl-0.15.tar.bz2
+wget --no-check-certificate https://gcc.gnu.org/pub/gcc/infrastructure/cloog-0.18.1.tar.gz
+wget --no-check-certificate https://ftp.gnu.org/gnu/binutils/binutils-2.41.tar.xz
+wget --no-check-certificate https://ftp.gnu.org/gnu/gcc/gcc-12.3.0/gcc-12.3.0.tar.xz
 
 
 #cd $SCRIPT_DIR/gcc_build
@@ -42,14 +41,14 @@ wget --no-check-certificate https://ftp.gnu.org/gnu/gmp/gmp-6.3.0.tar.xz
 #make OS=Windows
 
 
-cd $SCRIPT_DIR/gcc_build
-echo 'build libiconv'
-tar -xf libiconv-1.17.tar.gz
-mkdir objdir-libiconv-1.17
-cd objdir-libiconv-1.17
-../libiconv-1.17/configure --prefix=/home/runner/work/avr-gcc-build/avr-gcc-build/local/libiconv-1.17 --build=$BUILD_NAME --target=$HOST_NAME --host=$HOST_NAME --enable-static --disable-shared
-make --job=6
-make install
+#cd $SCRIPT_DIR/gcc_build
+#echo 'build libiconv'
+#tar -xf libiconv-1.17.tar.gz
+#mkdir objdir-libiconv-1.17
+#cd objdir-libiconv-1.17
+#../libiconv-1.17/configure --prefix=/home/runner/work/avr-gcc-build/avr-gcc-build/local/libiconv-1.17 --build=$BUILD_NAME --target=$HOST_NAME --host=$HOST_NAME --enable-static --disable-shared
+#make --job=6
+#make install
 
 
 cd $SCRIPT_DIR/gcc_build
@@ -107,7 +106,7 @@ make install
 #tar -xf binutils-2.41.tar.xz
 #mkdir objdir-binutils-2.41-avr-gcc-12.3.0
 #cd objdir-binutils-2.41-avr-gcc-12.3.0
-#../binutils-2.41/configure --prefix=/home/runner/work/avr-gcc-build/avr-gcc-build/local/gcc-12.3.0-avr --target=avr --enable-languages=c,c++ --build=$BUILD_NAME --host=$HOST_NAME --with-pkgversion='Built by ckormanyos/real-time-cpp' --enable-static --disable-shared --disable-libada --disable-libssp --disable-nls --enable-mingw-wildcard --with-gnu-as --with-dwarf2 --with-isl=/home/runner/work/avr-gcc-build/avr-gcc-build/local/isl-0.15 --with-cloog=/home/runner/work/avr-gcc-build/avr-gcc-build/local/cloog-0.18.1 --with-gmp=/home/runner/work/avr-gcc-build/avr-gcc-build/local/gmp-6.3.0 --with-mpfr=/home/runner/work/avr-gcc-build/avr-gcc-build/local/mpfr-4.2.1 --with-mpc=/home/runner/work/avr-gcc-build/avr-gcc-build/local/mpc-1.3.1 --with-libiconv-prefix=/home/runner/work/avr-gcc-build/avr-gcc-build/local/libiconv-1.17 --with-zstd=$SCRIPT_DIR/zstd-dev/lib --disable-werror
+#../binutils-2.41/configure --prefix=/home/runner/work/avr-gcc-build/avr-gcc-build/local/gcc-12.3.0-avr --target=avr --enable-languages=c,c++ --build=$BUILD_NAME --host=$HOST_NAME --with-pkgversion='Built by ckormanyos/real-time-cpp' --enable-static --disable-shared --disable-libada --disable-libssp --disable-nls --enable-mingw-wildcard --with-gnu-as --with-dwarf2 --with-isl=/home/runner/work/avr-gcc-build/avr-gcc-build/local/isl-0.15 --with-cloog=/home/runner/work/avr-gcc-build/avr-gcc-build/local/cloog-0.18.1 --with-gmp=/home/runner/work/avr-gcc-build/avr-gcc-build/local/gmp-6.3.0 --with-mpfr=/home/runner/work/avr-gcc-build/avr-gcc-build/local/mpfr-4.2.1 --with-mpc=/home/runner/work/avr-gcc-build/avr-gcc-build/local/mpc-1.3.1 --with-zstd=$SCRIPT_DIR/zstd-dev/lib --disable-werror
 #make --jobs=6
 #make install
 #
@@ -129,7 +128,7 @@ make install
 #patch -p0 < avr-gcc-100-12.3.0_x86_64-w64-mingw32.patch
 #mkdir objdir-gcc-12.3.0-avr
 #cd objdir-gcc-12.3.0-avr
-#../gcc-12.3.0/configure --prefix=/home/runner/work/avr-gcc-build/avr-gcc-build/local/gcc-12.3.0-avr --target=avr --enable-languages=c,c++ --build=$BUILD_NAME --host=$HOST_NAME --with-pkgversion='Built by ckormanyos/real-time-cpp' --enable-static --disable-shared --disable-libada --disable-libssp --disable-nls --enable-mingw-wildcard --with-gnu-as --with-dwarf2 --with-isl=/home/runner/work/avr-gcc-build/avr-gcc-build/local/isl-0.15 --with-cloog=/home/runner/work/avr-gcc-build/avr-gcc-build/local/cloog-0.18.1 --with-gmp=/home/runner/work/avr-gcc-build/avr-gcc-build/local/gmp-6.3.0 --with-mpfr=/home/runner/work/avr-gcc-build/avr-gcc-build/local/mpfr-4.2.1 --with-mpc=/home/runner/work/avr-gcc-build/avr-gcc-build/local/mpc-1.3.1 --with-libiconv-prefix=/home/runner/work/avr-gcc-build/avr-gcc-build/local/libiconv-1.17 --with-zstd=$SCRIPT_DIR/zstd-dev/lib
+#../gcc-12.3.0/configure --prefix=/home/runner/work/avr-gcc-build/avr-gcc-build/local/gcc-12.3.0-avr --target=avr --enable-languages=c,c++ --build=$BUILD_NAME --host=$HOST_NAME --with-pkgversion='Built by ckormanyos/real-time-cpp' --enable-static --disable-shared --disable-libada --disable-libssp --disable-nls --enable-mingw-wildcard --with-gnu-as --with-dwarf2 --with-isl=/home/runner/work/avr-gcc-build/avr-gcc-build/local/isl-0.15 --with-cloog=/home/runner/work/avr-gcc-build/avr-gcc-build/local/cloog-0.18.1 --with-gmp=/home/runner/work/avr-gcc-build/avr-gcc-build/local/gmp-6.3.0 --with-mpfr=/home/runner/work/avr-gcc-build/avr-gcc-build/local/mpfr-4.2.1 --with-mpc=/home/runner/work/avr-gcc-build/avr-gcc-build/local/mpc-1.3.1 --with-zstd=$SCRIPT_DIR/zstd-dev/lib
 #make --jobs=6
 #make install
 #
