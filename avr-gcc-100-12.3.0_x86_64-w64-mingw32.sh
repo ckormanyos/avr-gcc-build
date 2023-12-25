@@ -87,7 +87,7 @@ tar -xjf isl-0.24.tar.bz2
 mkdir objdir-isl-0.24
 cd objdir-isl-0.24
 mkdir -p /home/runner/work/avr-gcc-build/avr-gcc-build/local/isl-0.24
-../isl-0.24/configure --prefix=/home/runner/work/avr-gcc-build/avr-gcc-build/local/isl-0.24 --build=$BUILD_NAME --target=$HOST_NAME --host=$HOST_NAME --enable-static --disable-shared --with-gmp=/home/runner/work/avr-gcc-build/avr-gcc-build/local/gmp-6.3.0
+../isl-0.24/configure --prefix=/home/runner/work/avr-gcc-build/avr-gcc-build/local/isl-0.24 --build=$BUILD_NAME --target=$HOST_NAME --host=$HOST_NAME --enable-static --disable-shared --with-gmp-prefix=/home/runner/work/avr-gcc-build/avr-gcc-build/local/gmp-6.3.0
 make --jobs=6
 make install
 
