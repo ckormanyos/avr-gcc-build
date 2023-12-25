@@ -20,6 +20,7 @@ Design goals:
   - Provide a non-trivial test of the newly-built toolchain(s) based on a real-world project.
   - Support cyclic monthly build of modern, evolving GCC branch(es) and trunk.
   - Publish the build artifacts directly from the Workflow-Run(s) on GHA.
+  - Provide a [shell script recipe](./avr-gcc-100-12.3.0_x86_64-w64-mingw32.sh) for local build of `avr-gcc` on `x86_64-w64-mingw32` host. This does not run on GHA at the moment, but can be executed locally.
 
 ## Workflow-Run
 
@@ -44,5 +45,6 @@ This project is distributed under [The Unlicense](./UNLICENSE).
 
 Limitations:
   - At the moment, the Workflow-Run builds `avr-gcc` for the _host_ `x86_64-linux-gnu` only. Cross-host compilation for `x86_64-w64-mingw32` does not work.
+  - A [shell script recipe](./avr-gcc-100-12.3.0_x86_64-w64-mingw32.sh) for local build of `avr-gcc` on `x86_64-w64-mingw32` host. It does not run on GHA at the moment, but can be executed locally.
 
 This work has been inspired by a similar project: [`ZakKemble/avr-gcc-build`](https://github.com/ZakKemble/avr-gcc-build).

@@ -1,0 +1,28 @@
+diff -ru gcc-12.3.0/gcc/system.h gcc-12.3.0_new/gcc/system.h
+--- gcc-12.3.0/gcc/system.h	2023-05-08 14:14:40.077167400 +0200
++++ gcc-12.3.0_new/gcc/system.h	2023-12-24 12:49:49.854090800 +0100
+@@ -777,16 +777,18 @@
+ 
+ /* Redefine abort to report an internal error w/o coredump, and
+    reporting the location of the error in the source file.  */
+-extern void fancy_abort (const char *, int, const char *)
+-					 ATTRIBUTE_NORETURN ATTRIBUTE_COLD;
+-#define abort() fancy_abort (__FILE__, __LINE__, __FUNCTION__)
++extern void fancy_abort(const char *, int, const char *) __attribute__((noreturn, cold));
++
++__attribute__((noreturn, cold))
++static inline void fancy_abort_patch(void) { for(;;) { ; } }
++
++#define abort() fancy_abort_patch()
+ 
+ /* Use gcc_assert(EXPR) to test invariants.  */
+ #if ENABLE_ASSERT_CHECKING
+-#define gcc_assert(EXPR) 						\
+-   ((void)(!(EXPR) ? fancy_abort (__FILE__, __LINE__, __FUNCTION__), 0 : 0))
++#define gcc_assert(EXPR) ((void)(!(EXPR) ? 1 : 0))
+ #elif (GCC_VERSION >= 4005)
+-#define gcc_assert(EXPR) 						\
++#define gcc_assert(EXPR) \
+   ((void)(__builtin_expect (!(EXPR), 0) ? __builtin_unreachable (), 0 : 0))
+ #else
+ /* Include EXPR, so that unused variable warnings do not occur.  */
