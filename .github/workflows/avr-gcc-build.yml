@@ -95,7 +95,7 @@ jobs:
         with:
           fetch-depth: '0'
       - name: update-build-essentials
-        run: sudo apt install mingw-w64-x86-64-dev xz-utils autoconf texinfo
+        run: sudo apt install mingw-w64 mingw-w64-x86-64-dev gcc-mingw-w64-x86-64 binutils-mingw-w64-x86-64 xz-utils autoconf texinfo
       - name: avr-gcc-100-12.3.0_x86_64-w64-mingw32
         run: |
           echo "avr-gcc-100-12.3.0_x86_64-w64-mingw32.sh"
