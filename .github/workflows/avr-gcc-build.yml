@@ -26,7 +26,7 @@ jobs:
       - uses: actions/checkout@v3
         with:
           fetch-depth: '0'
-      - name: update-buiild-essentials
+      - name: update-build-essentials
         run: sudo apt install xz-utils autoconf texinfo
       - name: avr-gcc-010-make-prereq_binutils
         run: |
@@ -80,3 +80,23 @@ jobs:
           PATH=${{ runner.workspace }}/avr-gcc-build/local/gcc-${{ matrix.branchname }}-avr/bin:"$PATH"
           ./target/build/build.sh avr rebuild
           ls -la bin/ref_app.elf bin/ref_app.hex bin/ref_app.map bin/ref_app.s19 bin/ref_app_cppfilt.txt bin/ref_app_nm.txt bin/ref_app_readelf.txt bin/ref_app_size.txt
+  avr-gcc-build-cross-host:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+    strategy:
+      fail-fast: false
+      matrix:
+        buildname: [ x86_64-linux-gnu ]
+        hostname: [ x86_64-w64-mingw32 ]
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: '0'
+      - name: update-build-essentials
+        run: sudo apt install mingw-w64-x86-64-dev xz-utils autoconf texinfo
+      - name: avr-gcc-100-12.3.0_x86_64-w64-mingw32
+        run: |
+          echo "avr-gcc-100-12.3.0_x86_64-w64-mingw32.sh"
+          ./avr-gcc-100-12.3.0_x86_64-w64-mingw32.sh ${{ matrix.buildname }} ${{ matrix.hostname }}
