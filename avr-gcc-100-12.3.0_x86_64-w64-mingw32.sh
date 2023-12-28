@@ -115,7 +115,7 @@ echo 'build isl'
 tar -xjf isl-0.15.tar.bz2
 mkdir objdir-isl-0.15
 cd objdir-isl-0.15
-../isl-0.15/configure --prefix=$SCRIPT_DIR/local/isl-0.15 --build=x86_64-w64-mingw32 --target=x86_64-w64-mingw32 --host=x86_64-w64-mingw32 --enable-static --disable-shared --with-gmp-prefix=$SCRIPT_DIR/local/gmp-6.3.0
+../isl-0.15/configure --prefix=$SCRIPT_DIR/local/isl-0.15 --build=x86_64-w64-mingw32 --target=x86_64-w64-mingw32 --host=x86_64-w64-mingw32 --enable-static --disable-shared --with-gmp=$SCRIPT_DIR/local/gmp-6.3.0
 make --jobs=6
 make install
 
