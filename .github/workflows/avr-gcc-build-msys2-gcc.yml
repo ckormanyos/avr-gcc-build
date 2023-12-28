@@ -21,7 +21,6 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: unpack-repo-nuwen-mingw-subset
-        shell: cmd
         run: |
           start /b /wait ./mingw.exe -y -gm2 -InstallPath=".\\mingw"
       - uses: msys2/setup-msys2@v2
