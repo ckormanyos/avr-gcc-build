@@ -86,7 +86,7 @@ tar -xf gmp-6.3.0.tar.xz
 mkdir objdir-gmp-6.3.0
 cd objdir-gmp-6.3.0
 ../gmp-6.3.0/configure --prefix=$SCRIPT_DIR/local/gmp-6.3.0 --build=x86_64-w64-mingw32 --target=x86_64-w64-mingw32 --host=x86_64-w64-mingw32 --enable-static --disable-shared
-make --jobs=6
+make --jobs=`nproc`
 make install
 
 
@@ -106,7 +106,7 @@ tar -xf mpc-1.3.1.tar.gz
 mkdir objdir-mpc-1.3.1
 cd objdir-mpc-1.3.1
 ../mpc-1.3.1/configure --prefix=$SCRIPT_DIR/local/mpc-1.3.1 --build=x86_64-w64-mingw32 --target=x86_64-w64-mingw32 --host=x86_64-w64-mingw32 --enable-static --disable-shared --with-gmp=$SCRIPT_DIR/local/gmp-6.3.0 --with-mpfr=$SCRIPT_DIR/local/mpfr-4.2.1
-make --jobs=6
+make --jobs=`nproc`
 make install
 
 
@@ -116,7 +116,7 @@ tar -xjf isl-0.15.tar.bz2
 mkdir objdir-isl-0.15
 cd objdir-isl-0.15
 ../isl-0.15/configure --prefix=$SCRIPT_DIR/local/isl-0.15 --build=x86_64-w64-mingw32 --target=x86_64-w64-mingw32 --host=x86_64-w64-mingw32 --enable-static --disable-shared --with-gmp=$SCRIPT_DIR/local/gmp-6.3.0
-make --jobs=6
+make --jobs=`nproc`
 make install
 
 
@@ -136,7 +136,7 @@ tar -xf binutils-2.41.tar.xz
 mkdir objdir-binutils-2.41-avr-gcc-12.3.0
 cd objdir-binutils-2.41-avr-gcc-12.3.0
 ../binutils-2.41/configure --prefix=$SCRIPT_DIR/local/gcc-12.3.0-avr --target=avr --enable-languages=c,c++ --build=x86_64-w64-mingw32 --host=x86_64-w64-mingw32 --with-pkgversion='Built by ckormanyos/real-time-cpp' --enable-static --disable-shared --disable-libada --disable-libssp --disable-nls --enable-mingw-wildcard --with-gnu-as --with-dwarf2 --with-isl=$SCRIPT_DIR/local/isl-0.15 --with-cloog=$SCRIPT_DIR/local/cloog-0.18.1 --with-gmp=$SCRIPT_DIR/local/gmp-6.3.0 --with-mpfr=$SCRIPT_DIR/local/mpfr-4.2.1 --with-mpc=$SCRIPT_DIR/local/mpc-1.3.1 --with-libiconv-prefix=$SCRIPT_DIR/local/libiconv-1.17 --with-zstd=$SCRIPT_DIR/local/zstd-1.5.5/lib --disable-werror
-make --jobs=6
+make --jobs=`nproc`
 make install
 
 
