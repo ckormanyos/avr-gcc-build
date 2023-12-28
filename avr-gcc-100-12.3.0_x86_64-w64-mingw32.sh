@@ -138,3 +138,12 @@ cd objdir-binutils-2.41-avr-gcc-12.3.0
 ../binutils-2.41/configure --prefix=$SCRIPT_DIR/local/gcc-12.3.0-avr --target=avr --enable-languages=c,c++ --build=x86_64-w64-mingw32 --host=x86_64-w64-mingw32 --with-pkgversion='Built by ckormanyos/real-time-cpp' --enable-static --disable-shared --disable-libada --disable-libssp --disable-nls --enable-mingw-wildcard --with-gnu-as --with-dwarf2 --with-isl=$SCRIPT_DIR/local/isl-0.15 --with-cloog=$SCRIPT_DIR/local/cloog-0.18.1 --with-gmp=$SCRIPT_DIR/local/gmp-6.3.0 --with-mpfr=$SCRIPT_DIR/local/mpfr-4.2.1 --with-mpc=$SCRIPT_DIR/local/mpc-1.3.1 --with-libiconv-prefix=$SCRIPT_DIR/local/libiconv-1.17 --with-zstd=$SCRIPT_DIR/local/zstd-1.5.5/lib --disable-werror
 make --jobs=6
 make install
+
+
+ls -la $SCRIPT_DIR/local/gcc-12.3.0-avr/bin $SCRIPT_DIR/local/gcc-12.3.0-avr/bin/avr-ld*
+
+
+echo "result_total: " "$result_total"
+
+
+exit $result_total

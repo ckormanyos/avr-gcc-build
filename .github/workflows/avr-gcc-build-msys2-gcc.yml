@@ -33,4 +33,3 @@ jobs:
         run: |
           echo 'avr-gcc-100-12.3.0_x86_64-w64-mingw32.sh'
           ./avr-gcc-100-12.3.0_x86_64-w64-mingw32.sh
-          ls -la ${{ runner.workspace }}/local/gcc-12.3.0-avr
