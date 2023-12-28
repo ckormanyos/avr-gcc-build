@@ -26,11 +26,9 @@ jobs:
           update: true
           install: autoconf automake bzip2 cmake git make ninja patch python texinfo wget
       - name: unpack-repo-nuwen-mingw-subset
-        shell: cmd
         run: |
           start /b /wait ./mingw.exe -y -gm2 -InstallPath=".\\mingw"
       - name: avr-gcc-100-12.3.0_x86_64-w64-mingw32
-        shell: msys2 {0}
         run: |
           echo 'avr-gcc-100-12.3.0_x86_64-w64-mingw32.sh'
           ./avr-gcc-100-12.3.0_x86_64-w64-mingw32.sh
