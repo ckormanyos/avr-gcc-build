@@ -4,6 +4,7 @@
 #  Distributed under The Unlicense.
 #
 
+
 SCRIPT_PATH=$(readlink -f "$BASH_SOURCE")
 SCRIPT_DIR=$(dirname "$SCRIPT_PATH")
 
@@ -11,13 +12,15 @@ SCRIPT_DIR=$(dirname "$SCRIPT_PATH")
 # echo 'install necessary packages and build tools'
 # pacman -S --needed --noconfirm wget git make cmake ninja patch texinfo bzip2 xz autoconf automake python
 
+
 # Get standalone msys2 from nuwen (contains standalone gcc-x86_64-w64-mingw32).
 # The page describing this is: https://nuwen.net/mingw.html
 # The exact download link is: https://nuwen.net/files/mingw/mingw-18.0.exe
 
-# For detailed background information, see also the detailed instructions
-# at GitHub from Stephan T. Lavavej's repositiony.
-# These can be found here: https://github.com/StephanTLavavej/mingw-distro
+
+# For detailed background information, see also the informative instructions
+# provided in Stephan T. Lavavej's repositiory at GitHub. These can be found
+# here: https://github.com/StephanTLavavej/mingw-distro
 
 
 echo 'clean gcc_build directory'
@@ -57,7 +60,7 @@ wget --no-check-certificate https://ftp.gnu.org/gnu/mpc/mpc-1.3.1.tar.gz
 wget --no-check-certificate https://gcc.gnu.org/pub/gcc/infrastructure/isl-0.15.tar.bz2
 wget --no-check-certificate https://gcc.gnu.org/pub/gcc/infrastructure/cloog-0.18.1.tar.gz
 wget --no-check-certificate https://ftp.gnu.org/gnu/binutils/binutils-2.41.tar.xz
-#wget --no-check-certificate https://ftp.gnu.org/gnu/gcc/gcc-12.3.0/gcc-12.3.0.tar.xz
+wget --no-check-certificate https://ftp.gnu.org/gnu/gcc/gcc-12.3.0/gcc-12.3.0.tar.xz
 
 
 cd $SCRIPT_DIR/gcc_build
@@ -140,7 +143,29 @@ make --jobs=`nproc`
 make install
 
 
-ls -la $SCRIPT_DIR/local/gcc-12.3.0-avr/bin $SCRIPT_DIR/local/gcc-12.3.0-avr/bin/avr-ld*
+#
+# Notes on patch of GCC-12.3.0
+#
+
+# How do you make the patch?
+#   diff -ru gcc-12.3.0/ gcc-12.3.0_new/ > avr-gcc-100-12.3.0_x86_64-w64-mingw32.patch
+
+# How do you apply the patch?
+#   patch -p0 < avr-gcc-100-12.3.0_x86_64-w64-mingw32.patch
+
+
+cd $SCRIPT_DIR/gcc_build
+echo 'build gcc'
+tar -xf gcc-12.3.0.tar.xz
+patch -p0 < avr-gcc-100-12.3.0_x86_64-w64-mingw32.patch
+mkdir objdir-gcc-12.3.0-avr
+cd objdir-gcc-12.3.0-avr
+../gcc-12.3.0/configure --prefix=$SCRIPT_DIR/local/gcc-12.3.0-avr --target=avr --enable-languages=c,c++ --build=x86_64-w64-mingw32 --host=x86_64-w64-mingw32 --with-pkgversion='Built by ckormanyos/real-time-cpp' --enable-static --disable-shared --disable-libada --disable-libssp --disable-nls --enable-mingw-wildcard --with-gnu-as --with-dwarf2 --with-isl=$SCRIPT_DIR/local/isl-0.15 --with-cloog=$SCRIPT_DIR/local/cloog-0.18.1 --with-gmp=$SCRIPT_DIR/local/gmp-6.3.0 --with-mpfr=$SCRIPT_DIR/local/mpfr-4.2.1 --with-mpc=$SCRIPT_DIR/local/mpc-1.3.1 --with-libiconv-prefix=$SCRIPT_DIR/local/libiconv-1.17 --with-zstd=$SCRIPT_DIR/local/zstd-1.5.5/lib
+make --jobs=`nproc`
+make install
+
+
+ls -la $SCRIPT_DIR/local/gcc-12.3.0-avr/bin $SCRIPT_DIR/local/gcc-12.3.0-avr/bin/avr-gcc* $SCRIPT_DIR/local/gcc-12.3.0-avr/bin/avr-g++*
 
 
 echo "result_total: " "$result_total"
