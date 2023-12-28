@@ -20,7 +20,7 @@ jobs:
         gccversion: [ 12.3.0 ]
     steps:
       - uses: actions/checkout@v3
-      - name: unpack-nuwen-mingw-subset
+      - name: unpack-repo-nuwen-mingw-subset
         shell: cmd
         run: |
           start /b /wait ./mingw.exe -y -gm2 -InstallPath=".\\mingw"
@@ -33,4 +33,4 @@ jobs:
         run: |
           echo 'avr-gcc-100-12.3.0_x86_64-w64-mingw32.sh'
           ./avr-gcc-100-12.3.0_x86_64-w64-mingw32.sh
-          ls -la local
+          ls -la ${{ runner.workspace }}/local/gcc-12.3.0-avr
