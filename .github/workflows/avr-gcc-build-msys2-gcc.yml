@@ -21,7 +21,7 @@ jobs:
     steps:
       - name: wget-and-unpack-nuwen-mingw-subset
         run: |
-          start /b /wait ./mingw-18.0-without-git.exe -y -gm2 -InstallPath=".\\mingw"
+          start /b /wait ./mingw.exe -y -gm2 -InstallPath=".\\mingw"
       - uses: actions/checkout@v3
       - uses: msys2/setup-msys2@v2
         with:
