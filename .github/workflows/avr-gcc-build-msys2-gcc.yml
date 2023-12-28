@@ -19,15 +19,15 @@ jobs:
       matrix:
         gccversion: [ 12.3.0 ]
     steps:
+      - name: wget-and-unpack-nuwen-mingw-subset
+        run: |
+          start /b /wait ./mingw-18.0-without-git.exe -y -gm2 -InstallPath=".\\mingw"
       - uses: actions/checkout@v3
       - uses: msys2/setup-msys2@v2
         with:
           msystem: mingw64
           update: true
           install: autoconf automake bzip2 cmake git make ninja patch python texinfo wget xz
-      - name: unpach-nuwen-mingw-subset
-        run: |
-          msys2 - c 'start /b /wait ./mingw.exe -y -gm2 -InstallPath=.\\mingw'
       - name: avr-gcc-100-12.3.0_x86_64-w64-mingw32
         run: |
           echo 'avr-gcc-100-12.3.0_x86_64-w64-mingw32.sh'
