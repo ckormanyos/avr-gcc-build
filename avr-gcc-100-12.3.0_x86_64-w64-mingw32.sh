@@ -34,11 +34,11 @@ cp ../avr-gcc-100-12.3.0_x86_64-w64-mingw32.patch .
 
 
 echo 'append standalone gcc-x86_64-w64-mingw32 path'
-PATH=$SCRIPT_DIR/mingw-root/bin:"$PATH"
+PATH=$SCRIPT_DIR/mingw/bin:"$PATH"
 export PATH
-C_INCLUDE_PATH=$SCRIPT_DIR/mingw-root/include
+C_INCLUDE_PATH=$SCRIPT_DIR/mingw/include
 export C_INCLUDE_PATH
-CPLUS_INCLUDE_PATH=$SCRIPT_DIR/mingw-root/include
+CPLUS_INCLUDE_PATH=$SCRIPT_DIR/mingw/include
 export CPLUS_INCLUDE_PATH
 
 
