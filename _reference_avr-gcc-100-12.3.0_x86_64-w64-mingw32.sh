@@ -26,11 +26,13 @@ rm -rf gcc_build | true
 
 echo 'make and enter gcc_build directory'
 mkdir -p $SCRIPT_DIR/gcc_build
+echo
 
 
 echo 'copy gcc 12.3.0 patch file'
 cd $SCRIPT_DIR/gcc_build
 cp ../avr-gcc-100-12.3.0_x86_64-w64-mingw32.patch .
+echo
 
 
 echo 'append standalone gcc-x86_64-w64-mingw32 path'
@@ -41,10 +43,12 @@ export X_DISTRO_LIB=$X_DISTRO_ROOT/lib
 export PATH=$PATH:$X_DISTRO_BIN
 export C_INCLUDE_PATH=$X_DISTRO_INC
 export CPLUS_INCLUDE_PATH=$X_DISTRO_INC
+echo
 
 
 echo 'query version pre-installed standalone gcc-x86_64-w64-mingw32'
 g++ -v
+echo
 
 
 cd $SCRIPT_DIR/gcc_build
@@ -58,6 +62,7 @@ wget --no-check-certificate https://gcc.gnu.org/pub/gcc/infrastructure/isl-0.15.
 wget --no-check-certificate https://gcc.gnu.org/pub/gcc/infrastructure/cloog-0.18.1.tar.gz
 wget --no-check-certificate https://ftp.gnu.org/gnu/binutils/binutils-2.41.tar.xz
 wget --no-check-certificate https://ftp.gnu.org/gnu/gcc/gcc-12.3.0/gcc-12.3.0.tar.xz
+echo
 
 
 cd $SCRIPT_DIR/gcc_build
@@ -68,6 +73,7 @@ cd objdir-zstd-1.5.5
 cmake "-DCMAKE_BUILD_TYPE=Release" "-DCMAKE_C_FLAGS=-s -O3" "-DCMAKE_INSTALL_PREFIX=/usr/local/zstd-1.5.5" "-DZSTD_BUILD_SHARED=OFF" -G Ninja $SCRIPT_DIR/gcc_build/zstd-1.5.5/build/cmake
 ninja
 ninja install
+echo
 
 
 cd $SCRIPT_DIR/gcc_build
@@ -78,6 +84,7 @@ cd objdir-libiconv-1.17
 ../libiconv-1.17/configure --prefix=/usr/local/libiconv-1.17 --build=x86_64-w64-mingw32 --target=x86_64-w64-mingw32 --host=x86_64-w64-mingw32 --enable-static --disable-shared
 make --jobs=6
 make install
+echo
 
 
 cd $SCRIPT_DIR/gcc_build
@@ -88,6 +95,7 @@ cd objdir-gmp-6.3.0
 ../gmp-6.3.0/configure --prefix=/usr/local/gmp-6.3.0 --build=x86_64-w64-mingw32 --target=x86_64-w64-mingw32 --host=x86_64-w64-mingw32 --enable-static --disable-shared
 make --jobs=6
 make install
+echo
 
 
 cd $SCRIPT_DIR/gcc_build
@@ -98,6 +106,7 @@ cd objdir-mpfr-4.2.1
 ../mpfr-4.2.1/configure --prefix=/usr/local/mpfr-4.2.1 --build=x86_64-w64-mingw32 --target=x86_64-w64-mingw32 --host=x86_64-w64-mingw32 --enable-static --disable-shared --with-gmp=/usr/local/gmp-6.3.0
 make --jobs=6
 make install
+echo
 
 
 cd $SCRIPT_DIR/gcc_build
@@ -108,6 +117,7 @@ cd objdir-mpc-1.3.1
 ../mpc-1.3.1/configure --prefix=/usr/local/mpc-1.3.1 --build=x86_64-w64-mingw32 --target=x86_64-w64-mingw32 --host=x86_64-w64-mingw32 --enable-static --disable-shared --with-gmp=/usr/local/gmp-6.3.0 --with-mpfr=/usr/local/mpfr-4.2.1
 make --jobs=6
 make install
+echo
 
 
 cd $SCRIPT_DIR/gcc_build
@@ -118,6 +128,7 @@ cd objdir-isl-0.15
 ../isl-0.15/configure --prefix=/usr/local/isl-0.15 --build=x86_64-w64-mingw32 --target=x86_64-w64-mingw32 --host=x86_64-w64-mingw32 --enable-static --disable-shared --with-gmp-prefix=/usr/local/gmp-6.3.0
 make --jobs=6
 make install
+echo
 
 
 cd $SCRIPT_DIR/gcc_build
@@ -128,6 +139,7 @@ cd objdir-cloog-0.18.1
 ../cloog-0.18.1/configure --prefix=/usr/local/cloog-0.18.1 --build=x86_64-w64-mingw32 --target=x86_64-w64-mingw32 --host=x86_64-w64-mingw32 --enable-static --disable-shared --with-isl=/usr/local/isl-0.15 --with-gmp=/usr/local/gmp-6.3.0
 make --jobs=6
 make install
+echo
 
 
 cd $SCRIPT_DIR/gcc_build
@@ -138,6 +150,7 @@ cd objdir-binutils-2.41-avr-gcc-12.3.0
 ../binutils-2.41/configure --prefix=/usr/local/gcc-12.3.0-avr --target=avr --enable-languages=c,c++ --build=x86_64-w64-mingw32 --host=x86_64-w64-mingw32 --with-pkgversion='Built by ckormanyos/real-time-cpp' --enable-static --disable-shared --disable-libada --disable-libssp --disable-nls --enable-mingw-wildcard --with-gnu-as --with-dwarf2 --with-isl=/usr/local/isl-0.15 --with-cloog=/usr/local/cloog-0.18.1 --with-gmp=/usr/local/gmp-6.3.0 --with-mpfr=/usr/local/mpfr-4.2.1 --with-mpc=/usr/local/mpc-1.3.1 --with-libiconv-prefix=/usr/local/libiconv-1.17 --with-zstd=/usr/local/zstd-1.5.5/lib --disable-werror
 make --jobs=6
 make install
+echo
 
 
 #
@@ -160,6 +173,7 @@ cd objdir-gcc-12.3.0-avr
 ../gcc-12.3.0/configure --prefix=/usr/local/gcc-12.3.0-avr --target=avr --enable-languages=c,c++ --build=x86_64-w64-mingw32 --host=x86_64-w64-mingw32 --with-pkgversion='Built by ckormanyos/real-time-cpp' --enable-static --disable-shared --disable-libada --disable-libssp --disable-nls --enable-mingw-wildcard --with-gnu-as --with-dwarf2 --with-isl=/usr/local/isl-0.15 --with-cloog=/usr/local/cloog-0.18.1 --with-gmp=/usr/local/gmp-6.3.0 --with-mpfr=/usr/local/mpfr-4.2.1 --with-mpc=/usr/local/mpc-1.3.1 --with-libiconv-prefix=/usr/local/libiconv-1.17 --with-zstd=/usr/local/zstd-1.5.5/lib
 make --jobs=6
 make install
+echo
 
 
 cd $SCRIPT_DIR/gcc_build
@@ -168,6 +182,7 @@ git clone -b main --depth 1 https://github.com/avrdudes/avr-libc.git ./avr-libc
 rm -f avr-libc/tests/simulate/time/aux.c
 cd avr-libc
 ./bootstrap
+echo
 
 
 cd $SCRIPT_DIR/gcc_build
@@ -176,6 +191,7 @@ PATH=/usr/local/gcc-12.3.0-avr/bin:"$PATH"
 export PATH
 CC=""
 export CC
+echo
 
 
 cd $SCRIPT_DIR/gcc_build
@@ -184,3 +200,4 @@ cd objdir-gcc-12.3.0-avr
 ../avr-libc/configure --prefix=/usr/local/gcc-12.3.0-avr --build=x86_64-w64-mingw32 --host=avr --enable-static --disable-shared
 make --jobs=6
 make install
+echo

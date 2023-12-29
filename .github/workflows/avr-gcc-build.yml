@@ -67,10 +67,10 @@ jobs:
         run: |
           echo "verify build avr-libc"
           ls -la ${{ runner.workspace }}/avr-gcc-build/local/gcc-${{ matrix.branchname }}-avr/lib/gcc/avr
-#      - uses: actions/upload-artifact@v4
-#        with:
-#          name: gcc-${{ matrix.branchname }}-avr-${{ matrix.hostname }}
-#          path: ${{ runner.workspace }}/avr-gcc-build/local/gcc-${{ matrix.branchname }}-avr
+      - uses: actions/upload-artifact@v4
+        with:
+          name: gcc-${{ matrix.branchname }}-avr-${{ matrix.hostname }}
+          path: ${{ runner.workspace }}/avr-gcc-build/local/gcc-${{ matrix.branchname }}-avr
       - name: avr-gcc-test-with-real-time-cpp
         run: |
           echo "test avr-gcc with real-time-cpp"
@@ -79,4 +79,9 @@ jobs:
           cd ${{ runner.workspace }}/avr-gcc-build/real-time-cpp/ref_app
           PATH=${{ runner.workspace }}/avr-gcc-build/local/gcc-${{ matrix.branchname }}-avr/bin:"$PATH"
           ./target/build/build.sh avr rebuild
-          ls -la bin/ref_app.elf bin/ref_app.hex bin/ref_app.map bin/ref_app.s19 bin/ref_app_cppfilt.txt bin/ref_app_nm.txt bin/ref_app_readelf.txt bin/ref_app_size.txt
+          ls -la bin/ref_app.elf bin/ref_app.hex
+          ls -la bin/ref_app.map bin/ref_app.s19
+          ls -la bin/ref_app_cppfilt.txt
+          ls -la bin/ref_app_nm.txt
+          ls -la bin/ref_app_readelf.txt
+          ls -la bin/ref_app_size.txt
