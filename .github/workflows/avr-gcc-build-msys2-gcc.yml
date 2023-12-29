@@ -23,8 +23,8 @@ jobs:
       - name: unpack-repo-nuwen-mingw-subset
         shell: cmd
         run: |
-          echo "${{ runner.workspace }}\\mingw-root"
-          start /b /wait ./mingw.exe -y -gm2 -InstallPath="${{ runner.workspace }}\\mingw-root"
+          echo "${{ runner.workspace }}\mingw-root"
+          start /b /wait ./mingw.exe -y -gm2 -InstallPath="${{ runner.workspace }}\mingw-root"
       - uses: msys2/setup-msys2@v2
         with:
           msystem: mingw64
