@@ -34,3 +34,5 @@ jobs:
         run: |
           echo 'avr-gcc-100-12.3.0_x86_64-w64-mingw32.sh'
           ./avr-gcc-100-12.3.0_x86_64-w64-mingw32.sh
+          ls -la /d/a/avr-gcc-build/avr-gcc-build/local/gcc-12.3.0-avr/bin
+          ls -la /d/a/avr-gcc-build/avr-gcc-build/local/gcc-12.3.0-avr/bin/avr-ld.exe

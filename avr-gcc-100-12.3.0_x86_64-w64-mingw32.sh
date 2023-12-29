@@ -125,7 +125,7 @@ echo 'build cloog'
 tar -xf cloog-0.18.1.tar.gz
 mkdir objdir-cloog-0.18.1
 cd objdir-cloog-0.18.1
-../cloog-0.18.1/configure --prefix=$SCRIPT_DIR/local/cloog-0.18.1 --build=x86_64-w64-mingw32 --target=x86_64-w64-mingw32 --host=x86_64-w64-mingw32 --enable-static --disable-shared --with-isl=$SCRIPT_DIR/local/isl-0.15 --with-gmp=$SCRIPT_DIR/local/gmp-6.3.0
+../cloog-0.18.1/configure --prefix=$SCRIPT_DIR/local/cloog-0.18.1 --build=x86_64-w64-mingw32 --target=x86_64-w64-mingw32 --host=x86_64-w64-mingw32 --enable-static --disable-shared --with-isl=$SCRIPT_DIR/local/isl-0.15 --with-gmp-prefix=$SCRIPT_DIR/local/gmp-6.3.0
 make --jobs=6
 make install
 
@@ -140,7 +140,9 @@ make --jobs=6
 make install
 
 
-ls -la $SCRIPT_DIR/local/gcc-12.3.0-avr/bin $SCRIPT_DIR/local/gcc-12.3.0-avr/bin/avr-ld*
+ls -la $SCRIPT_DIR/local/gcc-12.3.0-avr/bin
+ls -la $SCRIPT_DIR/local/gcc-12.3.0-avr/bin/avr-ld.exe
+result_total=$?
 
 
 echo "result_total: " "$result_total"
