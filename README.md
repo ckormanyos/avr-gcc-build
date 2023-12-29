@@ -30,7 +30,7 @@ Workflow:
   - Build [`binutils`](https://www.gnu.org/software/binutils) and partially verify the build artifacts. At the moment, version 2.41 is used.
   - Then build `avr-gcc` and partially verify the build artifacts.
   - Clone [`avrdudes/avr-libc`](https://github.com/avrdudes/avr-libc) and build it directly in its expected location relative to `avr-gcc`. After this, partially verify the presence of the build artifacts.
-  - Test the newly built in a compiler test.
+  - Test the complete, newly built `avr-gcc` toolchain with a non-trivial compiler test.
   - In the compiler test, we build `ref_app` (the reference application) from [`ckormanyos/real-time-cpp`](https://github.com/ckormanyos). Verify the creation of key build results from `ref_app` including ELF-file, HEX-file, map files, etc.
 
 ## Distribution
