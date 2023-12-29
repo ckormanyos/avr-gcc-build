@@ -1,0 +1,47 @@
+##############################################################################
+#  Copyright Christopher Kormanyos 2023.
+#  Distributed under The Unlicense.
+
+name: avr-gcc-build-msys2-gcc
+on:
+  push:
+    branches:
+      - '**'
+  pull_request:
+jobs:
+  avr-gcc-build-msys2:
+    runs-on: windows-latest
+    defaults:
+      run:
+        shell: msys2 {0}
+    strategy:
+      fail-fast: false
+      matrix:
+        gccversion: [ 12.3.0 ]
+    steps:
+      - uses: actions/checkout@v3
+      - name: unpack-repo-nuwen-mingw-subset
+        shell: cmd
+        run: |
+          start /b /wait ./mingw.exe -y -gm2 -InstallPath="D:\\a\\avr-gcc-build\\avr-gcc-build\\mingw"
+      - uses: msys2/setup-msys2@v2
+        with:
+          msystem: mingw64
+          update: true
+          install: autoconf automake bzip2 cmake git make ninja patch python texinfo wget
+      - name: avr-gcc-100-12.3.0_x86_64-w64-mingw32
+        shell: msys2 {0}
+        run: |
+          echo 'avr-gcc-100-12.3.0_x86_64-w64-mingw32.sh'
+          ./avr-gcc-100-12.3.0_x86_64-w64-mingw32.sh
+      - name: avr-gcc-partially-verify-result
+        shell: msys2 {0}
+        run: |
+          echo 'avr-gcc partial verify result'
+          ls -la /d/a/avr-gcc-build/avr-gcc-build/local/gcc-12.3.0-avr/bin
+          ls -la /d/a/avr-gcc-build/avr-gcc-build/local/gcc-12.3.0-avr/bin/avr-gcc.exe
+          ls -la /d/a/avr-gcc-build/avr-gcc-build/local/gcc-12.3.0-avr/bin/avr-g++.exe
+      - uses: actions/upload-artifact@v4
+        with:
+          name: gcc-12.3.0-avr
+          path: d:/a/avr-gcc-build/avr-gcc-build/local/gcc-12.3.0-avr

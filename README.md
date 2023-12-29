@@ -16,11 +16,10 @@ directly from the Workflow-Run(s) on GHA.
 
 Design goals:
   - Use shell and YAML scripts to build modern `avr-gcc` on-the-fly.
-  - Build `avr-gcc` from up-to-date branches such as `trunk` and `releases/gcc-13` found in [`gcc-mirror/gcc`](https://github.com/gcc-mirror/gcc).
+  - Build `avr-gcc` from up-to-date releases such as 12.3.0 or modern branches like `trunk` and `releases/gcc-13` found in [`gcc-mirror/gcc`](https://github.com/gcc-mirror/gcc).
   - Provide a non-trivial test of the newly-built toolchain(s) based on a real-world project.
   - Support cyclic monthly build of modern, evolving GCC branch(es) and trunk.
   - Publish the build artifacts directly from the Workflow-Run(s) on GHA.
-  - Provide a [shell script recipe](./avr-gcc-100-12.3.0_x86_64-w64-mingw32.sh) for local build of `avr-gcc` on `x86_64-w64-mingw32` host. This does not run on GHA at the moment, but can be executed locally.
 
 ## Workflow-Run
 
@@ -41,10 +40,9 @@ is used for archiving build artifacts.
 
 ## Additional Details
 
-This project is distributed under [The Unlicense](./UNLICENSE).
-
-Limitations:
-  - At the moment, the Workflow-Run builds `avr-gcc` for the _host_ `x86_64-linux-gnu` only. Cross-host compilation for `x86_64-w64-mingw32` does not work.
-  - A [shell script recipe](./avr-gcc-100-12.3.0_x86_64-w64-mingw32.sh) for local build of `avr-gcc` on `x86_64-w64-mingw32` host. It does not run on GHA at the moment, but can be executed locally.
+Details:
+  - This project is distributed under [The Unlicense](./UNLICENSE).
+  - The Workflow-Run [avr-gcc-build.yml](./.github/workflows/avr-gcc-build.yml) and associated shell scripts (`avr-gcc-010*.sh`, `avr-gcc-020*.sh`, and `avr-gcc-030*.sh`) build `avr-gcc` for the _host_ `x86_64-linux-gnu`. These run on GHA using `ubuntu-latest` runners.
+  - The Workflow-Run [avr-gcc-build-msys2-gcc.yml](./.github/workflows/avr-gcc-build-msys2-gcc.yml) and shell script [avr-gcc-100-12.3.0_x86_64-w64-mingw32.sh](./avr-gcc-100-12.3.0_x86_64-w64-mingw32.sh) build `avr-gcc` for the _host_ `x86_64-w64-mingw32`. These run on GHA within `msys2` using `windows-latest` runners.
 
 This work has been inspired by a similar project: [`ZakKemble/avr-gcc-build`](https://github.com/ZakKemble/avr-gcc-build).
