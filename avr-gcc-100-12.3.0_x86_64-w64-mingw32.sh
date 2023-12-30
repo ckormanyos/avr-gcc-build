@@ -48,6 +48,8 @@ echo
 
 echo 'query version pre-installed standalone gcc-x86_64-w64-mingw32'
 g++ -v
+result_old_distro=$?
+echo "result_old_distro: " "$result_old_distro"
 echo
 
 
@@ -62,6 +64,7 @@ wget --no-check-certificate https://gcc.gnu.org/pub/gcc/infrastructure/isl-0.15.
 wget --no-check-certificate https://gcc.gnu.org/pub/gcc/infrastructure/cloog-0.18.1.tar.gz
 wget --no-check-certificate https://ftp.gnu.org/gnu/binutils/binutils-2.41.tar.xz
 wget --no-check-certificate https://ftp.gnu.org/gnu/gcc/gcc-12.3.0/gcc-12.3.0.tar.xz
+wget --no-check-certificate https://github.com/avrdudes/avr-libc/archive/refs/tags/avr-libc-2_1_0-release.tar.gz
 echo
 
 
@@ -158,7 +161,7 @@ ls -la $SCRIPT_DIR/local/gcc-12.3.0-avr/bin/avr-ld.exe
 result_binutils=$?
 
 
-echo "result_binutils: " "result_binutils"
+echo "result_binutils: " "$result_binutils"
 echo
 
 
@@ -185,12 +188,24 @@ make install
 echo
 
 
+ls -la $SCRIPT_DIR/local/gcc-12.3.0-avr/bin
+ls -la $SCRIPT_DIR/local/gcc-12.3.0-avr/bin/avr-g++.exe
+result_gcc=$?
+
+
+echo "result_gcc: " "$result_gcc"
+echo
+
+
 cd $SCRIPT_DIR/gcc_build
-echo 'clone and bootstrap avr-libc'
-git clone -b main --depth 1 https://github.com/avrdudes/avr-libc.git ./avr-libc
-rm -f avr-libc/tests/simulate/time/aux.c
-cd avr-libc
+echo 'unpack and bootstrap avr-libc'
+tar -xf avr-libc-2_1_0-release.tar.gz
+mv avr-libc-avr-libc-2_1_0-release avr-libc-2_1_0-release
+rm -f avr-libc-2_1_0-release/tests/simulate/time/aux.c
+cd avr-libc-2_1_0-release
 ./bootstrap
+result_bootstrap=$?
+echo "result_bootstrap: " "$result_bootstrap"
 echo
 
 
@@ -206,22 +221,13 @@ echo
 cd $SCRIPT_DIR/gcc_build
 echo 'build avr-libc'
 cd objdir-gcc-12.3.0-avr
-../avr-libc/configure --prefix=$SCRIPT_DIR/local/gcc-12.3.0-avr --build=x86_64-w64-mingw32 --host=avr --enable-static --disable-shared
+../avr-libc-2_1_0-release/configure --prefix=$SCRIPT_DIR/local/gcc-12.3.0-avr --build=x86_64-w64-mingw32 --host=avr --enable-static --disable-shared
 make --jobs=8
 make install
 echo
 
 
-ls -la $SCRIPT_DIR/local/gcc-12.3.0-avr/bin
-ls -la $SCRIPT_DIR/local/gcc-12.3.0-avr/bin/avr-g++.exe
-result_gcc=$?
-
-
-echo "result_gcc: " "result_gcc"
-echo
-
-
-result_total=$((result_binutils+result_gcc))
+result_total=$((result_old_distro+result_binutils+result_gcc+result_bootstrap))
 
 
 echo "result_total: " "$result_total"

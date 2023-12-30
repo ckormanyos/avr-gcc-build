@@ -20,15 +20,21 @@ jobs:
         gccversion: [ 12.3.0 ]
     steps:
       - uses: actions/checkout@v3
-      - name: unpack-repo-nuwen-mingw-subset
+      - name: get-nuwen-mingw
         shell: cmd
         run: |
-          start /b /wait ./mingw.exe -y -gm2 -InstallPath="D:\\a\\avr-gcc-build\\avr-gcc-build\\mingw"
+          C:\msys64\usr\bin\echo.exe get-nuwen-mingw
+          C:\msys64\usr\bin\wget.exe --no-check-certificate https://nuwen.net/files/mingw/mingw-18.0-without-git.exe
+      - name: unpack-nuwen-mingw
+        shell: cmd
+        run: |
+          C:\msys64\usr\bin\echo.exe unpack-nuwen-mingw
+          start /b /wait ./mingw-18.0-without-git.exe -y -gm2 -InstallPath="D:\\a\\avr-gcc-build\\avr-gcc-build\\mingw"
       - uses: msys2/setup-msys2@v2
         with:
           msystem: mingw64
           update: true
-          install: autoconf automake bzip2 cmake git make ninja patch python texinfo wget
+          install: autoconf automake bzip2 cmake make ninja patch python texinfo wget
       - name: avr-gcc-100-12.3.0_x86_64-w64-mingw32
         shell: msys2 {0}
         run: |
