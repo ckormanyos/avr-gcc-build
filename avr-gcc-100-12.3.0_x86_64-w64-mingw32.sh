@@ -53,19 +53,8 @@ echo "result_old_distro: " "result_old_distro"
 echo
 
 
-
-
-exit $result_old_distro
-
-
-
-
-
-#echo
-#
-#
-#cd $SCRIPT_DIR/gcc_build
-#echo 'get tar-balls'
+cd $SCRIPT_DIR/gcc_build
+echo 'get tar-balls'
 #wget --no-check-certificate https://github.com/facebook/zstd/releases/download/v1.5.5/zstd-1.5.5.tar.gz
 #wget --no-check-certificate https://ftp.gnu.org/gnu/libiconv/libiconv-1.17.tar.gz
 #wget --no-check-certificate https://ftp.gnu.org/gnu/gmp/gmp-6.3.0.tar.xz
@@ -75,9 +64,10 @@ exit $result_old_distro
 #wget --no-check-certificate https://gcc.gnu.org/pub/gcc/infrastructure/cloog-0.18.1.tar.gz
 #wget --no-check-certificate https://ftp.gnu.org/gnu/binutils/binutils-2.41.tar.xz
 #wget --no-check-certificate https://ftp.gnu.org/gnu/gcc/gcc-12.3.0/gcc-12.3.0.tar.xz
-#echo
-#
-#
+wget --no-check-certificate https://github.com/avrdudes/avr-libc/archive/refs/tags/avr-libc-2_1_0-release.tar.gz
+echo
+
+
 #cd $SCRIPT_DIR/gcc_build
 #echo 'build zstd'
 #tar -xf zstd-1.5.5.tar.gz
@@ -198,15 +188,24 @@ exit $result_old_distro
 #echo
 #
 #
-#cd $SCRIPT_DIR/gcc_build
-#echo 'clone and bootstrap avr-libc'
-#git clone -b main --depth 1 https://github.com/avrdudes/avr-libc.git ./avr-libc
-#rm -f avr-libc/tests/simulate/time/aux.c
-#cd avr-libc
-#./bootstrap
+#ls -la $SCRIPT_DIR/local/gcc-12.3.0-avr/bin
+#ls -la $SCRIPT_DIR/local/gcc-12.3.0-avr/bin/avr-g++.exe
+#result_gcc=$?
+#
+#
+#echo "result_gcc: " "result_gcc"
 #echo
-#
-#
+
+
+cd $SCRIPT_DIR/gcc_build
+echo 'unpack and bootstrap avr-libc'
+tar -xf avr-libc-2_1_0-release.tar.gz
+rm -f avr-libc-2_1_0-release/tests/simulate/time/aux.c
+cd avr-libc-2_1_0-release
+./bootstrap
+echo
+
+
 #cd $SCRIPT_DIR/gcc_build
 #echo 'add avr-gcc path'
 #PATH=$SCRIPT_DIR/local/gcc-12.3.0-avr/bin:"$PATH"
@@ -219,18 +218,9 @@ exit $result_old_distro
 #cd $SCRIPT_DIR/gcc_build
 #echo 'build avr-libc'
 #cd objdir-gcc-12.3.0-avr
-#../avr-libc/configure --prefix=$SCRIPT_DIR/local/gcc-12.3.0-avr --build=x86_64-w64-mingw32 --host=avr --enable-static --disable-shared
+#../avr-libc-2_1_0-release/configure --prefix=$SCRIPT_DIR/local/gcc-12.3.0-avr --build=x86_64-w64-mingw32 --host=avr --enable-static --disable-shared
 #make --jobs=8
 #make install
-#echo
-#
-#
-#ls -la $SCRIPT_DIR/local/gcc-12.3.0-avr/bin
-#ls -la $SCRIPT_DIR/local/gcc-12.3.0-avr/bin/avr-g++.exe
-#result_gcc=$?
-#
-#
-#echo "result_gcc: " "result_gcc"
 #echo
 #
 #
@@ -238,7 +228,7 @@ exit $result_old_distro
 #
 #
 #echo "result_total: " "$result_total"
-#echo
+##echo
 #
 #
 #exit $result_total

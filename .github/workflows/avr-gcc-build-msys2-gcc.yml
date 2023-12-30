@@ -34,7 +34,7 @@ jobs:
         with:
           msystem: mingw64
           update: true
-          install: autoconf automake bzip2 cmake git make ninja patch python texinfo wget
+          install: autoconf automake bzip2 cmake make ninja patch python texinfo wget
       - name: avr-gcc-100-12.3.0_x86_64-w64-mingw32
         shell: msys2 {0}
         run: |
