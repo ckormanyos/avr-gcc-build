@@ -26,10 +26,11 @@ Design goals:
 Workflow:
   - The Workflow-Run [avr-gcc-build.yml](./.github/workflows/avr-gcc-build.yml) and its associated shell scripts (`avr-gcc-010*.sh`, `avr-gcc-020*.sh`, and `avr-gcc-030*.sh`) build `avr-gcc` for the _host_ `x86_64-linux-gnu`. These run on a GHA `ubuntu-latest` runner.
   - The Workflow-Run [avr-gcc-build-msys2-gcc.yml](./.github/workflows/avr-gcc-build-msys2-gcc.yml) and its associated shell script [avr-gcc-100-12.3.0_x86_64-w64-mingw32.sh](./avr-gcc-100-12.3.0_x86_64-w64-mingw32.sh) build `avr-gcc` for the _host_ `x86_64-w64-mingw32`. These run on a GHA `windows-latest` runner using `msys2`.
+  - When building for `x86_64-w64-mingw32` on `msys2`, use a pre-built, dependency-free, statically linked `mingw` and host-compiler (see notes below). This separate `mingw` package is unpacked in a directory parallel to the runner workspace and its `bin` directory is added to the `PATH` variable.
   - GCC prerequisites such as [GMP](https://gmplib.org), [MPFR](https://www.mpfr.org) and [MPC](https://www.multiprecision.org) are built on-the-fly in the Workflow-Run.
-  - Build [`binutils`](https://www.gnu.org/software/binutils) and partially verify the build artifacts. At the moment, version 2.41 is used.
+  - Build [`binutils`](https://www.gnu.org/software/binutils) and partially verify the build artifacts.
   - Then build `avr-gcc` and partially verify the build artifacts.
-  - Clone [`avrdudes/avr-libc`](https://github.com/avrdudes/avr-libc) and build it directly in its expected location relative to `avr-gcc`.
+  - Get a modern release of [`avr-libc`](https://github.com/avrdudes/avr-libc/tags) from [`avrdudes/avr-libc`](https://github.com/avrdudes/avr-libc) and build it with its `--prefix` matching that of the above-mentioned `avr-gcc`-build.
   - Test the complete, newly built `avr-gcc` toolchain with a non-trivial compiler test. In the compiler test, we build `ref_app` (the reference application) from [`ckormanyos/real-time-cpp`](https://github.com/ckormanyos). Verify the creation of key build results from `ref_app` including ELF-file, HEX-file, map files, etc.
 
 ## Distribution
@@ -39,8 +40,9 @@ directly from the Workflow-Run on GHA.
 The [`actions/upload-artifact`](https://github.com/actions/upload-artifact) action
 is used for archiving build artifacts.
 
-## Additional Details
+## Additional Notes
 
-Details:
+Notes:
   - This project is distributed under [The Unlicense](./UNLICENSE).
   - This work has been inspired by (the similar) project [`ZakKemble/avr-gcc-build`](https://github.com/ZakKemble/avr-gcc-build).
+  - The concept for using a pre-built, dependency-free, statically linked `mingw` and host-compiler originates from [Steven T. Lavavej's `MinGW Distro`](https://nuwen.net/mingw.html).
