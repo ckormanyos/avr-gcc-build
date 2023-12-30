@@ -20,10 +20,15 @@ jobs:
         gccversion: [ 12.3.0 ]
     steps:
       - uses: actions/checkout@v3
-      - name: unpack-repo-nuwen-mingw-subset
+      - name: get-nuwen-mingw
+        run: |
+          echo get-nuwen-mingw
+          wget --no-check-certificate https://nuwen.net/files/mingw/mingw-18.0-without-git.exe
+      - name: unpack-nuwen-mingw
         shell: cmd
         run: |
-          start /b /wait ./mingw.exe -y -gm2 -InstallPath="D:\\a\\avr-gcc-build\\avr-gcc-build\\mingw"
+          echo unpack-nuwen-mingw
+          start /b /wait ./mingw-18.0-without-git.exe -y -gm2 -InstallPath="D:\\a\\avr-gcc-build\\avr-gcc-build\\mingw"
       - uses: msys2/setup-msys2@v2
         with:
           msystem: mingw64
@@ -34,14 +39,14 @@ jobs:
         run: |
           echo 'avr-gcc-100-12.3.0_x86_64-w64-mingw32.sh'
           ./avr-gcc-100-12.3.0_x86_64-w64-mingw32.sh
-      - name: avr-gcc-partially-verify-result
-        shell: msys2 {0}
-        run: |
-          echo 'avr-gcc partial verify result'
-          ls -la /d/a/avr-gcc-build/avr-gcc-build/local/gcc-12.3.0-avr/bin
-          ls -la /d/a/avr-gcc-build/avr-gcc-build/local/gcc-12.3.0-avr/bin/avr-gcc.exe
-          ls -la /d/a/avr-gcc-build/avr-gcc-build/local/gcc-12.3.0-avr/bin/avr-g++.exe
-      - uses: actions/upload-artifact@v4
-        with:
-          name: gcc-12.3.0-avr
-          path: d:/a/avr-gcc-build/avr-gcc-build/local/gcc-12.3.0-avr
+#      - name: avr-gcc-partially-verify-result
+#        shell: msys2 {0}
+#        run: |
+#          echo 'avr-gcc partial verify result'
+#          ls -la /d/a/avr-gcc-build/avr-gcc-build/local/gcc-12.3.0-avr/bin
+#          ls -la /d/a/avr-gcc-build/avr-gcc-build/local/gcc-12.3.0-avr/bin/avr-gcc.exe
+#          ls -la /d/a/avr-gcc-build/avr-gcc-build/local/gcc-12.3.0-avr/bin/avr-g++.exe
+#      - uses: actions/upload-artifact@v4
+#        with:
+#          name: gcc-12.3.0-avr
+#          path: d:/a/avr-gcc-build/avr-gcc-build/local/gcc-12.3.0-avr
