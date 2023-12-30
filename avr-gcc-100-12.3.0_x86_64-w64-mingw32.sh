@@ -55,7 +55,7 @@ echo
 
 
 
-exit result_old_distro
+exit $result_old_distro
 
 
 
