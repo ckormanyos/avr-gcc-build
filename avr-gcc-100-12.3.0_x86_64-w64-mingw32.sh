@@ -199,10 +199,10 @@ echo
 
 cd $SCRIPT_DIR/gcc_build
 echo 'unpack and bootstrap avr-libc'
-tar -xf avr-libc-2_1_0-release.tar.gz ./avr-libc-2_1_0-release
-rm -f avr-libc-2_1_0-release/tests/simulate/time/aux.c
+tar -xf avr-libc-2_1_0-release.tar.gz
 mv avr-libc-avr-libc-2_1_0-release avr-libc-2_1_0-release
 ls -la
+rm -f avr-libc-2_1_0-release/tests/simulate/time/aux.c
 cd avr-libc-2_1_0-release
 ./bootstrap
 result_bootstrap=$?
