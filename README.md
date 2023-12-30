@@ -24,12 +24,14 @@ Design goals:
 ## Workflow-Run
 
 Workflow:
-  - The build runs on GHA `ubuntu-latest` (i.e., `x86_64-linux-gnu` host).
+  - The Workflow-Run [avr-gcc-build.yml](./.github/workflows/avr-gcc-build.yml) and its associated shell scripts (`avr-gcc-010*.sh`, `avr-gcc-020*.sh`, and `avr-gcc-030*.sh`) build `avr-gcc` for the _host_ `x86_64-linux-gnu`. These run on a GHA `ubuntu-latest` runner.
+  - The Workflow-Run [avr-gcc-build-msys2-gcc.yml](./.github/workflows/avr-gcc-build-msys2-gcc.yml) and its associated shell script [avr-gcc-100-12.3.0_x86_64-w64-mingw32.sh](./avr-gcc-100-12.3.0_x86_64-w64-mingw32.sh) build `avr-gcc` for the _host_ `x86_64-w64-mingw32`. These run on a GHA `windows-latest` runner using `msys2`.
   - GCC prerequisites such as [GMP](https://gmplib.org), [MPFR](https://www.mpfr.org) and [MPC](https://www.multiprecision.org) are built on-the-fly in the Workflow-Run.
   - Build [`binutils`](https://www.gnu.org/software/binutils) and partially verify the build artifacts. At the moment, version 2.41 is used.
   - Then build `avr-gcc` and partially verify the build artifacts.
-  - Clone [`avrdudes/avr-libc`](https://github.com/avrdudes/avr-libc) and build it directly in the propoer location relative to `avr-gcc` and partially verify the build artifacts.
-  - Test the newly built compiler. In this test, we build `ref_app` (the reference application) from [`ckormanyos/real-time-cpp`](https://github.com/ckormanyos). Subsequently verify the creation of all expected `ref_app` build results (such as ELF-file, HEX-file, map files, etc.).
+  - Clone [`avrdudes/avr-libc`](https://github.com/avrdudes/avr-libc) and build it directly in its expected location relative to `avr-gcc`. After this, partially verify the presence of the build artifacts.
+  - Test the complete, newly built `avr-gcc` toolchain with a non-trivial compiler test.
+  - In the compiler test, we build `ref_app` (the reference application) from [`ckormanyos/real-time-cpp`](https://github.com/ckormanyos). Verify the creation of key build results from `ref_app` including ELF-file, HEX-file, map files, etc.
 
 ## Distribution
 
@@ -42,7 +44,4 @@ is used for archiving build artifacts.
 
 Details:
   - This project is distributed under [The Unlicense](./UNLICENSE).
-  - The Workflow-Run [avr-gcc-build.yml](./.github/workflows/avr-gcc-build.yml) and associated shell scripts (`avr-gcc-010*.sh`, `avr-gcc-020*.sh`, and `avr-gcc-030*.sh`) build `avr-gcc` for the _host_ `x86_64-linux-gnu`. These run on GHA using `ubuntu-latest` runners.
-  - The Workflow-Run [avr-gcc-build-msys2-gcc.yml](./.github/workflows/avr-gcc-build-msys2-gcc.yml) and shell script [avr-gcc-100-12.3.0_x86_64-w64-mingw32.sh](./avr-gcc-100-12.3.0_x86_64-w64-mingw32.sh) build `avr-gcc` for the _host_ `x86_64-w64-mingw32`. These run on GHA within `msys2` using `windows-latest` runners.
-
-This work has been inspired by a similar project: [`ZakKemble/avr-gcc-build`](https://github.com/ZakKemble/avr-gcc-build).
+  - This work has been inspired by (the similar) project [`ZakKemble/avr-gcc-build`](https://github.com/ZakKemble/avr-gcc-build).

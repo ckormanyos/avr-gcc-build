@@ -9,7 +9,7 @@ SCRIPT_DIR=$(dirname "$SCRIPT_PATH")
 
 
 # echo 'install necessary packages and build tools'
-# pacman -S --needed --noconfirm wget git make cmake ninja patch texinfo bzip2 xz autoconf automake python
+# pacman -S --needed --noconfirm autoconf automake bzip2 cmake git make ninja patch python texinfo wget
 
 # Get standalone msys2 from nuwen (contains standalone gcc-x86_64-w64-mingw32).
 # The page describing this is: https://nuwen.net/mingw.html
