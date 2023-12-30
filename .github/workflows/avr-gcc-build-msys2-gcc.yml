@@ -20,11 +20,15 @@ jobs:
         gccversion: [ 12.3.0 ]
     steps:
       - uses: actions/checkout@v3
-      - name: get-and-unpack-nuwen-mingw
+      - name: get-nuwen-mingw
         shell: cmd
         run: |
-          C:\msys64\usr\bin\echo.exe get-and-unpack-nuwen-mingw
+          C:\msys64\usr\bin\echo.exe get-nuwen-mingw
           C:\msys64\usr\bin\wget.exe --no-check-certificate https://nuwen.net/files/mingw/mingw-18.0-without-git.exe
+      - name: unpack-nuwen-mingw
+        shell: cmd
+        run: |
+          C:\msys64\usr\bin\echo.exe unpack-nuwen-mingw
           start /b /wait ./mingw-18.0-without-git.exe -y -gm2 -InstallPath="D:\\a\\avr-gcc-build\\avr-gcc-build\\mingw"
       - uses: msys2/setup-msys2@v2
         with:
