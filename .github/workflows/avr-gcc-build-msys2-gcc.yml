@@ -23,6 +23,7 @@ jobs:
       - name: get-nuwen-mingw
         run: |
           echo get-nuwen-mingw
+          pacman -S --needed --noconfirm wget
           wget --no-check-certificate https://nuwen.net/files/mingw/mingw-18.0-without-git.exe
       - name: unpack-nuwen-mingw
         shell: cmd
