@@ -155,7 +155,7 @@ echo 'build binutils'
 tar -xf binutils-2.41.tar.xz
 mkdir objdir-binutils-2.41-avr-gcc-"$MY_VERSION"
 cd objdir-binutils-2.41-avr-gcc-"$MY_VERSION"
-../binutils-2.41/configure --prefix=$SCRIPT_DIR/local/gcc-"$MY_VERSION"-avr --target=avr --enable-languages=c,c++ --build=x86_64-w64-mingw32 --host=x86_64-w64-mingw32 --with-pkgversion='Built by ckormanyos/real-time-cpp' --enable-static --disable-shared --disable-plugins --disable-libada --disable-libssp --disable-nls --enable-mingw-wildcard --with-gnu-as --with-dwarf2 --with-isl=$SCRIPT_DIR/local/isl-0.15 --with-cloog=$SCRIPT_DIR/local/cloog-0.18.1 --with-gmp=$SCRIPT_DIR/local/gmp-6.3.0 --with-mpfr=$SCRIPT_DIR/local/mpfr-4.2.1 --with-mpc=$SCRIPT_DIR/local/mpc-1.3.1 --with-libiconv-prefix=$SCRIPT_DIR/local/libiconv-1.17 --with-zstd=$SCRIPT_DIR/local/zstd-1.5.5/lib --disable-werror
+../binutils-2.41/configure --prefix=$SCRIPT_DIR/local/gcc-"$MY_VERSION"-avr --target=avr --enable-languages=c,c++ --build=x86_64-w64-mingw32 --host=x86_64-w64-mingw32 --with-pkgversion='Built by ckormanyos/real-time-cpp' --disable-plugins --enable-static --disable-shared --disable-tls --disable-libada --disable-libssp --disable-nls --enable-mingw-wildcard --with-gnu-as --with-dwarf2 --with-isl=$SCRIPT_DIR/local/isl-0.15 --with-cloog=$SCRIPT_DIR/local/cloog-0.18.1 --with-gmp=$SCRIPT_DIR/local/gmp-6.3.0 --with-mpfr=$SCRIPT_DIR/local/mpfr-4.2.1 --with-mpc=$SCRIPT_DIR/local/mpc-1.3.1 --with-libiconv-prefix=$SCRIPT_DIR/local/libiconv-1.17 --with-zstd=$SCRIPT_DIR/local/zstd-1.5.5/lib --disable-werror
 make --jobs=6
 make install
 echo
@@ -181,62 +181,62 @@ echo
 #   patch -p0 < avr-gcc-100-12.3.0_x86_64-w64-mingw32.patch
 
 
-#cd $SCRIPT_DIR/gcc_build
-#echo 'build gcc'
-#tar -xf gcc-"$MY_VERSION".tar.xz
+cd $SCRIPT_DIR/gcc_build
+echo 'build gcc'
+tar -xf gcc-"$MY_VERSION".tar.xz
 #patch -p0 < avr-gcc-100-"$MY_VERSION"_x86_64-w64-mingw32.patch
-#mkdir objdir-gcc-"$MY_VERSION"-avr
-#cd objdir-gcc-"$MY_VERSION"-avr
-#../gcc-"$MY_VERSION"/configure --prefix=$SCRIPT_DIR/local/gcc-"$MY_VERSION"-avr --target=avr --enable-languages=c,c++ --build=x86_64-w64-mingw32 --host=x86_64-w64-mingw32 --with-pkgversion='Built by ckormanyos/real-time-cpp' --enable-static --disable-shared --disable-gcov --disable-libada --disable-libssp --disable-nls --enable-mingw-wildcard --with-gnu-as --with-dwarf2 --with-isl=$SCRIPT_DIR/local/isl-0.15 --with-cloog=$SCRIPT_DIR/local/cloog-0.18.1 --with-gmp=$SCRIPT_DIR/local/gmp-6.3.0 --with-mpfr=$SCRIPT_DIR/local/mpfr-4.2.1 --with-mpc=$SCRIPT_DIR/local/mpc-1.3.1 --with-libiconv-prefix=$SCRIPT_DIR/local/libiconv-1.17 --with-zstd=$SCRIPT_DIR/local/zstd-1.5.5/lib
-#make --jobs=6
-#make install
-#echo
-#
-#
-#ls -la $SCRIPT_DIR/local/gcc-"$MY_VERSION"-avr/bin
-#ls -la $SCRIPT_DIR/local/gcc-"$MY_VERSION"-avr/bin/avr-g++.exe
-#result_gcc=$?
-#
-#
-#echo "result_gcc: " "$result_gcc"
-#echo
-#
-#
-#cd $SCRIPT_DIR/gcc_build
-#echo 'unpack and bootstrap avr-libc'
-#tar -xf avr-libc-2_1_0-release.tar.gz
-#mv avr-libc-avr-libc-2_1_0-release avr-libc-2_1_0-release
-#rm -f avr-libc-2_1_0-release/tests/simulate/time/aux.c
-#cd avr-libc-2_1_0-release
-#./bootstrap
-#result_bootstrap=$?
-#echo "result_bootstrap: " "$result_bootstrap"
-#echo
-#
-#
-#cd $SCRIPT_DIR/gcc_build
-#echo 'add avr-gcc path'
-#PATH=$SCRIPT_DIR/local/gcc-"$MY_VERSION"-avr/bin:"$PATH"
-#export PATH
-#CC=""
-#export CC
-#echo
-#
-#
-#cd $SCRIPT_DIR/gcc_build
-#echo 'build avr-libc'
-#cd objdir-gcc-"$MY_VERSION"-avr
-#../avr-libc-2_1_0-release/configure --prefix=$SCRIPT_DIR/local/gcc-"$MY_VERSION"-avr --build=x86_64-w64-mingw32 --host=avr --enable-static --disable-shared
-#make --jobs=8
-#make install
-#echo
-#
-#
-#result_total=$((result_old_distro+result_binutils+result_gcc+result_bootstrap))
-#
-#
-#echo "result_total: " "$result_total"
-#echo
-#
-#
-#exit $result_total
+mkdir objdir-gcc-"$MY_VERSION"-avr
+cd objdir-gcc-"$MY_VERSION"-avr
+../gcc-"$MY_VERSION"/configure --prefix=$SCRIPT_DIR/local/gcc-"$MY_VERSION"-avr --target=avr --enable-languages=c,c++ --build=x86_64-w64-mingw32 --host=x86_64-w64-mingw32 --with-pkgversion='Built by ckormanyos/real-time-cpp' --disable-gcov --enable-static --disable-shared --disable-tls --disable-libada --disable-libssp --disable-nls --enable-mingw-wildcard --with-gnu-as --with-dwarf2 --with-isl=$SCRIPT_DIR/local/isl-0.15 --with-cloog=$SCRIPT_DIR/local/cloog-0.18.1 --with-gmp=$SCRIPT_DIR/local/gmp-6.3.0 --with-mpfr=$SCRIPT_DIR/local/mpfr-4.2.1 --with-mpc=$SCRIPT_DIR/local/mpc-1.3.1 --with-libiconv-prefix=$SCRIPT_DIR/local/libiconv-1.17 --with-zstd=$SCRIPT_DIR/local/zstd-1.5.5/lib
+make --jobs=6
+make install
+echo
+
+
+ls -la $SCRIPT_DIR/local/gcc-"$MY_VERSION"-avr/bin
+ls -la $SCRIPT_DIR/local/gcc-"$MY_VERSION"-avr/bin/avr-g++.exe
+result_gcc=$?
+
+
+echo "result_gcc: " "$result_gcc"
+echo
+
+
+cd $SCRIPT_DIR/gcc_build
+echo 'unpack and bootstrap avr-libc'
+tar -xf avr-libc-2_1_0-release.tar.gz
+mv avr-libc-avr-libc-2_1_0-release avr-libc-2_1_0-release
+rm -f avr-libc-2_1_0-release/tests/simulate/time/aux.c
+cd avr-libc-2_1_0-release
+./bootstrap
+result_bootstrap=$?
+echo "result_bootstrap: " "$result_bootstrap"
+echo
+
+
+cd $SCRIPT_DIR/gcc_build
+echo 'add avr-gcc path'
+PATH=$SCRIPT_DIR/local/gcc-"$MY_VERSION"-avr/bin:"$PATH"
+export PATH
+CC=""
+export CC
+echo
+
+
+cd $SCRIPT_DIR/gcc_build
+echo 'build avr-libc'
+cd objdir-gcc-"$MY_VERSION"-avr
+../avr-libc-2_1_0-release/configure --prefix=$SCRIPT_DIR/local/gcc-"$MY_VERSION"-avr --build=x86_64-w64-mingw32 --host=avr --enable-static --disable-shared
+make --jobs=8
+make install
+echo
+
+
+result_total=$((result_old_distro+result_binutils+result_gcc+result_bootstrap))
+
+
+echo "result_total: " "$result_total"
+echo
+
+
+exit $result_total
