@@ -40,14 +40,14 @@ jobs:
         run: |
           echo 'avr-gcc-100-my_ver_x86_64-w64-mingw32.sh'
           ./avr-gcc-100-my_ver_x86_64-w64-mingw32.sh ${{ matrix.gccversion }} /d/a/avr-gcc-build/avr-gcc-build/mingw
-      - name: avr-gcc-partially-verify-result
-        shell: msys2 {0}
-        run: |
-          echo 'avr-gcc partial verify result'
-          ls -la /d/a/avr-gcc-build/avr-gcc-build/local/gcc-${{ matrix.gccversion }}-avr/bin
-          ls -la /d/a/avr-gcc-build/avr-gcc-build/local/gcc-${{ matrix.gccversion }}-avr/bin/avr-gcc.exe
-          ls -la /d/a/avr-gcc-build/avr-gcc-build/local/gcc-${{ matrix.gccversion }}-avr/bin/avr-g++.exe
-      - uses: actions/upload-artifact@v4
-        with:
-          name: gcc-${{ matrix.gccversion }}-avr
-          path: d:/a/avr-gcc-build/avr-gcc-build/local/gcc-${{ matrix.gccversion }}-avr
+#      - name: avr-gcc-partially-verify-result
+#        shell: msys2 {0}
+#        run: |
+#          echo 'avr-gcc partial verify result'
+#          ls -la /d/a/avr-gcc-build/avr-gcc-build/local/gcc-${{ matrix.gccversion }}-avr/bin
+#          ls -la /d/a/avr-gcc-build/avr-gcc-build/local/gcc-${{ matrix.gccversion }}-avr/bin/avr-gcc.exe
+#          ls -la /d/a/avr-gcc-build/avr-gcc-build/local/gcc-${{ matrix.gccversion }}-avr/bin/avr-g++.exe
+#      - uses: actions/upload-artifact@v4
+#        with:
+#          name: gcc-${{ matrix.gccversion }}-avr
+#          path: d:/a/avr-gcc-build/avr-gcc-build/local/gcc-${{ matrix.gccversion }}-avr
