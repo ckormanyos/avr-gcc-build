@@ -34,10 +34,12 @@ mkdir -p $SCRIPT_DIR/gcc_build
 echo
 
 
-#echo 'copy gcc patch file'
-#cd $SCRIPT_DIR/gcc_build
-#cp ../avr-gcc-100-"$MY_VERSION"_x86_64-w64-mingw32.patch .
-#echo
+if [[ "$1" != "12.3.0" ]]; then
+echo 'copy gcc patch file'
+cd $SCRIPT_DIR/gcc_build
+cp ../avr-gcc-100-"$MY_VERSION"_x86_64-w64-mingw32.patch .
+echo
+fi
 
 
 echo 'append standalone gcc-x86_64-w64-mingw32 path'
@@ -184,7 +186,9 @@ echo
 cd $SCRIPT_DIR/gcc_build
 echo 'build gcc'
 tar -xf gcc-"$MY_VERSION".tar.xz
-#patch -p0 < avr-gcc-100-"$MY_VERSION"_x86_64-w64-mingw32.patch
+if [[ "$1" != "12.3.0" ]]; then
+patch -p0 < avr-gcc-100-"$MY_VERSION"_x86_64-w64-mingw32.patch
+fi
 mkdir objdir-gcc-"$MY_VERSION"-avr
 cd objdir-gcc-"$MY_VERSION"-avr
 ../gcc-"$MY_VERSION"/configure --prefix=$SCRIPT_DIR/local/gcc-"$MY_VERSION"-avr --target=avr --enable-languages=c,c++ --build=x86_64-w64-mingw32 --host=x86_64-w64-mingw32 --with-pkgversion='Built by ckormanyos/real-time-cpp' --disable-gcov --enable-static --disable-shared --disable-tls --disable-libada --disable-libssp --disable-nls --enable-mingw-wildcard --with-gnu-as --with-dwarf2 --with-isl=$SCRIPT_DIR/local/isl-0.15 --with-cloog=$SCRIPT_DIR/local/cloog-0.18.1 --with-gmp=$SCRIPT_DIR/local/gmp-6.3.0 --with-mpfr=$SCRIPT_DIR/local/mpfr-4.2.1 --with-mpc=$SCRIPT_DIR/local/mpc-1.3.1 --with-libiconv-prefix=$SCRIPT_DIR/local/libiconv-1.17 --with-zstd=$SCRIPT_DIR/local/zstd-1.5.5/lib
