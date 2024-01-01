@@ -3,7 +3,9 @@ ckormanyos/avr-gcc-build
 
 <p align="center">
     <a href="https://github.com/ckormanyos/avr-gcc-build/actions">
-        <img src="https://github.com/ckormanyos/avr-gcc-build/actions/workflows/avr-gcc-build.yml/badge.svg" alt="Build Status"></a>
+        <img src="https://github.com/ckormanyos/avr-gcc-build/actions/workflows/avr-gcc-build.yml/badge.svg" alt="build-ubuntu"></a>
+    <a href="https://github.com/ckormanyos/avr-gcc-build/actions">
+        <img src="https://github.com/ckormanyos/avr-gcc-build/actions/workflows/avr-gcc-build-msys2-gcc.yml/badge.svg" alt="build-msys2"></a>
     <a href="https://github.com/ckormanyos/avr-gcc-build/issues?q=is%3Aissue+is%3Aopen+sort%3Aupdated-desc">
         <img src="https://custom-icon-badges.herokuapp.com/github/issues-raw/ckormanyos/avr-gcc-build?logo=github" alt="Issues" /></a>
     <a href="https://github.com/ckormanyos/avr-gcc-build/blob/main/UNLICENSE">
