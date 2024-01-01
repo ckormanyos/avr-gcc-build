@@ -3,10 +3,15 @@
 #  Copyright Christopher Kormanyos 2023.
 #  Distributed under The Unlicense.
 #
+# Example call:
+#   ./avr-gcc-100-12.3.0_x86_64-w64-mingw32.sh 12.3.0 /c/mingw
+#
 
 SCRIPT_PATH=$(readlink -f "$BASH_SOURCE")
 SCRIPT_DIR=$(dirname "$SCRIPT_PATH")
 
+MY_VERSION=$1
+OLD_MINGW_PATH=$2
 
 # echo 'install necessary packages and build tools'
 # pacman -S --needed --noconfirm autoconf automake bzip2 cmake git make ninja patch python texinfo wget
@@ -29,14 +34,16 @@ mkdir -p $SCRIPT_DIR/gcc_build
 echo
 
 
-echo 'copy gcc 12.3.0 patch file'
+if [[ "$1" != "12.3.0" ]]; then
+echo 'copy gcc patch file'
 cd $SCRIPT_DIR/gcc_build
-cp ../avr-gcc-100-12.3.0_x86_64-w64-mingw32.patch .
+cp ../avr-gcc-100-"$MY_VERSION"_x86_64-w64-mingw32.patch .
 echo
+fi
 
 
 echo 'append standalone gcc-x86_64-w64-mingw32 path'
-export X_DISTRO_ROOT=$SCRIPT_DIR/mingw
+export X_DISTRO_ROOT="$OLD_MINGW_PATH"
 export X_DISTRO_BIN=$X_DISTRO_ROOT/bin
 export X_DISTRO_INC=$X_DISTRO_ROOT/include
 export X_DISTRO_LIB=$X_DISTRO_ROOT/lib
@@ -63,7 +70,7 @@ wget --no-check-certificate https://ftp.gnu.org/gnu/mpc/mpc-1.3.1.tar.gz
 wget --no-check-certificate https://gcc.gnu.org/pub/gcc/infrastructure/isl-0.15.tar.bz2
 wget --no-check-certificate https://gcc.gnu.org/pub/gcc/infrastructure/cloog-0.18.1.tar.gz
 wget --no-check-certificate https://ftp.gnu.org/gnu/binutils/binutils-2.41.tar.xz
-wget --no-check-certificate https://ftp.gnu.org/gnu/gcc/gcc-12.3.0/gcc-12.3.0.tar.xz
+wget --no-check-certificate https://ftp.gnu.org/gnu/gcc/gcc-"$MY_VERSION"/gcc-"$MY_VERSION".tar.xz
 wget --no-check-certificate https://github.com/avrdudes/avr-libc/archive/refs/tags/avr-libc-2_1_0-release.tar.gz
 echo
 
@@ -73,7 +80,7 @@ echo 'build zstd'
 tar -xf zstd-1.5.5.tar.gz
 mkdir objdir-zstd-1.5.5
 cd objdir-zstd-1.5.5
-cmake "-DCMAKE_BUILD_TYPE=Release" "-DCMAKE_C_FLAGS=-s -O3" "-DCMAKE_INSTALL_PREFIX=$SCRIPT_DIR/local/zstd-1.5.5" "-DZSTD_BUILD_SHARED=OFF" -G Ninja $SCRIPT_DIR/gcc_build/zstd-1.5.5/build/cmake
+cmake "-DCMAKE_BUILD_TYPE=Release" "-DCMAKE_C_FLAGS=-s -O2" "-DCMAKE_INSTALL_PREFIX=$SCRIPT_DIR/local/zstd-1.5.5" "-DZSTD_BUILD_SHARED=OFF" -G Ninja $SCRIPT_DIR/gcc_build/zstd-1.5.5/build/cmake
 ninja
 ninja install
 echo
@@ -148,16 +155,16 @@ echo
 cd $SCRIPT_DIR/gcc_build
 echo 'build binutils'
 tar -xf binutils-2.41.tar.xz
-mkdir objdir-binutils-2.41-avr-gcc-12.3.0
-cd objdir-binutils-2.41-avr-gcc-12.3.0
-../binutils-2.41/configure --prefix=$SCRIPT_DIR/local/gcc-12.3.0-avr --target=avr --enable-languages=c,c++ --build=x86_64-w64-mingw32 --host=x86_64-w64-mingw32 --with-pkgversion='Built by ckormanyos/real-time-cpp' --enable-static --disable-shared --disable-libada --disable-libssp --disable-nls --enable-mingw-wildcard --with-gnu-as --with-dwarf2 --with-isl=$SCRIPT_DIR/local/isl-0.15 --with-cloog=$SCRIPT_DIR/local/cloog-0.18.1 --with-gmp=$SCRIPT_DIR/local/gmp-6.3.0 --with-mpfr=$SCRIPT_DIR/local/mpfr-4.2.1 --with-mpc=$SCRIPT_DIR/local/mpc-1.3.1 --with-libiconv-prefix=$SCRIPT_DIR/local/libiconv-1.17 --with-zstd=$SCRIPT_DIR/local/zstd-1.5.5/lib --disable-werror
-make --jobs=8
+mkdir objdir-binutils-2.41-avr-gcc-"$MY_VERSION"
+cd objdir-binutils-2.41-avr-gcc-"$MY_VERSION"
+../binutils-2.41/configure --prefix=$SCRIPT_DIR/local/gcc-"$MY_VERSION"-avr --target=avr --enable-languages=c,c++ --build=x86_64-w64-mingw32 --host=x86_64-w64-mingw32 --with-pkgversion='Built by ckormanyos/real-time-cpp' --disable-plugins --enable-static --disable-shared --disable-tls --disable-libada --disable-libssp --disable-nls --enable-mingw-wildcard --with-gnu-as --with-dwarf2 --with-isl=$SCRIPT_DIR/local/isl-0.15 --with-cloog=$SCRIPT_DIR/local/cloog-0.18.1 --with-gmp=$SCRIPT_DIR/local/gmp-6.3.0 --with-mpfr=$SCRIPT_DIR/local/mpfr-4.2.1 --with-mpc=$SCRIPT_DIR/local/mpc-1.3.1 --with-libiconv-prefix=$SCRIPT_DIR/local/libiconv-1.17 --with-zstd=$SCRIPT_DIR/local/zstd-1.5.5/lib --disable-werror
+make --jobs=6
 make install
 echo
 
 
-ls -la $SCRIPT_DIR/local/gcc-12.3.0-avr/bin
-ls -la $SCRIPT_DIR/local/gcc-12.3.0-avr/bin/avr-ld.exe
+ls -la $SCRIPT_DIR/local/gcc-"$MY_VERSION"-avr/bin
+ls -la $SCRIPT_DIR/local/gcc-"$MY_VERSION"-avr/bin/avr-ld.exe
 result_binutils=$?
 
 
@@ -169,27 +176,29 @@ echo
 # Notes on patch of GCC-12.3.0
 #
 
-# How do you make the patch?
+# How do you make the patch? (Example for gcc-12.3.0)
 #   diff -ru gcc-12.3.0/ gcc-12.3.0_new/ > avr-gcc-100-12.3.0_x86_64-w64-mingw32.patch
 
-# How do you apply the patch?
+# How do you apply the patch? (Example for gcc-12.3.0)
 #   patch -p0 < avr-gcc-100-12.3.0_x86_64-w64-mingw32.patch
 
 
 cd $SCRIPT_DIR/gcc_build
 echo 'build gcc'
-tar -xf gcc-12.3.0.tar.xz
-patch -p0 < avr-gcc-100-12.3.0_x86_64-w64-mingw32.patch
-mkdir objdir-gcc-12.3.0-avr
-cd objdir-gcc-12.3.0-avr
-../gcc-12.3.0/configure --prefix=$SCRIPT_DIR/local/gcc-12.3.0-avr --target=avr --enable-languages=c,c++ --build=x86_64-w64-mingw32 --host=x86_64-w64-mingw32 --with-pkgversion='Built by ckormanyos/real-time-cpp' --enable-static --disable-shared --disable-libada --disable-libssp --disable-nls --enable-mingw-wildcard --with-gnu-as --with-dwarf2 --with-isl=$SCRIPT_DIR/local/isl-0.15 --with-cloog=$SCRIPT_DIR/local/cloog-0.18.1 --with-gmp=$SCRIPT_DIR/local/gmp-6.3.0 --with-mpfr=$SCRIPT_DIR/local/mpfr-4.2.1 --with-mpc=$SCRIPT_DIR/local/mpc-1.3.1 --with-libiconv-prefix=$SCRIPT_DIR/local/libiconv-1.17 --with-zstd=$SCRIPT_DIR/local/zstd-1.5.5/lib
-make --jobs=8
+tar -xf gcc-"$MY_VERSION".tar.xz
+if [[ "$1" != "12.3.0" ]]; then
+patch -p0 < avr-gcc-100-"$MY_VERSION"_x86_64-w64-mingw32.patch
+fi
+mkdir objdir-gcc-"$MY_VERSION"-avr
+cd objdir-gcc-"$MY_VERSION"-avr
+../gcc-"$MY_VERSION"/configure --prefix=$SCRIPT_DIR/local/gcc-"$MY_VERSION"-avr --target=avr --enable-languages=c,c++ --build=x86_64-w64-mingw32 --host=x86_64-w64-mingw32 --with-pkgversion='Built by ckormanyos/real-time-cpp' --disable-gcov --enable-static --disable-shared --disable-tls --disable-libada --disable-libssp --disable-nls --enable-mingw-wildcard --with-gnu-as --with-dwarf2 --with-isl=$SCRIPT_DIR/local/isl-0.15 --with-cloog=$SCRIPT_DIR/local/cloog-0.18.1 --with-gmp=$SCRIPT_DIR/local/gmp-6.3.0 --with-mpfr=$SCRIPT_DIR/local/mpfr-4.2.1 --with-mpc=$SCRIPT_DIR/local/mpc-1.3.1 --with-libiconv-prefix=$SCRIPT_DIR/local/libiconv-1.17 --with-zstd=$SCRIPT_DIR/local/zstd-1.5.5/lib
+make --jobs=6
 make install
 echo
 
 
-ls -la $SCRIPT_DIR/local/gcc-12.3.0-avr/bin
-ls -la $SCRIPT_DIR/local/gcc-12.3.0-avr/bin/avr-g++.exe
+ls -la $SCRIPT_DIR/local/gcc-"$MY_VERSION"-avr/bin
+ls -la $SCRIPT_DIR/local/gcc-"$MY_VERSION"-avr/bin/avr-g++.exe
 result_gcc=$?
 
 
@@ -211,7 +220,7 @@ echo
 
 cd $SCRIPT_DIR/gcc_build
 echo 'add avr-gcc path'
-PATH=$SCRIPT_DIR/local/gcc-12.3.0-avr/bin:"$PATH"
+PATH=$SCRIPT_DIR/local/gcc-"$MY_VERSION"-avr/bin:"$PATH"
 export PATH
 CC=""
 export CC
@@ -220,8 +229,8 @@ echo
 
 cd $SCRIPT_DIR/gcc_build
 echo 'build avr-libc'
-cd objdir-gcc-12.3.0-avr
-../avr-libc-2_1_0-release/configure --prefix=$SCRIPT_DIR/local/gcc-12.3.0-avr --build=x86_64-w64-mingw32 --host=avr --enable-static --disable-shared
+cd objdir-gcc-"$MY_VERSION"-avr
+../avr-libc-2_1_0-release/configure --prefix=$SCRIPT_DIR/local/gcc-"$MY_VERSION"-avr --build=x86_64-w64-mingw32 --host=avr --enable-static --disable-shared
 make --jobs=8
 make install
 echo
