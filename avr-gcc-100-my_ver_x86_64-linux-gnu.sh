@@ -24,10 +24,12 @@ mkdir -p $SCRIPT_DIR/gcc_build
 echo
 
 
+if [[ "$1" != "12.3.0" ]]; then
 echo 'copy gcc patch file'
 cd $SCRIPT_DIR/gcc_build
-cp ../avr-gcc-"$MY_VERSION"_"$BUILD_NAME"_"$HOST_NAME".patch .
+cp ../avr-gcc-100-"$MY_VERSION"_"$BUILD_NAME".patch .
 echo
+fi
 
 
 echo 'query system gcc'
@@ -39,6 +41,7 @@ echo
 
 cd $SCRIPT_DIR/gcc_build
 echo 'get tar-balls'
+wget --no-check-certificate https://github.com/facebook/zstd/releases/download/v1.5.5/zstd-1.5.5.tar.gz
 wget --no-check-certificate https://ftp.gnu.org/gnu/libiconv/libiconv-1.17.tar.gz
 wget --no-check-certificate https://ftp.gnu.org/gnu/gmp/gmp-6.3.0.tar.xz
 wget --no-check-certificate https://ftp.gnu.org/gnu/mpfr/mpfr-4.2.1.tar.xz
@@ -48,6 +51,17 @@ wget --no-check-certificate https://gcc.gnu.org/pub/gcc/infrastructure/cloog-0.1
 wget --no-check-certificate https://ftp.gnu.org/gnu/binutils/binutils-2.41.tar.xz
 wget --no-check-certificate https://ftp.gnu.org/gnu/gcc/gcc-"$MY_VERSION"/gcc-"$MY_VERSION".tar.xz
 wget --no-check-certificate https://github.com/avrdudes/avr-libc/archive/refs/tags/avr-libc-2_1_0-release.tar.gz
+echo
+
+
+cd $SCRIPT_DIR/gcc_build
+echo 'build zstd'
+tar -xf zstd-1.5.5.tar.gz
+mkdir objdir-zstd-1.5.5
+cd objdir-zstd-1.5.5
+cmake "-DCMAKE_BUILD_TYPE=Release" "-DCMAKE_C_FLAGS=-s -O2" "-DCMAKE_INSTALL_PREFIX=$SCRIPT_DIR/local/zstd-1.5.5" "-DZSTD_BUILD_SHARED=OFF" -G Ninja $SCRIPT_DIR/gcc_build/zstd-1.5.5/build/cmake
+ninja
+ninja install
 echo
 
 
@@ -122,15 +136,14 @@ echo 'build binutils'
 tar -xf binutils-2.41.tar.xz
 mkdir objdir-binutils-2.41-avr-gcc-"$MY_VERSION"
 cd objdir-binutils-2.41-avr-gcc-"$MY_VERSION"
-#../binutils-2.41/configure --prefix=$SCRIPT_DIR/local/gcc-"$MY_VERSION"-avr --target=avr --enable-languages=c,c++ --build="$BUILD_NAME" --host="$HOST_NAME" --with-pkgversion='Built by ckormanyos/real-time-cpp' --disable-plugins --enable-static --disable-shared --disable-tls --disable-libada --disable-libssp --disable-nls --enable-mingw-wildcard --with-gnu-as --with-dwarf2 --with-isl=$SCRIPT_DIR/local/isl-0.15 --with-cloog=$SCRIPT_DIR/local/cloog-0.18.1 --with-gmp=$SCRIPT_DIR/local/gmp-6.3.0 --with-mpfr=$SCRIPT_DIR/local/mpfr-4.2.1 --with-mpc=$SCRIPT_DIR/local/mpc-1.3.1 --with-libiconv-prefix=$SCRIPT_DIR/local/libiconv-1.17 --with-zstd=$SCRIPT_DIR/local/zstd-1.5.5/lib --disable-werror
-../binutils-2.41/configure --prefix=$SCRIPT_DIR/local/gcc-"$MY_VERSION"-avr --target=avr --enable-languages=c,c++ --build="$BUILD_NAME" --host="$HOST_NAME" --with-pkgversion='Built by ckormanyos/real-time-cpp' --disable-plugins --enable-static --disable-shared --disable-tls --disable-libada --disable-libssp --disable-nls --enable-mingw-wildcard --with-gnu-as --with-dwarf2 --with-isl=$SCRIPT_DIR/local/isl-0.15 --with-cloog=$SCRIPT_DIR/local/cloog-0.18.1 --with-gmp=$SCRIPT_DIR/local/gmp-6.3.0 --with-mpfr=$SCRIPT_DIR/local/mpfr-4.2.1 --with-mpc=$SCRIPT_DIR/local/mpc-1.3.1 --with-libiconv-prefix=$SCRIPT_DIR/local/libiconv-1.17 --disable-werror
+../binutils-2.41/configure --prefix=$SCRIPT_DIR/local/gcc-"$MY_VERSION"-avr --target=avr --enable-languages=c,c++ --build="$BUILD_NAME" --host="$HOST_NAME" --with-pkgversion='Built by ckormanyos/real-time-cpp' --disable-plugins --enable-static --disable-shared --disable-tls --disable-libada --disable-libssp --disable-nls --enable-mingw-wildcard --with-gnu-as --with-dwarf2 --with-isl=$SCRIPT_DIR/local/isl-0.15 --with-cloog=$SCRIPT_DIR/local/cloog-0.18.1 --with-gmp=$SCRIPT_DIR/local/gmp-6.3.0 --with-mpfr=$SCRIPT_DIR/local/mpfr-4.2.1 --with-mpc=$SCRIPT_DIR/local/mpc-1.3.1 --with-libiconv-prefix=$SCRIPT_DIR/local/libiconv-1.17 --with-zstd=$SCRIPT_DIR/local/zstd-1.5.5/lib --disable-werror
 make --jobs=6
 make install
 echo
 
 
 ls -la $SCRIPT_DIR/local/gcc-"$MY_VERSION"-avr/bin
-ls -la $SCRIPT_DIR/local/gcc-"$MY_VERSION"-avr/bin/avr-ld*
+ls -la $SCRIPT_DIR/local/gcc-"$MY_VERSION"-avr/bin/avr-ld
 result_binutils=$?
 
 
@@ -152,18 +165,19 @@ echo
 cd $SCRIPT_DIR/gcc_build
 echo 'build gcc'
 tar -xf gcc-"$MY_VERSION".tar.xz
-patch -p0 < avr-gcc-"$MY_VERSION"_"$BUILD_NAME"_"$HOST_NAME".patch
+if [[ "$1" != "12.3.0" ]]; then
+patch -p0 < avr-gcc-100-"$MY_VERSION"_"$BUILD_NAME".patch
+fi
 mkdir objdir-gcc-"$MY_VERSION"-avr
 cd objdir-gcc-"$MY_VERSION"-avr
-#../gcc-"$MY_VERSION"/configure --prefix=$SCRIPT_DIR/local/gcc-"$MY_VERSION"-avr --target=avr --enable-languages=c,c++ --build="$BUILD_NAME" --host="$HOST_NAME" --with-pkgversion='Built by ckormanyos/real-time-cpp' --disable-gcov --enable-static --disable-shared --disable-tls --disable-libada --disable-libssp --disable-nls --enable-mingw-wildcard --with-gnu-as --with-dwarf2 --with-isl=$SCRIPT_DIR/local/isl-0.15 --with-cloog=$SCRIPT_DIR/local/cloog-0.18.1 --with-gmp=$SCRIPT_DIR/local/gmp-6.3.0 --with-mpfr=$SCRIPT_DIR/local/mpfr-4.2.1 --with-mpc=$SCRIPT_DIR/local/mpc-1.3.1 --with-libiconv-prefix=$SCRIPT_DIR/local/libiconv-1.17 --with-zstd=$SCRIPT_DIR/local/zstd-1.5.5/lib
-../gcc-"$MY_VERSION"/configure --prefix=$SCRIPT_DIR/local/gcc-"$MY_VERSION"-avr --target=avr --enable-languages=c,c++ --build="$BUILD_NAME" --host="$HOST_NAME" --with-pkgversion='Built by ckormanyos/real-time-cpp' --disable-gcov --enable-static --disable-shared --disable-tls --disable-libada --disable-libssp --disable-nls --enable-mingw-wildcard --with-gnu-as --with-dwarf2 --with-isl=$SCRIPT_DIR/local/isl-0.15 --with-cloog=$SCRIPT_DIR/local/cloog-0.18.1 --with-gmp=$SCRIPT_DIR/local/gmp-6.3.0 --with-mpfr=$SCRIPT_DIR/local/mpfr-4.2.1 --with-mpc=$SCRIPT_DIR/local/mpc-1.3.1 --with-libiconv-prefix=$SCRIPT_DIR/local/libiconv-1.17
+../gcc-"$MY_VERSION"/configure --prefix=$SCRIPT_DIR/local/gcc-"$MY_VERSION"-avr --target=avr --enable-languages=c,c++ --build="$BUILD_NAME" --host="$HOST_NAME" --with-pkgversion='Built by ckormanyos/real-time-cpp' --disable-gcov --enable-static --disable-shared --disable-tls --disable-libada --disable-libssp --disable-nls --enable-mingw-wildcard --with-gnu-as --with-dwarf2 --with-isl=$SCRIPT_DIR/local/isl-0.15 --with-cloog=$SCRIPT_DIR/local/cloog-0.18.1 --with-gmp=$SCRIPT_DIR/local/gmp-6.3.0 --with-mpfr=$SCRIPT_DIR/local/mpfr-4.2.1 --with-mpc=$SCRIPT_DIR/local/mpc-1.3.1 --with-libiconv-prefix=$SCRIPT_DIR/local/libiconv-1.17 --with-zstd=$SCRIPT_DIR/local/zstd-1.5.5/lib
 make --jobs=6
 make install
 echo
 
 
 ls -la $SCRIPT_DIR/local/gcc-"$MY_VERSION"-avr/bin
-ls -la $SCRIPT_DIR/local/gcc-"$MY_VERSION"-avr/bin/avr-gcc*
+ls -la $SCRIPT_DIR/local/gcc-"$MY_VERSION"-avr/bin/avr-g++
 result_gcc=$?
 
 
