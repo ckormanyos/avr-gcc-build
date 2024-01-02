@@ -30,7 +30,7 @@ jobs:
         run: sudo apt install autoconf g++-mingw-w64-x86-64 gcc-mingw-w64-x86-64 mingw-w64 texinfo xz-utils
       - name: avr-gcc-100-${{ matrix.gccversion }}_${{ matrix.buildname }}
         run: |
-          echo 'avr-gcc-010-my_ver_${{ matrix.buildname }}.sh'
+          echo 'avr-gcc-100-my_ver_${{ matrix.buildname }}.sh'
           ./avr-gcc-100-my_ver_${{ matrix.buildname }}.sh ${{ matrix.gccversion }} ${{ matrix.buildname }} ${{ matrix.hostname }}
       - name: avr-gcc-partially-verify-result
         run: |
