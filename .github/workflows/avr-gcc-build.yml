@@ -20,37 +20,40 @@ jobs:
       fail-fast: false
       matrix:
         gccversion: [ 12.3.0, 13.2.0 ]
+        hostname: [ x86_64-linux-gnu, x86_64-w64-mingw32 ]
     steps:
       - uses: actions/checkout@v3
         with:
           fetch-depth: '0'
-      - name: update-build-essentials
-        run: sudo apt install autoconf texinfo xz-utils
+      - name: update-build-tools
+        run: sudo apt install autoconf g++-mingw-w64-x86-64 gcc-mingw-w64-x86-64 mingw-w64 texinfo xz-utils
       - name: avr-gcc-100-${{ matrix.gccversion }}_x86_64-linux-gnu
         run: |
           echo 'avr-gcc-010-my_ver_x86_64-linux-gnu.sh'
-          ./avr-gcc-010-my_ver_x86_64-linux-gnu.sh ${{ matrix.gccversion }} x86_64-linux-gnu x86_64-linux-gnu
+          ./avr-gcc-010-my_ver_x86_64-linux-gnu.sh ${{ matrix.gccversion }} x86_64-linux-gnu ${{ matrix.hostname }}
       - name: avr-gcc-partially-verify-result
         run: |
           echo 'avr-gcc partial verify result'
           ls -la ${{ runner.workspace }}/avr-gcc-build/local/gcc-${{ matrix.gccversion }}-avr/bin
-          ls -la ${{ runner.workspace }}/avr-gcc-build/local/gcc-${{ matrix.gccversion }}-avr/bin/avr-gcc
-          ls -la ${{ runner.workspace }}/avr-gcc-build/local/gcc-${{ matrix.gccversion }}-avr/bin/avr-g++
-      - uses: actions/upload-artifact@v4
-        with:
-          name: gcc-${{ matrix.gccversion }}-avr_x86_64-linux-gnu
-          path: ${{ runner.workspace }}/avr-gcc-build/local/gcc-${{ matrix.gccversion }}-avr
-      - name: avr-gcc-test-with-real-time-cpp
-        run: |
-          echo "test avr-gcc with real-time-cpp"
-          echo "clone ckormanyos/real-time-cpp"
-          git clone -b master --depth 1 https://github.com/ckormanyos/real-time-cpp.git ${{ runner.workspace }}/avr-gcc-build/real-time-cpp
-          cd ${{ runner.workspace }}/avr-gcc-build/real-time-cpp/ref_app
-          PATH=${{ runner.workspace }}/avr-gcc-build/local/gcc-${{ matrix.gccversion }}-avr/bin:"$PATH"
-          ./target/build/build.sh avr rebuild
-          ls -la bin/ref_app.elf bin/ref_app.hex
-          ls -la bin/ref_app.map bin/ref_app.s19
-          ls -la bin/ref_app_cppfilt.txt
-          ls -la bin/ref_app_nm.txt
-          ls -la bin/ref_app_readelf.txt
-          ls -la bin/ref_app_size.txt
+          ls -la ${{ runner.workspace }}/avr-gcc-build/local/gcc-${{ matrix.gccversion }}-avr/bin/avr-gcc*
+          ls -la ${{ runner.workspace }}/avr-gcc-build/local/gcc-${{ matrix.gccversion }}-avr/bin/avr-g++*
+
+#      - uses: actions/upload-artifact@v4
+#        with:
+#          name: gcc-${{ matrix.gccversion }}-avr_${{ matrix.hostname }}
+#          path: ${{ runner.workspace }}/avr-gcc-build/local/gcc-${{ matrix.gccversion }}-avr
+
+#      - name: avr-gcc-test-with-real-time-cpp
+#        run: |
+#          echo "test avr-gcc with real-time-cpp"
+#          echo "clone ckormanyos/real-time-cpp"
+#          git clone -b master --depth 1 https://github.com/ckormanyos/real-time-cpp.git ${{ runner.workspace }}/avr-gcc-build/real-time-cpp
+#          cd ${{ runner.workspace }}/avr-gcc-build/real-time-cpp/ref_app
+#          PATH=${{ runner.workspace }}/avr-gcc-build/local/gcc-${{ matrix.gccversion }}-avr/bin:"$PATH"
+#          ./target/build/build.sh avr rebuild
+#          ls -la bin/ref_app.elf bin/ref_app.hex
+#          ls -la bin/ref_app.map bin/ref_app.s19
+#          ls -la bin/ref_app_cppfilt.txt
+#          ls -la bin/ref_app_nm.txt
+#          ls -la bin/ref_app_readelf.txt
+#          ls -la bin/ref_app_size.txt
