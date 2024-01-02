@@ -4,7 +4,7 @@
 #  Distributed under The Unlicense.
 #
 # Example call:
-#   ./avr-gcc-100-12.3.0_x86_64-w64-mingw32.sh 12.3.0 x86_64-w64-mingw32 x86_64-w64-mingw32 /c/mingw
+#   ./avr-gcc-100-12.3.0_x86_64-linux-gnu.sh 12.3.0 x86_64-linux-gnu x86_64-linux-gnu
 #
 
 SCRIPT_PATH=$(readlink -f "$BASH_SOURCE")
@@ -13,18 +13,6 @@ SCRIPT_DIR=$(dirname "$SCRIPT_PATH")
 MY_VERSION=$1
 BUILD_NAME=$2
 HOST_NAME=$3
-OLD_MINGW_PATH=$4
-
-# echo 'install necessary packages and build tools'
-# pacman -S --needed --noconfirm autoconf automake bzip2 cmake git make ninja patch python texinfo wget
-
-# Get standalone msys2 from nuwen (contains standalone gcc-x86_64-w64-mingw32).
-# The page describing this is: https://nuwen.net/mingw.html
-# The exact download link is: https://nuwen.net/files/mingw/mingw-18.0.exe
-
-# For detailed background information, see also the detailed instructions
-# at GitHub from Stephan T. Lavavej's repositiony.
-# These can be found here: https://github.com/StephanTLavavej/mingw-distro
 
 
 echo 'clean gcc_build directory'
@@ -42,17 +30,6 @@ cd $SCRIPT_DIR/gcc_build
 cp ../avr-gcc-100-"$MY_VERSION"_"$BUILD_NAME".patch .
 echo
 fi
-
-
-echo 'append standalone gcc-x86_64-w64-mingw32 path'
-export X_DISTRO_ROOT="$OLD_MINGW_PATH"
-export X_DISTRO_BIN=$X_DISTRO_ROOT/bin
-export X_DISTRO_INC=$X_DISTRO_ROOT/include
-export X_DISTRO_LIB=$X_DISTRO_ROOT/lib
-export PATH=$PATH:$X_DISTRO_BIN
-export C_INCLUDE_PATH=$X_DISTRO_INC
-export CPLUS_INCLUDE_PATH=$X_DISTRO_INC
-echo
 
 
 echo 'query system gcc'
@@ -166,7 +143,7 @@ echo
 
 
 ls -la $SCRIPT_DIR/local/gcc-"$MY_VERSION"-avr/bin
-ls -la $SCRIPT_DIR/local/gcc-"$MY_VERSION"-avr/bin/avr-ld.exe
+ls -la $SCRIPT_DIR/local/gcc-"$MY_VERSION"-avr/bin/avr-ld
 result_binutils=$?
 
 
@@ -200,7 +177,7 @@ echo
 
 
 ls -la $SCRIPT_DIR/local/gcc-"$MY_VERSION"-avr/bin
-ls -la $SCRIPT_DIR/local/gcc-"$MY_VERSION"-avr/bin/avr-g++.exe
+ls -la $SCRIPT_DIR/local/gcc-"$MY_VERSION"-avr/bin/avr-g++
 result_gcc=$?
 
 
