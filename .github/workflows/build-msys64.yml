@@ -2,7 +2,7 @@
 #  Copyright Christopher Kormanyos 2023 - 2024.
 #  Distributed under The Unlicense.
 
-name: avr-gcc-build-msys2-gcc
+name: build-msys64
 on:
   push:
     branches:

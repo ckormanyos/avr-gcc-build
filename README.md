@@ -3,9 +3,9 @@ ckormanyos/avr-gcc-build
 
 <p align="center">
     <a href="https://github.com/ckormanyos/avr-gcc-build/actions">
-        <img src="https://github.com/ckormanyos/avr-gcc-build/actions/workflows/avr-gcc-build.yml/badge.svg" alt="build-ubuntu"></a>
+        <img src="https://github.com/ckormanyos/avr-gcc-build/actions/workflows/build-ubuntu.yml/badge.svg" alt="build-ubuntu"></a>
     <a href="https://github.com/ckormanyos/avr-gcc-build/actions">
-        <img src="https://github.com/ckormanyos/avr-gcc-build/actions/workflows/avr-gcc-build-msys2-gcc.yml/badge.svg" alt="build-msys2"></a>
+        <img src="https://github.com/ckormanyos/avr-gcc-build/actions/workflows/build-msys64.yml/badge.svg" alt="build-msys64"></a>
     <a href="https://github.com/ckormanyos/avr-gcc-build/issues?q=is%3Aissue+is%3Aopen+sort%3Aupdated-desc">
         <img src="https://custom-icon-badges.herokuapp.com/github/issues-raw/ckormanyos/avr-gcc-build?logo=github" alt="Issues" /></a>
     <a href="https://github.com/ckormanyos/avr-gcc-build/blob/main/UNLICENSE">
@@ -27,9 +27,9 @@ Design goals:
 ## Workflow-Run
 
 Workflow:
-  - The Workflow-Run [avr-gcc-build.yml](./.github/workflows/avr-gcc-build.yml) and its associated shell scripts (`avr-gcc-010*.sh`, `avr-gcc-020*.sh`, and `avr-gcc-030*.sh`) build `avr-gcc` for the _host_ `x86_64-linux-gnu`. These run on a GHA `ubuntu-latest` runner.
-  - The Workflow-Run [avr-gcc-build-msys2-gcc.yml](./.github/workflows/avr-gcc-build-msys2-gcc.yml) and its associated shell script [avr-gcc-100-my_ver_x86_64-w64-mingw32.sh](./avr-gcc-100-my_ver_x86_64-w64-mingw32.sh) build `avr-gcc` for the _host_ `x86_64-w64-mingw32`. These run on a GHA `windows-latest` runner using `msys2`.
-  - When building for `x86_64-w64-mingw32` on `msys2`, use a pre-built, dependency-free, statically linked `mingw` and host-compiler (see notes below). This separate `mingw` package is unpacked in a directory parallel to the runner workspace and its `bin` directory is added to the `PATH` variable.
+  - The Workflow-Run [build-ubuntu.yml](./.github/workflows/build-ubuntu.yml) and its associated shell script [avr-gcc-100-my_ver_x86_64-linux-gnu.sh](`./avr-gcc-100-my_ver_x86_64-linux-gnu.sh`) build `avr-gcc` for the _host_ `x86_64-linux-gnu`. The script is executed on a GHA `ubuntu-latest` runner.
+  - The Workflow-Run [build-msys64.yml](./.github/workflows/build-msys64.yml) and its associated shell script [avr-gcc-100-my_ver_x86_64-w64-mingw32.sh](./avr-gcc-100-my_ver_x86_64-w64-mingw32.sh) build `avr-gcc` for the _host_ `x86_64-w64-mingw32`. The script is executed on a GHA `windows-latest` runner using `msys64`.
+  - When building for `x86_64-w64-mingw32` on `msys64`, use a pre-built, dependency-free, statically linked `mingw` and host-compiler (see notes below). This separate `mingw` package is unpacked in a directory parallel to the runner workspace and its `bin` directory is added to the `PATH` variable.
   - GCC prerequisites including [GMP](https://gmplib.org), [MPFR](https://www.mpfr.org), [MPC](https://www.multiprecision.org), etc. are built on-the-fly in the Workflow-Run.
   - Build [`binutils`](https://www.gnu.org/software/binutils) and partially verify the build artifacts.
   - Then build `avr-gcc` and partially verify the build artifacts.

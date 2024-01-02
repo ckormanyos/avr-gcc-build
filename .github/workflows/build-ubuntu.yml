@@ -2,7 +2,7 @@
 #  Copyright Christopher Kormanyos 2023 - 2024.
 #  Distributed under The Unlicense.
 
-name: avr-gcc-build
+name: build-ubuntu
 on:
   push:
     branches:
