@@ -11,8 +11,8 @@ SCRIPT_PATH=$(readlink -f "$BASH_SOURCE")
 SCRIPT_DIR=$(dirname "$SCRIPT_PATH")
 
 MY_VERSION=$1
-HOST_NAME=$2
-BUILD_NAME=$3
+BUILD_NAME=$2
+HOST_NAME=$3
 
 
 echo 'clean gcc_build directory'
@@ -143,7 +143,7 @@ echo
 
 
 ls -la $SCRIPT_DIR/local/gcc-"$MY_VERSION"-avr/bin
-ls -la $SCRIPT_DIR/local/gcc-"$MY_VERSION"-avr/bin/avr-ld
+ls -la $SCRIPT_DIR/local/gcc-"$MY_VERSION"-avr/bin/avr-ld*
 result_binutils=$?
 
 
@@ -177,7 +177,7 @@ echo
 
 
 ls -la $SCRIPT_DIR/local/gcc-"$MY_VERSION"-avr/bin
-ls -la $SCRIPT_DIR/local/gcc-"$MY_VERSION"-avr/bin/avr-g++
+ls -la $SCRIPT_DIR/local/gcc-"$MY_VERSION"-avr/bin/avr-gcc*
 result_gcc=$?
 
 
@@ -189,7 +189,6 @@ cd $SCRIPT_DIR/gcc_build
 echo 'unpack and bootstrap avr-libc'
 tar -xf avr-libc-2_1_0-release.tar.gz
 mv avr-libc-avr-libc-2_1_0-release avr-libc-2_1_0-release
-rm -f avr-libc-2_1_0-release/tests/simulate/time/aux.c
 cd avr-libc-2_1_0-release
 ./bootstrap
 result_bootstrap=$?
