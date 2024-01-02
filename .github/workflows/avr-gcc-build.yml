@@ -19,18 +19,19 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        gccversion: [ 12.3.0, 13.2.0 ]
-        hostname: [ x86_64-linux-gnu, x86_64-w64-mingw32 ]
+        gccversion: [ 13.2.0 ]
+        buildname: [ x86_64-linux-gnu ]
+        hostname: [ x86_64-w64-mingw32 ]
     steps:
       - uses: actions/checkout@v3
         with:
           fetch-depth: '0'
       - name: update-build-tools
         run: sudo apt install autoconf g++-mingw-w64-x86-64 gcc-mingw-w64-x86-64 mingw-w64 texinfo xz-utils
-      - name: avr-gcc-100-${{ matrix.gccversion }}_x86_64-linux-gnu
+      - name: avr-gcc-100-${{ matrix.gccversion }}_${{ matrix.buildname }}
         run: |
-          echo 'avr-gcc-010-my_ver_x86_64-linux-gnu.sh'
-          ./avr-gcc-010-my_ver_x86_64-linux-gnu.sh ${{ matrix.gccversion }} x86_64-linux-gnu ${{ matrix.hostname }}
+          echo 'avr-gcc-010-my_ver_${{ matrix.buildname }}.sh'
+          ./avr-gcc-010-my_ver_${{ matrix.buildname }}.sh ${{ matrix.gccversion }} ${{ matrix.buildname }} ${{ matrix.hostname }}
       - name: avr-gcc-partially-verify-result
         run: |
           echo 'avr-gcc partial verify result'
