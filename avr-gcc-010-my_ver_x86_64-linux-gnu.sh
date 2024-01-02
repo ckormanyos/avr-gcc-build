@@ -143,7 +143,7 @@ echo
 
 
 ls -la $SCRIPT_DIR/local/gcc-"$MY_VERSION"-avr/bin
-ls -la $SCRIPT_DIR/local/gcc-"$MY_VERSION"-avr/bin/avr-ld.exe
+ls -la $SCRIPT_DIR/local/gcc-"$MY_VERSION"-avr/bin/avr-ld
 result_binutils=$?
 
 
@@ -177,7 +177,7 @@ echo
 
 
 ls -la $SCRIPT_DIR/local/gcc-"$MY_VERSION"-avr/bin
-ls -la $SCRIPT_DIR/local/gcc-"$MY_VERSION"-avr/bin/avr-g++.exe
+ls -la $SCRIPT_DIR/local/gcc-"$MY_VERSION"-avr/bin/avr-g++
 result_gcc=$?
 
 
