@@ -18,10 +18,11 @@ directly from the Workflow-Run(s) on GHA.
 
 Design goals:
   - Use shell and YAML scripts to build modern `avr-gcc` on-the-fly.
-  - Build `avr-gcc` from up-to-date releases such as 12.3.0 and 13.2.0, or modern branches like `trunk` and `releases/gcc-13` found in [`gcc-mirror/gcc`](https://github.com/gcc-mirror/gcc).
+  - Build `avr-gcc` from up-to-date [gcc-releases](https://ftp.gnu.org/gnu/gcc).
   - Provide a non-trivial test of the newly-built toolchain(s) based on a real-world project.
   - Support cyclic monthly build of modern, evolving GCC branch(es) and trunk.
-  - Publish the build artifacts directly from the Workflow-Run(s) on GHA.
+  - Publish the build artifacts directly from the GHA Workflow-Run(s).
+  - TBD: Publish named releases instead of publishing directly from the GHA Workflow-Run(s), see also [issue 26](https://github.com/ckormanyos/avr-gcc-build/issues/26).
 
 ## Workflow-Run
 
@@ -38,7 +39,7 @@ Workflow:
 ## Distribution
 
 Build artifacts are compressed and stored as ZIP-archive(s)
-directly from the Workflow-Run on GHA.
+directly from the Workflow-Run(s) on GHA.
 The [`actions/upload-artifact`](https://github.com/actions/upload-artifact) action
 is used for archiving build artifacts.
 
