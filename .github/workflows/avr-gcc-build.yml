@@ -31,7 +31,7 @@ jobs:
       - name: avr-gcc-100-${{ matrix.gccversion }}_${{ matrix.buildname }}
         run: |
           echo 'avr-gcc-010-my_ver_${{ matrix.buildname }}.sh'
-          ./avr-gcc-010-my_ver_${{ matrix.buildname }}.sh ${{ matrix.gccversion }} ${{ matrix.buildname }} ${{ matrix.hostname }}
+          ./avr-gcc-100-my_ver_${{ matrix.buildname }}.sh ${{ matrix.gccversion }} ${{ matrix.buildname }} ${{ matrix.hostname }}
       - name: avr-gcc-partially-verify-result
         run: |
           echo 'avr-gcc partial verify result'
