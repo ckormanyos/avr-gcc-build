@@ -25,7 +25,7 @@ jobs:
         with:
           fetch-depth: '0'
       - name: update-build-essentials
-        run: sudo apt install autoconf ninja texinfo xz-utils
+        run: sudo apt install autoconf texinfo xz-utils
       - name: avr-gcc-100-${{ matrix.gccversion }}_x86_64-linux-gnu
         run: |
           echo 'avr-gcc-010-my_ver_x86_64-linux-gnu.sh'
