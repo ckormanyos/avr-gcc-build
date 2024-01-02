@@ -27,7 +27,7 @@ Design goals:
 ## Workflow-Run
 
 Workflow:
-  - The Workflow-Run [build-ubuntu.yml](./.github/workflows/build-ubuntu.yml) and its associated shell script [avr-gcc-100-my_ver_x86_64-linux-gnu.sh](`./avr-gcc-100-my_ver_x86_64-linux-gnu.sh`) build `avr-gcc` for the _host_ `x86_64-linux-gnu`. The script is executed on a GHA `ubuntu-latest` runner.
+  - The Workflow-Run [build-ubuntu.yml](./.github/workflows/build-ubuntu.yml) and its associated shell script [avr-gcc-100-my_ver_x86_64-linux-gnu.sh](./avr-gcc-100-my_ver_x86_64-linux-gnu.sh) build `avr-gcc` for the _host_ `x86_64-linux-gnu`. The script is executed on a GHA `ubuntu-latest` runner.
   - The Workflow-Run [build-msys64.yml](./.github/workflows/build-msys64.yml) and its associated shell script [avr-gcc-100-my_ver_x86_64-w64-mingw32.sh](./avr-gcc-100-my_ver_x86_64-w64-mingw32.sh) build `avr-gcc` for the _host_ `x86_64-w64-mingw32`. The script is executed on a GHA `windows-latest` runner using `msys64`.
   - When building for `x86_64-w64-mingw32` on `msys64`, use a pre-built, dependency-free, statically linked `mingw` and host-compiler (see notes below). This separate `mingw` package is unpacked in a directory parallel to the runner workspace and its `bin` directory is added to the `PATH` variable.
   - GCC prerequisites including [GMP](https://gmplib.org), [MPFR](https://www.mpfr.org), [MPC](https://www.multiprecision.org), etc. are built on-the-fly in the Workflow-Run.
