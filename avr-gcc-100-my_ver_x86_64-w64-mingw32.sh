@@ -11,8 +11,8 @@ SCRIPT_PATH=$(readlink -f "$BASH_SOURCE")
 SCRIPT_DIR=$(dirname "$SCRIPT_PATH")
 
 MY_VERSION=$1
-HOST_NAME=$2
-BUILD_NAME=$3
+BUILD_NAME=$2
+HOST_NAME=$3
 OLD_MINGW_PATH=$4
 
 # echo 'install necessary packages and build tools'
