@@ -26,10 +26,10 @@ jobs:
           fetch-depth: '0'
       - name: update-build-essentials
         run: sudo apt install autoconf texinfo xz-utils
-      - name: avr-gcc-100-${{ matrix.gccversion }}_x86_64-linux-gnu
+      - name: avr-gcc-100
         run: |
-          echo 'avr-gcc-100-my_ver_x86_64-linux-gnu.sh'
-          ./avr-gcc-100-my_ver_x86_64-linux-gnu.sh ${{ matrix.gccversion }} x86_64-linux-gnu x86_64-linux-gnu
+          echo 'avr-gcc-100.sh'
+          ./avr-gcc-100.sh ${{ matrix.gccversion }} x86_64-linux-gnu x86_64-linux-gnu
       - name: avr-gcc-partially-verify-result
         run: |
           echo 'avr-gcc partial verify result'

@@ -37,10 +37,10 @@ jobs:
           msystem: mingw64
           update: true
           install: autoconf automake bzip2 cmake git make ninja patch python texinfo wget
-      - name: avr-gcc-100-${{ matrix.gccversion }}_x86_64-w64-mingw32
+      - name: avr-gcc-100
         run: |
-          echo 'avr-gcc-100-my_ver_x86_64-w64-mingw32.sh'
-          ./avr-gcc-100-my_ver_x86_64-w64-mingw32.sh ${{ matrix.gccversion }} x86_64-w64-mingw32 x86_64-w64-mingw32 /d/a/avr-gcc-build/avr-gcc-build/mingw
+          echo 'avr-gcc-100.sh'
+          ./avr-gcc-100.sh ${{ matrix.gccversion }} x86_64-w64-mingw32 x86_64-w64-mingw32 /d/a/avr-gcc-build/avr-gcc-build/mingw
       - name: avr-gcc-partially-verify-result
         run: |
           echo 'avr-gcc partial verify result'
