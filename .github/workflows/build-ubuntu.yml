@@ -8,8 +8,6 @@ on:
     branches:
       - '**'
   pull_request:
-  schedule:
-    - cron: '30 10 1 * *' # run at 10:30 AM every first day of the month UTC (see also https://cloud.google.com/scheduler/docs/configuring/cron-job-schedules?hl=en)
 jobs:
   avr-gcc-build-native:
     runs-on: ubuntu-latest
@@ -21,7 +19,7 @@ jobs:
       matrix:
         gccversion: [ 12.3.0, 13.2.0 ]
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           fetch-depth: '0'
       - name: update-build-essentials
@@ -36,10 +34,13 @@ jobs:
           ls -la ${{ runner.workspace }}/avr-gcc-build/local/gcc-${{ matrix.gccversion }}-avr/bin
           ls -la ${{ runner.workspace }}/avr-gcc-build/local/gcc-${{ matrix.gccversion }}-avr/bin/avr-gcc
           ls -la ${{ runner.workspace }}/avr-gcc-build/local/gcc-${{ matrix.gccversion }}-avr/bin/avr-g++
+          cd ${{ runner.workspace }}/avr-gcc-build/local
+          tar -czf gcc-${{ matrix.gccversion }}-avr.tar.gz gcc-${{ matrix.gccversion }}-avr
       - uses: actions/upload-artifact@v4
         with:
           name: gcc-${{ matrix.gccversion }}-avr_x86_64-linux-gnu
-          path: ${{ runner.workspace }}/avr-gcc-build/local/gcc-${{ matrix.gccversion }}-avr
+          path: ${{ runner.workspace }}/avr-gcc-build/local/gcc-${{ matrix.gccversion }}-avr.tar.gz
+          retention-days: 3
       - name: avr-gcc-test-with-real-time-cpp
         run: |
           echo "test avr-gcc with real-time-cpp"

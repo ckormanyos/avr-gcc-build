@@ -22,7 +22,7 @@ if [[ "$BUILD_NAME" == "x86_64-w64-mingw32" ]]; then
 
 # Get standalone msys2 from nuwen (contains standalone gcc-x86_64-w64-mingw32).
 # The page describing this is: https://nuwen.net/mingw.html
-# The exact download link is: https://nuwen.net/files/mingw/mingw-18.0.exe
+# The exact download link is: https://nuwen.net/files/mingw/mingw-19.0.exe
 
 # For detailed background information, see also the detailed instructions
 # at GitHub from Stephan T. Lavavej's repositiony.
@@ -50,7 +50,7 @@ mkdir -p $SCRIPT_DIR/gcc_build
 echo
 
 
-if [[ "$1" != "12.3.0" ]]; then
+if [[ "$MY_VERSION" == "12.3.0" ]]; then
 echo 'copy gcc patch file'
 cd $SCRIPT_DIR/gcc_build
 cp ../avr-gcc-100-"$MY_VERSION"_"$BUILD_NAME".patch .
@@ -76,7 +76,6 @@ wget --no-check-certificate https://gcc.gnu.org/pub/gcc/infrastructure/isl-0.15.
 wget --no-check-certificate https://gcc.gnu.org/pub/gcc/infrastructure/cloog-0.18.1.tar.gz
 wget --no-check-certificate https://ftp.gnu.org/gnu/binutils/binutils-2.41.tar.xz
 wget --no-check-certificate https://ftp.gnu.org/gnu/gcc/gcc-"$MY_VERSION"/gcc-"$MY_VERSION".tar.xz
-wget --no-check-certificate https://github.com/avrdudes/avr-libc/archive/refs/tags/avr-libc-2_1_0-release.tar.gz
 echo
 
 
@@ -191,7 +190,7 @@ echo
 cd $SCRIPT_DIR/gcc_build
 echo 'build gcc'
 tar -xf gcc-"$MY_VERSION".tar.xz
-if [[ "$1" != "12.3.0" ]]; then
+if [[ "$MY_VERSION" == "12.3.0" ]]; then
 patch -p0 < avr-gcc-100-"$MY_VERSION"_"$BUILD_NAME".patch
 fi
 mkdir objdir-gcc-"$MY_VERSION"-avr
@@ -212,11 +211,10 @@ echo
 
 
 cd $SCRIPT_DIR/gcc_build
-echo 'unpack and bootstrap avr-libc'
-tar -xf avr-libc-2_1_0-release.tar.gz
-mv avr-libc-avr-libc-2_1_0-release avr-libc-2_1_0-release
-rm -f avr-libc-2_1_0-release/tests/simulate/time/aux.c
-cd avr-libc-2_1_0-release
+echo 'clone and bootstrap avr-libc'
+git clone -b main --depth 1 https://github.com/avrdudes/avr-libc.git avr-libc
+rm -f avr-libc/tests/simulate/time/aux.c
+cd avr-libc
 ./bootstrap
 result_bootstrap=$?
 echo "result_bootstrap: " "$result_bootstrap"
@@ -235,7 +233,7 @@ echo
 cd $SCRIPT_DIR/gcc_build
 echo 'build avr-libc'
 cd objdir-gcc-"$MY_VERSION"-avr
-../avr-libc-2_1_0-release/configure --prefix=$SCRIPT_DIR/local/gcc-"$MY_VERSION"-avr --build="$BUILD_NAME" --host=avr --enable-static --disable-shared
+../avr-libc/configure --prefix=$SCRIPT_DIR/local/gcc-"$MY_VERSION"-avr --build="$BUILD_NAME" --host=avr --enable-static --disable-shared
 make --jobs=8
 make install
 echo
