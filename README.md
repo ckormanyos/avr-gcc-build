@@ -37,12 +37,17 @@ Workflow:
   - Get a modern release of [`avr-libc`](https://github.com/avrdudes/avr-libc/tags) from [`avrdudes/avr-libc`](https://github.com/avrdudes/avr-libc) and build it with its `--prefix` matching that of the above-mentioned `avr-gcc`-build.
   - Test the complete, newly built `avr-gcc` toolchain with a non-trivial compiler test. In the compiler test, we build `ref_app` (the reference application) from [`ckormanyos/real-time-cpp`](https://github.com/ckormanyos). Verify the creation of key build results from `ref_app` including ELF-file, HEX-file, map files, etc.
 
-## Distribution
+## Distribution: Releases and Build Artifacts
 
-Build artifacts are compressed and stored as ZIP-archive(s)
-directly from the Workflow-Run(s) on GHA.
-The [`actions/upload-artifact`](https://github.com/actions/upload-artifact) action
-is used for archiving build artifacts.
+Occasional releases and build artifacts consisting of the
+`avr-gcc` toolchain are created for `x86_64-linux-gnu` (Linux) and
+`x86_64-w64-mingw32` (Windows). These can be readily found
+on the repo front page and in CI workflow-run download-areas
+for immediate client use.
+
+Using released or CI-built artifacts can be convenient when you
+do not actually want to nor need to manually build
+`avr-gcc` toolchain.
 
 ## Additional Notes
 

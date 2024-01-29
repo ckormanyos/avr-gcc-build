@@ -34,10 +34,12 @@ jobs:
           ls -la ${{ runner.workspace }}/avr-gcc-build/local/gcc-${{ matrix.gccversion }}-avr/bin
           ls -la ${{ runner.workspace }}/avr-gcc-build/local/gcc-${{ matrix.gccversion }}-avr/bin/avr-gcc
           ls -la ${{ runner.workspace }}/avr-gcc-build/local/gcc-${{ matrix.gccversion }}-avr/bin/avr-g++
+          tar -czf gcc-${{ matrix.gccversion }}-avr_x86_64-linux-gnu.tar.gz ${{ runner.workspace }}/avr-gcc-build/local/gcc-${{ matrix.gccversion }}-avr
       - uses: actions/upload-artifact@v4
         with:
           name: gcc-${{ matrix.gccversion }}-avr_x86_64-linux-gnu
-          path: ${{ runner.workspace }}/avr-gcc-build/local/gcc-${{ matrix.gccversion }}-avr
+          path: gcc-${{ matrix.gccversion }}-avr_x86_64-linux-gnu.tar.gz
+          retention-days: 3
       - name: avr-gcc-test-with-real-time-cpp
         run: |
           echo "test avr-gcc with real-time-cpp"
