@@ -19,17 +19,17 @@ jobs:
       matrix:
         gccversion: [ 12.3.0, 13.2.0 ]
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: get-nuwen-mingw
         shell: cmd
         run: |
           C:\msys64\usr\bin\echo.exe get-nuwen-mingw
-          C:\msys64\usr\bin\wget.exe --no-check-certificate https://nuwen.net/files/mingw/mingw-18.0-without-git.exe
+          C:\msys64\usr\bin\wget.exe --no-check-certificate https://nuwen.net/files/mingw/mingw-19.0.exe
       - name: unpack-nuwen-mingw
         shell: cmd
         run: |
           C:\msys64\usr\bin\echo.exe unpack-nuwen-mingw
-          start /b /wait ./mingw-18.0-without-git.exe -y -gm2 -InstallPath="D:\\a\\avr-gcc-build\\avr-gcc-build\\mingw"
+          start /b /wait ./mingw-19.0.exe -y -gm2 -InstallPath="D:\\a\\avr-gcc-build\\avr-gcc-build\\mingw"
       - uses: msys2/setup-msys2@v2
         with:
           msystem: mingw64

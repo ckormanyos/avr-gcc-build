@@ -22,7 +22,7 @@ if [[ "$BUILD_NAME" == "x86_64-w64-mingw32" ]]; then
 
 # Get standalone msys2 from nuwen (contains standalone gcc-x86_64-w64-mingw32).
 # The page describing this is: https://nuwen.net/mingw.html
-# The exact download link is: https://nuwen.net/files/mingw/mingw-18.0.exe
+# The exact download link is: https://nuwen.net/files/mingw/mingw-19.0.exe
 
 # For detailed background information, see also the detailed instructions
 # at GitHub from Stephan T. Lavavej's repositiony.

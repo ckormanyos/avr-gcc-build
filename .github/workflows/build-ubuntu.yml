@@ -19,7 +19,7 @@ jobs:
       matrix:
         gccversion: [ 12.3.0, 13.2.0 ]
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           fetch-depth: '0'
       - name: update-build-essentials
