@@ -50,7 +50,7 @@ mkdir -p $SCRIPT_DIR/gcc_build
 echo
 
 
-if [[ "$1" != "12.3.0" ]]; then
+if [[ "$MY_VERSION" == "12.3.0" ]]; then
 echo 'copy gcc patch file'
 cd $SCRIPT_DIR/gcc_build
 cp ../avr-gcc-100-"$MY_VERSION"_"$BUILD_NAME".patch .
@@ -190,7 +190,7 @@ echo
 cd $SCRIPT_DIR/gcc_build
 echo 'build gcc'
 tar -xf gcc-"$MY_VERSION".tar.xz
-if [[ "$1" != "12.3.0" ]]; then
+if [[ "$MY_VERSION" == "12.3.0" ]]; then
 patch -p0 < avr-gcc-100-"$MY_VERSION"_"$BUILD_NAME".patch
 fi
 mkdir objdir-gcc-"$MY_VERSION"-avr
