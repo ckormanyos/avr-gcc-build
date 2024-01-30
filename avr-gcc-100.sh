@@ -4,8 +4,8 @@
 #  Distributed under The Unlicense.
 #
 # Example call(s):
-#   ./avr-gcc-100-12.3.0_x86_64-linux-gnu.sh 12.3.0 x86_64-linux-gnu x86_64-linux-gnu
-#   ./avr-gcc-100-12.3.0_x86_64-w64-mingw32.sh 12.3.0 x86_64-w64-mingw32 x86_64-w64-mingw32 /c/mingw
+#   ./avr-gcc-100.sh 13.2.0 x86_64-linux-gnu x86_64-linux-gnu
+#   ./avr-gcc-100.sh 13.2.0 x86_64-w64-mingw32 x86_64-w64-mingw32 /c/mingw
 #
 
 SCRIPT_PATH=$(readlink -f "$BASH_SOURCE")
