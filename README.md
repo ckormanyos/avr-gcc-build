@@ -12,22 +12,19 @@ ckormanyos/avr-gcc-build
         <img src="https://img.shields.io/badge/license-The Unlicense-blue.svg" alt="The Unlicense"></a>
 </p>
 
-`ckormanyos/avr-gcc-build` provides shell and YAML scripts to build a modern `avr-gcc`
-on GHA native runner(s). Built toolchains are distributed as ZIP-archive(s)
-directly from the Workflow-Run(s) on GHA.
+`ckormanyos/avr-gcc-build` provides shell and YAML scripts to build a modern `avr-gcc`.
 
 Design goals:
   - Use shell and YAML scripts to build modern `avr-gcc` on-the-fly.
   - Build `avr-gcc` from up-to-date [gcc-releases](https://ftp.gnu.org/gnu/gcc).
   - Provide a non-trivial test of the newly-built toolchain(s) based on a real-world project.
-  - Support cyclic monthly build of modern, evolving GCC releases.
   - Publish the build artifacts directly from the GHA Workflow-Run(s).
-  - Occasionally create and publish versioned releases. See also [issue 26](https://github.com/ckormanyos/avr-gcc-build/issues/26).
+  - Occasionally create and publish versioned releases.
 
-## Distribution: Releases and Build Artifacts
+## Releases and Build Artifacts
 
 Using released or CI-built artifacts can be convenient when you
-do not actually want to nor need to manually build
+do not actually want to nor need to manually build the
 `avr-gcc` toolchain.
 
 Releases and build artifacts consisting of the
