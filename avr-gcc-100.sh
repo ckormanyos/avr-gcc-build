@@ -72,7 +72,7 @@ wget --no-check-certificate https://ftp.gnu.org/gnu/libiconv/libiconv-1.17.tar.g
 wget --no-check-certificate https://ftp.gnu.org/gnu/gmp/gmp-6.3.0.tar.xz
 wget --no-check-certificate https://ftp.gnu.org/gnu/mpfr/mpfr-4.2.1.tar.xz
 wget --no-check-certificate https://ftp.gnu.org/gnu/mpc/mpc-1.3.1.tar.gz
-wget --no-check-certificate https://gcc.gnu.org/pub/gcc/infrastructure/isl-0.15.tar.bz2
+wget --no-check-certificate https://gcc.gnu.org/pub/gcc/infrastructure/isl-0.24.tar.bz2
 wget --no-check-certificate https://gcc.gnu.org/pub/gcc/infrastructure/cloog-0.18.1.tar.gz
 wget --no-check-certificate https://ftp.gnu.org/gnu/binutils/binutils-2.41.tar.xz
 wget --no-check-certificate https://ftp.gnu.org/gnu/gcc/gcc-"$MY_VERSION"/gcc-"$MY_VERSION".tar.xz
@@ -136,10 +136,10 @@ echo
 
 cd $SCRIPT_DIR/gcc_build
 echo 'build isl'
-tar -xjf isl-0.15.tar.bz2
-mkdir objdir-isl-0.15
-cd objdir-isl-0.15
-../isl-0.15/configure --prefix=$SCRIPT_DIR/local/isl-0.15 --build="$BUILD_NAME" --target="$HOST_NAME" --host="$HOST_NAME" --enable-static --disable-shared --with-gmp-prefix=$SCRIPT_DIR/local/gmp-6.3.0
+tar -xjf isl-0.24.tar.bz2
+mkdir objdir-isl-0.24
+cd objdir-isl-0.24
+../isl-0.24/configure --prefix=$SCRIPT_DIR/local/isl-0.24 --build="$BUILD_NAME" --target="$HOST_NAME" --host="$HOST_NAME" --enable-static --disable-shared --with-gmp-prefix=$SCRIPT_DIR/local/gmp-6.3.0
 make --jobs=6
 make install
 echo
@@ -150,7 +150,7 @@ echo 'build cloog'
 tar -xf cloog-0.18.1.tar.gz
 mkdir objdir-cloog-0.18.1
 cd objdir-cloog-0.18.1
-../cloog-0.18.1/configure --prefix=$SCRIPT_DIR/local/cloog-0.18.1 --build="$BUILD_NAME" --target="$HOST_NAME" --host="$HOST_NAME" --enable-static --disable-shared --with-isl=$SCRIPT_DIR/local/isl-0.15 --with-gmp-prefix=$SCRIPT_DIR/local/gmp-6.3.0
+../cloog-0.18.1/configure --prefix=$SCRIPT_DIR/local/cloog-0.18.1 --build="$BUILD_NAME" --target="$HOST_NAME" --host="$HOST_NAME" --enable-static --disable-shared --with-isl=$SCRIPT_DIR/local/isl-0.24 --with-gmp-prefix=$SCRIPT_DIR/local/gmp-6.3.0
 make --jobs=6
 make install
 echo
@@ -161,7 +161,7 @@ echo 'build binutils'
 tar -xf binutils-2.41.tar.xz
 mkdir objdir-binutils-2.41-avr-gcc-"$MY_VERSION"
 cd objdir-binutils-2.41-avr-gcc-"$MY_VERSION"
-../binutils-2.41/configure --prefix=$SCRIPT_DIR/local/gcc-"$MY_VERSION"-avr --target=avr --enable-languages=c,c++ --build="$BUILD_NAME" --host="$HOST_NAME" --with-pkgversion='Built by ckormanyos/real-time-cpp' --disable-plugins --enable-static --disable-shared --disable-tls --disable-libada --disable-libssp --disable-nls --enable-mingw-wildcard --with-gnu-as --with-dwarf2 --with-isl=$SCRIPT_DIR/local/isl-0.15 --with-cloog=$SCRIPT_DIR/local/cloog-0.18.1 --with-gmp=$SCRIPT_DIR/local/gmp-6.3.0 --with-mpfr=$SCRIPT_DIR/local/mpfr-4.2.1 --with-mpc=$SCRIPT_DIR/local/mpc-1.3.1 --with-libiconv-prefix=$SCRIPT_DIR/local/libiconv-1.17 --with-zstd=$SCRIPT_DIR/local/zstd-1.5.5/lib --disable-werror
+../binutils-2.41/configure --prefix=$SCRIPT_DIR/local/gcc-"$MY_VERSION"-avr --target=avr --enable-languages=c,c++ --build="$BUILD_NAME" --host="$HOST_NAME" --with-pkgversion='Built by ckormanyos/real-time-cpp' --disable-plugins --enable-static --disable-shared --disable-tls --disable-libada --disable-libssp --disable-nls --enable-mingw-wildcard --with-gnu-as --with-dwarf2 --with-isl=$SCRIPT_DIR/local/isl-0.24 --with-cloog=$SCRIPT_DIR/local/cloog-0.18.1 --with-gmp=$SCRIPT_DIR/local/gmp-6.3.0 --with-mpfr=$SCRIPT_DIR/local/mpfr-4.2.1 --with-mpc=$SCRIPT_DIR/local/mpc-1.3.1 --with-libiconv-prefix=$SCRIPT_DIR/local/libiconv-1.17 --with-zstd=$SCRIPT_DIR/local/zstd-1.5.5/lib --disable-werror
 make --jobs=6
 make install
 echo
@@ -195,7 +195,7 @@ patch -p0 < avr-gcc-100-"$MY_VERSION"_"$BUILD_NAME".patch
 fi
 mkdir objdir-gcc-"$MY_VERSION"-avr
 cd objdir-gcc-"$MY_VERSION"-avr
-../gcc-"$MY_VERSION"/configure --prefix=$SCRIPT_DIR/local/gcc-"$MY_VERSION"-avr --target=avr --enable-languages=c,c++ --build="$BUILD_NAME" --host="$HOST_NAME" --with-pkgversion='Built by ckormanyos/real-time-cpp' --disable-gcov --enable-static --disable-shared --disable-tls --disable-libada --disable-libssp --disable-nls --enable-mingw-wildcard --with-gnu-as --with-dwarf2 --with-isl=$SCRIPT_DIR/local/isl-0.15 --with-cloog=$SCRIPT_DIR/local/cloog-0.18.1 --with-gmp=$SCRIPT_DIR/local/gmp-6.3.0 --with-mpfr=$SCRIPT_DIR/local/mpfr-4.2.1 --with-mpc=$SCRIPT_DIR/local/mpc-1.3.1 --with-libiconv-prefix=$SCRIPT_DIR/local/libiconv-1.17 --with-zstd=$SCRIPT_DIR/local/zstd-1.5.5/lib
+../gcc-"$MY_VERSION"/configure --prefix=$SCRIPT_DIR/local/gcc-"$MY_VERSION"-avr --target=avr --enable-languages=c,c++ --build="$BUILD_NAME" --host="$HOST_NAME" --with-pkgversion='Built by ckormanyos/real-time-cpp' --disable-gcov --enable-static --disable-shared --disable-tls --disable-libada --disable-libssp --disable-nls --enable-mingw-wildcard --with-gnu-as --with-dwarf2 --with-isl=$SCRIPT_DIR/local/isl-0.24 --with-cloog=$SCRIPT_DIR/local/cloog-0.18.1 --with-gmp=$SCRIPT_DIR/local/gmp-6.3.0 --with-mpfr=$SCRIPT_DIR/local/mpfr-4.2.1 --with-mpc=$SCRIPT_DIR/local/mpc-1.3.1 --with-libiconv-prefix=$SCRIPT_DIR/local/libiconv-1.17 --with-zstd=$SCRIPT_DIR/local/zstd-1.5.5/lib
 make --jobs=6
 make install
 echo
@@ -213,7 +213,6 @@ echo
 cd $SCRIPT_DIR/gcc_build
 echo 'clone and bootstrap avr-libc'
 git clone -b main --depth 1 https://github.com/avrdudes/avr-libc.git avr-libc
-rm -f avr-libc/tests/simulate/time/aux.c
 cd avr-libc
 ./bootstrap
 result_bootstrap=$?
