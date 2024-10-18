@@ -17,7 +17,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        gccversion: [ 13.3.0, 14.1.0 ]
+        gccversion: [ 14.2.0 ]
     steps:
       - uses: actions/checkout@v4
       - name: get-nuwen-mingw
