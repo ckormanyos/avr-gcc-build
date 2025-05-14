@@ -18,7 +18,7 @@ Design goals:
   - Use shell and YAML scripts to build modern `avr-gcc` on-the-fly.
   - Build `avr-gcc` from up-to-date [gcc-releases](https://ftp.gnu.org/gnu/gcc).
   - Provide a non-trivial test of the newly-built toolchain(s) based on a real-world project.
-  - Publish the build artifacts directly from the GHA Workflow-Run(s).
+  - Publish the build artifacts directly from the GHA Workflow-Run(s). But this is not yet implemented.
   - Occasionally create and publish versioned releases.
 
 ## Releases and Build Artifacts
