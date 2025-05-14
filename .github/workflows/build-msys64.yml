@@ -1,5 +1,5 @@
 ##############################################################################
-#  Copyright Christopher Kormanyos 2023 - 2024.
+#  Copyright Christopher Kormanyos 2023 - 2025.
 #  Distributed under The Unlicense.
 
 name: build-msys64
@@ -17,7 +17,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        gccversion: [ 14.2.0 ]
+        gccversion: [ 15.1.0 ]
     steps:
       - uses: actions/checkout@v4
       - name: get-nuwen-mingw
@@ -54,7 +54,6 @@ jobs:
           echo "test avr-gcc with real-time-cpp"
           echo "clone ckormanyos/real-time-cpp"
           git clone -b master --depth 1 https://github.com/ckormanyos/real-time-cpp.git /d/a/avr-gcc-build/avr-gcc-build/real-time-cpp
-          rm -rf /d/a/avr-gcc-build/avr-gcc-build/local/gcc-${{ matrix.branchname }}-avr/lib/bfd-plugins
           cd /d/a/avr-gcc-build/avr-gcc-build/real-time-cpp/ref_app
           PATH=/d/a/avr-gcc-build/avr-gcc-build/local/gcc-${{ matrix.gccversion }}-avr/bin:"$PATH"
           ./target/build/build.sh avr rebuild

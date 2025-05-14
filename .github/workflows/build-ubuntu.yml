@@ -1,5 +1,5 @@
 ##############################################################################
-#  Copyright Christopher Kormanyos 2023 - 2024.
+#  Copyright Christopher Kormanyos 2023 - 2025.
 #  Distributed under The Unlicense.
 
 name: build-ubuntu
@@ -17,7 +17,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        gccversion: [ 14.2.0 ]
+        gccversion: [ 15.1.0 ]
     steps:
       - uses: actions/checkout@v4
         with:

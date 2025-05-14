@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-#  Copyright Christopher Kormanyos 2023 - 2024.
+#  Copyright Christopher Kormanyos 2023 - 2025.
 #  Distributed under The Unlicense.
 #
 # Example call(s):
@@ -74,7 +74,7 @@ wget --no-check-certificate https://ftp.gnu.org/gnu/mpfr/mpfr-4.2.1.tar.xz
 wget --no-check-certificate https://ftp.gnu.org/gnu/mpc/mpc-1.3.1.tar.gz
 wget --no-check-certificate https://gcc.gnu.org/pub/gcc/infrastructure/isl-0.24.tar.bz2
 wget --no-check-certificate https://gcc.gnu.org/pub/gcc/infrastructure/cloog-0.18.1.tar.gz
-wget --no-check-certificate https://ftp.gnu.org/gnu/binutils/binutils-2.41.tar.xz
+wget --no-check-certificate https://ftp.gnu.org/gnu/binutils/binutils-2.44.tar.xz
 wget --no-check-certificate https://ftp.gnu.org/gnu/gcc/gcc-"$MY_VERSION"/gcc-"$MY_VERSION".tar.xz
 echo
 
@@ -158,10 +158,10 @@ echo
 
 cd $SCRIPT_DIR/gcc_build
 echo 'build binutils'
-tar -xf binutils-2.41.tar.xz
-mkdir objdir-binutils-2.41-avr-gcc-"$MY_VERSION"
-cd objdir-binutils-2.41-avr-gcc-"$MY_VERSION"
-../binutils-2.41/configure --prefix=$SCRIPT_DIR/local/gcc-"$MY_VERSION"-avr --target=avr --enable-languages=c,c++ --build="$BUILD_NAME" --host="$HOST_NAME" --with-pkgversion='Built by ckormanyos/real-time-cpp' --disable-plugins --enable-static --disable-shared --disable-tls --disable-libada --disable-libssp --disable-nls --enable-mingw-wildcard --with-gnu-as --with-dwarf2 --with-isl=$SCRIPT_DIR/local/isl-0.24 --with-cloog=$SCRIPT_DIR/local/cloog-0.18.1 --with-gmp=$SCRIPT_DIR/local/gmp-6.3.0 --with-mpfr=$SCRIPT_DIR/local/mpfr-4.2.1 --with-mpc=$SCRIPT_DIR/local/mpc-1.3.1 --with-libiconv-prefix=$SCRIPT_DIR/local/libiconv-1.17 --with-zstd=$SCRIPT_DIR/local/zstd-1.5.5/lib --disable-werror
+tar -xf binutils-2.44.tar.xz
+mkdir objdir-binutils-2.44-avr-gcc-"$MY_VERSION"
+cd objdir-binutils-2.44-avr-gcc-"$MY_VERSION"
+../binutils-2.44/configure --prefix=$SCRIPT_DIR/local/gcc-"$MY_VERSION"-avr --target=avr --enable-languages=c,c++ --build="$BUILD_NAME" --host="$HOST_NAME" --with-pkgversion='Built by ckormanyos/real-time-cpp' --disable-plugins --enable-static --disable-shared --disable-tls --disable-libada --disable-libssp --disable-nls --enable-mingw-wildcard --with-gnu-as --with-dwarf2 --with-isl=$SCRIPT_DIR/local/isl-0.24 --with-cloog=$SCRIPT_DIR/local/cloog-0.18.1 --with-gmp=$SCRIPT_DIR/local/gmp-6.3.0 --with-mpfr=$SCRIPT_DIR/local/mpfr-4.2.1 --with-mpc=$SCRIPT_DIR/local/mpc-1.3.1 --with-libiconv-prefix=$SCRIPT_DIR/local/libiconv-1.17 --with-zstd=$SCRIPT_DIR/local/zstd-1.5.5/lib --disable-werror
 make --jobs=6
 make install
 echo
