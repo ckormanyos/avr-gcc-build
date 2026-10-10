@@ -36,7 +36,7 @@ jobs:
           ls -la ${{ runner.workspace }}/avr-gcc-build/local/gcc-${{ matrix.gccversion }}-avr/bin/avr-g++
           cd ${{ runner.workspace }}/avr-gcc-build/local
           tar -czf gcc-${{ matrix.gccversion }}-avr.tar.gz gcc-${{ matrix.gccversion }}-avr
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         with:
           name: gcc-${{ matrix.gccversion }}-avr_x86_64-linux-gnu
           path: ${{ runner.workspace }}/avr-gcc-build/local/gcc-${{ matrix.gccversion }}-avr.tar.gz
