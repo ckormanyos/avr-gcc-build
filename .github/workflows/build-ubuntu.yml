@@ -1,5 +1,5 @@
 ##############################################################################
-#  Copyright Christopher Kormanyos 2023 - 2025.
+#  Copyright Christopher Kormanyos 2023 - 2026.
 #  Distributed under The Unlicense.
 
 name: build-ubuntu
@@ -17,9 +17,9 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        gccversion: [ 15.2.0 ]
+        gccversion: [ 16.2.0 ]
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         with:
           fetch-depth: '0'
       - name: update-build-essentials
