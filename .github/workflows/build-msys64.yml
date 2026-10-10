@@ -29,7 +29,7 @@ jobs:
         shell: cmd
         run: |
           C:\msys64\usr\bin\echo.exe unpack-nuwen-mingw
-          start /b /wait ./mingw-19.0.exe -y -gm2 -InstallPath="D:\\a\\avr-gcc-build\\avr-gcc-build\\mingw"
+          start /b /wait ./mingw-20.0.exe -y -gm2 -InstallPath="D:\\a\\avr-gcc-build\\avr-gcc-build\\mingw"
       - uses: msys2/setup-msys2@v2
         with:
           msystem: mingw64
