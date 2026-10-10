@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-#  Copyright Christopher Kormanyos 2023 - 2025.
+#  Copyright Christopher Kormanyos 2023 - 2026.
 #  Distributed under The Unlicense.
 #
 # Example call(s):
@@ -22,7 +22,7 @@ if [[ "$BUILD_NAME" == "x86_64-w64-mingw32" ]]; then
 
 # Get standalone msys2 from nuwen (contains standalone gcc-x86_64-w64-mingw32).
 # The page describing this is: https://nuwen.net/mingw.html
-# The exact download link is: https://nuwen.net/files/mingw/mingw-19.0.exe
+# The exact download link is: https://nuwen.net/files/mingw/mingw-20.0.exe
 
 # For detailed background information, see also the detailed instructions
 # at GitHub from Stephan T. Lavavej's repositiony.
@@ -74,7 +74,7 @@ wget --no-check-certificate https://ftp.gnu.org/gnu/mpfr/mpfr-4.2.1.tar.xz
 wget --no-check-certificate https://ftp.gnu.org/gnu/mpc/mpc-1.3.1.tar.gz
 wget --no-check-certificate https://gcc.gnu.org/pub/gcc/infrastructure/isl-0.24.tar.bz2
 wget --no-check-certificate https://gcc.gnu.org/pub/gcc/infrastructure/cloog-0.18.1.tar.gz
-wget --no-check-certificate https://ftp.gnu.org/gnu/binutils/binutils-2.44.tar.xz
+wget --no-check-certificate https://ftp.gnu.org/gnu/binutils/binutils-2.47.tar.xz
 wget --no-check-certificate https://ftp.gnu.org/gnu/gcc/gcc-"$MY_VERSION"/gcc-"$MY_VERSION".tar.xz
 echo
 

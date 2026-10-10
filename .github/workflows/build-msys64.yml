@@ -24,7 +24,7 @@ jobs:
         shell: cmd
         run: |
           C:\msys64\usr\bin\echo.exe get-nuwen-mingw
-          C:\msys64\usr\bin\wget.exe --no-check-certificate https://nuwen.net/files/mingw/mingw-19.0.exe
+          C:\msys64\usr\bin\wget.exe --no-check-certificate https://nuwen.net/files/mingw/mingw-20.0.exe
       - name: unpack-nuwen-mingw
         shell: cmd
         run: |
